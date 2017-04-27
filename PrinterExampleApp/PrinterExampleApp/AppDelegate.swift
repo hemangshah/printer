@@ -19,14 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //set the properties and call the specific function as per the need.
         
+        Printer.log.filterLogs = [.success, .alert]
+        
         Printer.log.plainLog = true
         Printer.log.addLineAfterEachPrint = true
         Printer.log.capitalizeTitles = true
         Printer.log.capitalizeDetails = true
         Printer.log.printOnlyIfDebugMode = true
         
-        Printer.log.hideTitles()
-        Printer.log.hideEmojis()
+//        Printer.log.hideTitles()
+//        Printer.log.hideEmojis()
         
         return true
     }

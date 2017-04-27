@@ -79,6 +79,31 @@ class Printer {
         }
     }
     
+    //MARK: Filter for Logs.
+    private var _filterLogs:Array = Array<LogType>()
+    ///To logs only specific type. Please return an Array<LogType>.
+    ///Printer.log.filterLogs = [.success, .alert]
+    var filterLogs:Array<LogType> {
+        get {
+            return _filterLogs
+        }
+        set (newArray) {
+            _filterLogs.removeAll()
+            _filterLogs.append(contentsOf: newArray)
+        }
+    }
+    
+    private func isFilterApplied() -> Bool {
+        return !filterLogs.isEmpty
+    }
+    
+    private func checkIfFilterExist(logType:LogType) -> Bool {
+        if filterLogs.contains(logType) {
+            return true
+        }
+        return false
+    }
+    
     //MARK: Main function to logs
     
     /**
@@ -114,9 +139,19 @@ class Printer {
     }
     
     private func continueShow(id:String, details:String, logType lType:LogType) -> Void {
-        if !simple(id: id, details: details) {
-            logForType(id: id, details: details, lType: lType)
-            addLineWithPrint()
+        
+        var isFilterSatisfied = true
+        if isFilterApplied() {
+            if !checkIfFilterExist(logType: lType) {
+                isFilterSatisfied = false
+            }
+        }
+        
+        if isFilterSatisfied {
+            if !simple(id: id, details: details) {
+                logForType(id: id, details: details, lType: lType)
+                addLineWithPrint()
+            }
         }
     }
     
@@ -492,7 +527,9 @@ class Printer {
         if plainLog {
             let idPart = id.isEmpty ? "" : " ID \(arrowSymbole) "
             let detailsPart = details.isEmpty ? "" : " Details \(arrowSymbole) "
-            print("Printer \(arrowSymbole) [\(getLogDateForFormat())]\(idPart)\(id)\(detailsPart)\(details)")
+            var logDetails = details.isEmpty ? "" : details
+            logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
+            print("Printer \(arrowSymbole) [\(getLogDateForFormat())]\(idPart)\(id)\(detailsPart)\(logDetails)")
             addLineWithPrint()
             return true
         }
