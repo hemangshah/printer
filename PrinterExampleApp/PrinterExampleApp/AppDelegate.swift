@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Printer.log.addLineAfterEachPrint = true
         Printer.log.capitalizeTitles = true
         Printer.log.capitalizeDetails = true
+        Printer.log.printOnlyIfDebugMode = true
         
 //        Printer.log.hideTitles()
 //        Printer.log.hideEmojis()

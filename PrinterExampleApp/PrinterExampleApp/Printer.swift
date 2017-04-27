@@ -62,7 +62,7 @@ class Printer {
     var capitalizeTitles = false
     ///Capitalize the Details. DEFAULT: false
     var capitalizeDetails = false
-    ///To print logs only when app is in development. DEFAULT: true
+    ///To print logs only when app is in development. DEFAULT: false
     var printOnlyIfDebugMode = true
     
     //MARK: Helpers to set custom date format for each logs
