@@ -222,6 +222,14 @@
  
 > This should only print logs of the specified types. I.e. Succes and Alert. All other logs will be ignored.
 
+## Disable Logs
+<b>To disable all the logs.</b>
+
+> **DEFAULT**: `false`
+> **IMPORTANT**: You can set this anywhere and it should not print logs from where it sets.
+
+    Printer.log.disable = true
+
 ## Ready to ship your app?
 
 <b>Don't want to print the logs in RELEASE mode?</b>
