@@ -214,15 +214,22 @@
 <b>Example when logDateFormat is set to a different format.</b>
 
     Printer ➞ [✅ Success] [⌚11:12:23 AM] [🆔 001] ➞ ✹✹This is a Success message.✹✹
+   
+## Filter Logs
+<b>Show specific logs with filter.</b>
+
+    Printer.log.filterLogs = [.success, .alert]
+ 
+> This should only print logs of the specified types. I.e. Succes and Alert. All other logs will be ignored.
 
 ## Ready to ship your app?
 
 <b>Don't want to print the logs in RELEASE mode?</b>
 
-> **DEFAULT**: `false`
+> **DEFAULT**: `true`
 > **IMPORTANT**: Should be call in advance.
 
-    Printer.log.printOnlyIfDebugMode = true
+    Printer.log.printOnlyIfDebugMode = false
     
 ## Credits
 
