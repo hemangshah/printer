@@ -79,6 +79,18 @@ class Printer {
         }
     }
     
+    //MARK: Disable logs.
+    ///To disable all the logs. You can set this anywhere and it should not print logs from where it sets.
+    private var _disable:Bool = false
+    var disable:Bool {
+        get {
+            return _disable
+        }
+        set (newValue) {
+            _disable = newValue
+        }
+    }
+    
     //MARK: Filter for Logs.
     private var _filterLogs:Array = Array<LogType>()
     ///To logs only specific type. Please return an Array<LogType>.
@@ -127,15 +139,17 @@ class Printer {
      
      */
     func show(id:String, details:String, logType lType:LogType) -> Void {
-        #if DEBUG
-            continueShow(id: id, details: details, logType: lType)
-        #else
-            if !printOnlyIfDebugMode {
+        if !disable {
+            #if DEBUG
                 continueShow(id: id, details: details, logType: lType)
-            } else {
-                simple(id: "", details: "Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
-            }
-        #endif
+            #else
+                if !printOnlyIfDebugMode {
+                    continueShow(id: id, details: details, logType: lType)
+                } else {
+                    simple(id: "", details: "Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                }
+            #endif
+        }
     }
     
     private func continueShow(id:String, details:String, logType lType:LogType) -> Void {
