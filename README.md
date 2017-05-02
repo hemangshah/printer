@@ -62,6 +62,7 @@
 <b>Don't like this the fancy logs? No worries, we have a plain log option.</b>
 
 > **DEFAULT**: `false`
+> **IMPORTANT**: Should be call in advance.
 
     Printer.log.plainLog = true
     
@@ -155,6 +156,13 @@
 > **IMPORTANT**: Should be call in advance.
 
     Printer.log.hideTitles()
+    
+<b>Don't want to show Log Time?</b>
+
+> **DEFAULT**: `false`
+> **IMPORTANT**: Should be call in advance.
+
+    Printer.log.hideLogsTime = true
 
 ## Customize Emojis
 
