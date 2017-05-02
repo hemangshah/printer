@@ -57,13 +57,17 @@ class Printer {
     ///Don't like emojis and formation? Set this to 'true' and it will print the plain text. DEFAULT: false
     var plainLog:Bool = false
     ///To add a line after each logs. DEFAULT: false
-    var addLineAfterEachPrint = false
+    var addLineAfterEachPrint:Bool = false
     ///Capitalize the titles. DEFAULT: false
-    var capitalizeTitles = false
+    var capitalizeTitles:Bool = false
     ///Capitalize the Details. DEFAULT: false
-    var capitalizeDetails = false
+    var capitalizeDetails:Bool = false
     ///To print logs only when app is in development. DEFAULT: true
-    var printOnlyIfDebugMode = true
+    var printOnlyIfDebugMode:Bool = true
+    ///To hide time from the logs. DEFAULT: false
+    var hideLogsTime:Bool = false
+    ///To disable all the logs. You can set this anywhere and it should not print logs from where it sets. DEFAULT: false
+    var disable:Bool = false
     
     //MARK: Helpers to set custom date format for each logs
     ///By default, we will use the below date format to show with each logs. You can always customize it with it's property.
@@ -76,18 +80,6 @@ class Printer {
             if !newValue.isEmpty {
                 _logDateFormat = newValue
             }
-        }
-    }
-    
-    //MARK: Disable logs.
-    ///To disable all the logs. You can set this anywhere and it should not print logs from where it sets.
-    private var _disable:Bool = false
-    var disable:Bool {
-        get {
-            return _disable
-        }
-        set (newValue) {
-            _disable = newValue
         }
     }
     
@@ -307,7 +299,9 @@ class Printer {
             return _successLogTitle
         }
         set (newValue) {
-            _successLogTitle = newValue
+            if !newValue.isEmpty {
+                _successLogTitle = newValue
+            }
         }
     }
     
@@ -318,7 +312,9 @@ class Printer {
             return _errorLogTitle
         }
         set (newValue) {
-            _errorLogTitle = newValue
+            if !newValue.isEmpty {
+                _errorLogTitle = newValue
+            }
         }
     }
     
@@ -329,7 +325,9 @@ class Printer {
             return _warningLogTitle
         }
         set (newValue) {
-            _warningLogTitle = newValue
+            if !newValue.isEmpty {
+                _warningLogTitle = newValue
+            }
         }
     }
     
@@ -340,7 +338,9 @@ class Printer {
             return _infoLogTitle
         }
         set (newValue) {
-            _infoLogTitle = newValue
+            if !newValue.isEmpty {
+                _infoLogTitle = newValue
+            }
         }
     }
     
@@ -351,7 +351,9 @@ class Printer {
             return _alertLogTitle
         }
         set (newValue) {
-            _alertLogTitle = newValue
+            if !newValue.isEmpty {
+                _alertLogTitle = newValue
+            }
         }
     }
     
@@ -363,7 +365,9 @@ class Printer {
             return _arrowSymbole
         }
         set (newValue) {
-            _arrowSymbole = newValue
+            if !newValue.isEmpty {
+                _arrowSymbole = newValue
+            }
         }
     }
     
@@ -374,7 +378,9 @@ class Printer {
             return _starSymbole
         }
         set (newValue) {
-            _starSymbole = newValue
+            if !newValue.isEmpty {
+                _starSymbole = newValue
+            }
         }
     }
     
@@ -386,7 +392,9 @@ class Printer {
             return _successEmojiSymbole
         }
         set (newValue) {
-            _successEmojiSymbole = newValue
+            if !newValue.isEmpty {
+                _successEmojiSymbole = newValue
+            }
         }
     }
     
@@ -397,7 +405,9 @@ class Printer {
             return _errorEmojiSymbole
         }
         set (newValue) {
-            _errorEmojiSymbole = newValue
+            if !newValue.isEmpty {
+                _errorEmojiSymbole = newValue
+            }
         }
     }
     
@@ -408,7 +418,9 @@ class Printer {
             return _warningEmojiSymbole
         }
         set (newValue) {
-            _warningEmojiSymbole = newValue
+            if !newValue.isEmpty {
+                _warningEmojiSymbole = newValue
+            }
         }
     }
     
@@ -419,7 +431,9 @@ class Printer {
             return _infoEmojiSymbole
         }
         set (newValue) {
-            _infoEmojiSymbole = newValue
+            if !newValue.isEmpty {
+                _infoEmojiSymbole = newValue
+            }
         }
     }
     
@@ -430,7 +444,9 @@ class Printer {
             return _alertEmojiSymbole
         }
         set (newValue) {
-            _alertEmojiSymbole = newValue
+            if !newValue.isEmpty {
+                _alertEmojiSymbole = newValue
+            }
         }
     }
     
@@ -441,7 +457,9 @@ class Printer {
             return _watchEmojiSymbole
         }
         set (newValue) {
-            _watchEmojiSymbole = newValue
+            if !newValue.isEmpty {
+                _watchEmojiSymbole = newValue
+            }
         }
     }
     
@@ -452,7 +470,9 @@ class Printer {
             return _idEmojiSymbole
         }
         set (newValue) {
-            _idEmojiSymbole = newValue
+            if !newValue.isEmpty {
+                _idEmojiSymbole = newValue
+            }
         }
     }
     
@@ -525,7 +545,9 @@ class Printer {
         let detailsPartOpening = logDetails.isEmpty ? "" : " \(arrowSymbole) \(starSymbole)\(starSymbole)"
         let detailsPartClosing = logDetails.isEmpty ? "" : "\(starSymbole)\(starSymbole)"
         
-        print("Printer \(arrowSymbole) \(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)[\(watchEmojiSymbole)\(getLogDateForFormat())] \(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)")
+        let logTime = hideLogsTime ? "" : "[\(watchEmojiSymbole)\(getLogDateForFormat())] "
+        
+        print("Printer \(arrowSymbole) \(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)\(logTime)\(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)")
     }
     
     //MARK: Helper to add a line after each Print
@@ -543,7 +565,8 @@ class Printer {
             let detailsPart = details.isEmpty ? "" : " Details \(arrowSymbole) "
             var logDetails = details.isEmpty ? "" : details
             logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
-            print("Printer \(arrowSymbole) [\(getLogDateForFormat())]\(idPart)\(id)\(detailsPart)\(logDetails)")
+            let logTime = hideLogsTime ? "" : "[\(getLogDateForFormat())]"
+            print("Printer \(arrowSymbole) \(logTime)\(idPart)\(id)\(detailsPart)\(logDetails)")
             addLineWithPrint()
             return true
         }
