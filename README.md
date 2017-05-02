@@ -247,4 +247,4 @@
 
 The MIT License (MIT)
 
-> Read the LICENSE file for details.
+> Read the [LICENSE](https://github.com/hemangshah/printer/blob/master/LICENSE) file for details.
