@@ -145,7 +145,6 @@ class Printer {
     }
     
     private func continueShow(id:String, details:String, logType lType:LogType) -> Void {
-        
         var isFilterSatisfied = true
         if isFilterApplied() {
             if !checkIfFilterExist(logType: lType) {
@@ -159,6 +158,28 @@ class Printer {
                 addLineWithPrint()
             }
         }
+    }
+    
+    ///MARK: Trace
+    ///Print To print class name, function name and line number.
+    func trace(fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        if !disable {
+            #if DEBUG
+                continueTrace(file: fileName, line: lineNumber, function: functionName)
+            #else
+                if !printOnlyIfDebugMode {
+                    continueTrace(file: fileName, line: lineNumber, function: functionName)
+                } else {
+                    simple(id: "", details: "Printer can't trace as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                }
+            #endif
+        }
+    }
+    
+    private func continueTrace(file:String, line:Int, function:String) -> Void {
+        let logTime = hideLogsTime ? "" : "[\(getLogDateForFormat())] "
+        print("Printer [Trace] \(arrowSymbole) \(logTime)\(file.components(separatedBy: "/").last!) \(arrowSymbole) \(function) #\(line)")
+        addLineWithPrint()
     }
     
     //MARK: Overrided **show(id:details:logType)** function to logs without ID parameter input.

@@ -19,15 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //set the properties and call the specific function as per the need.
         
+        //Applied filters to only print success and alert type logs.
         Printer.log.filterLogs = [.success, .alert]
         
-        Printer.log.plainLog = true
         Printer.log.addLineAfterEachPrint = true
         Printer.log.capitalizeTitles = true
-        Printer.log.capitalizeDetails = true
-        
-//        Printer.log.hideTitles()
-//        Printer.log.hideEmojis()
         
         return true
     }

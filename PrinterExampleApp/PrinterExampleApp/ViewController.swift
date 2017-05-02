@@ -30,6 +30,9 @@ class ViewController: UIViewController {
          
          Let's check what you can do with Printer.
         */
+
+        //Manual Tracing
+        Printer.log.trace()
         
         Printer.log.show(id: "001", details: "This is a Success message.", logType: .success)
         Printer.log.show(id: "002", details: "This is a Error message.", logType: .error)
@@ -37,10 +40,9 @@ class ViewController: UIViewController {
         Printer.log.show(id: "004", details: "This is a Warning message.", logType: .warning)
         Printer.log.show(id: "005", details: "This is an Alert message.", logType: .alert)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 }
-
