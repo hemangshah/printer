@@ -97,6 +97,16 @@
 
 > This will set the properties globally and will be available for the entire app life cycle.
 
+## Tracing
+
+<b> Want to print file name, function name and line number?</b>
+
+> **IMPORTANT**: Should be call everytime when you want to print a trace.
+
+    Printer.log.trace()
+    
+    Printer.Trace ➞ [05-02-2017 14:58:38] ViewController.swift ➞ viewDidLoad() #40
+
 ## Customize Printer
 
 <b>You can add a line after each logs.</b>
@@ -246,6 +256,10 @@
 > **IMPORTANT**: Should be call in advance.
 
     Printer.log.printOnlyIfDebugMode = false
+    
+## Todo[s]
+
+- [ ] Tracing directly with logging methods.
     
 ## Credits
 
