@@ -261,6 +261,9 @@
 
 <b><i>[New Features]</i></b>
 
+- [x] Manual Tracing.
+- [x] Filter Logs.
+- [x] Disable Logs.
 - [ ] Tracing directly with logging methods.
 - [ ] Log application background/foreground events.
 - [ ] Maintain a log file separately.
