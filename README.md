@@ -106,6 +106,22 @@
     Printer.log.trace()
     
     Printer.Trace ➞ [05-02-2017 14:58:38] ViewController.swift ➞ viewDidLoad() #40
+    
+## All Logs
+
+<b>Want to print all the logs for a different usecase?</b>
+
+> **IMPORTANT**: `keepTracking` should set to `true` before logging.
+
+    Printer.log.all()
+    
+<b>You can filter them as well.</b>
+
+    Printer.log.all(filterLogTypes: [.alert])
+   
+> This will only print `.alert` type tracked logs.
+
+> all() function will always print plain logs. <i>No fancy things</i>.
 
 ## Customize Printer
 
@@ -264,9 +280,9 @@
 - [x] Filter Logs.
 - [x] Disable Logs.
 - [x] Manual Tracing.
-- [ ] Tracing directly with logging methods. What we're doing with Manual Tracing, should be done automatically.
+- [x] All logs - Track all the logs and print all at once.
 - [ ] Skipping logs for a particular file.
-- [ ] All logs - Track all the logs and print all at once.
+- [ ] Tracing directly with logging methods. What we're doing with Manual Tracing, should be done automatically.
 - [ ] Maintain a log file separately.
 - [ ] Log application events. Example: Background/Foreground events.
 - [ ] Future Logs – A function which will print a log after a certain time.
