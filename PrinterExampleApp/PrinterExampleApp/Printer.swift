@@ -8,18 +8,35 @@
 
 import Foundation
 
-class Printer {
+//MARK: Enumurations
+///Different log cases available for print. You can use it with LogType.success or .success
+enum LogType {
+    case success
+    case error
+    case warning
+    case information
+    case alert
+    case plain
+}
+
+class PLog {
     
-    //MARK: Enumurations
-    ///Different log cases available for print. You can use it with LogType.success or .success
-    enum LogType {
-        case success
-        case error
-        case warning
-        case information
-        case alert
+    var id:String
+    var details:String
+    var logType:LogType
+    var time:String
+    var traceInfo:String?
+    
+    init(id:String, details:String, time:String, logType lType:LogType) {
+        self.id = id
+        self.details = details
+        self.time = time
+        self.logType = lType
     }
-    
+}
+
+class Printer {
+
     //You can always change the Emojis here but it's not suggestible.
     //So if you want to change Emojis or everything please use the respective properties.
     private enum Emojis:String {
@@ -55,6 +72,7 @@ class Printer {
     
     //MARK: Properties
     ///Don't like emojis and formation? Set this to 'true' and it will print the plain text. DEFAULT: false
+    ///You can also use show with log type: .plain to print a plain log. This is helpful when you only want to print few plain logs.
     var plainLog:Bool = false
     ///To add a line after each logs. DEFAULT: false
     var addLineAfterEachPrint:Bool = false
@@ -68,6 +86,10 @@ class Printer {
     var hideLogsTime:Bool = false
     ///To disable all the logs. You can set this anywhere and it should not print logs from where it sets. DEFAULT: false
     var disable:Bool = false
+    ///To keep track of all the logs. To print all the logs later. This will be ignore if 'disable' is set to 'true'.
+    var keepTracking:Bool = false
+    
+    private var arrayLogs = Array<PLog>()
     
     //MARK: Helpers to set custom date format for each logs
     ///By default, we will use the below date format to show with each logs. You can always customize it with it's property.
@@ -106,6 +128,72 @@ class Printer {
             return true
         }
         return false
+    }
+    
+    //MARK: Tracking of logs
+    private func addLogForTracking(log:PLog) -> Void {
+        if keepTracking {
+            arrayLogs.append(log)
+        }
+    }
+    
+    ///To print all the tracked logs. 'keepTracking' should be set to 'true' before logging.
+    func all() -> Void {
+        guard arrayLogs.count > 0 else {
+            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            return
+        }
+        for log:PLog in arrayLogs {
+            guard log.logType != .plain else {
+                print("Printer [All Logs] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+                return
+            }
+            print("Printer [All Logs] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+        }
+    }
+    
+    ///To print the tracked logs based on the filter values. 'keepTracking' should be set to 'true' before logging.
+    func all(filterLogTypes:Array<LogType>) -> Void {
+        guard arrayLogs.count > 0 else {
+            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            return
+        }
+        
+        let filteredArray:Array<PLog> = arrayLogs.filter() {
+            if let type = ($0 as PLog).logType as LogType! {
+                return (filterLogTypes.contains(type))
+            } else {
+                return false
+            }
+        }
+        
+        guard filteredArray.count > 0 else {
+            print("No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)")
+            return
+        }
+        
+        for log:PLog in filteredArray {
+            print("Printer [All Logs.filtered] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+        }
+    }
+    
+    private func relativeValueForLogType(lType:LogType) -> String {
+        var logTypeTitle:String = ""
+        switch lType {
+        case .success:
+            logTypeTitle = successLogTitle
+        case .error:
+            logTypeTitle = errorLogTitle
+        case .warning:
+            logTypeTitle = warningLogTitle
+        case .information:
+            logTypeTitle = infoLogTitle
+        case .alert:
+            logTypeTitle = alertLogTitle
+        case .plain:
+            logTypeTitle = ""
+        }
+        return logTypeTitle
     }
     
     //MARK: Main function to logs
@@ -155,12 +243,11 @@ class Printer {
         if isFilterSatisfied {
             if !simple(id: id, details: details) {
                 logForType(id: id, details: details, lType: lType)
-                addLineWithPrint()
             }
         }
     }
     
-    ///MARK: Trace
+    //MARK: Trace
     ///Print To print class name, function name and line number.
     func trace(fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         if !disable {
@@ -532,6 +619,7 @@ class Printer {
         var logTypeEmojiSymbole = ""
         var logTypeTitle = ""
         var logDetails = details
+        var isPlainType:Bool = false
         
         switch lType {
         case .success:
@@ -549,26 +637,41 @@ class Printer {
         case .alert:
             logTypeTitle = alertLogTitle
             logTypeEmojiSymbole = alertEmojiSymbole
+        case .plain:
+            logTypeTitle = ""
+            logTypeEmojiSymbole = ""
+            isPlainType = true
         }
         
-        logTypeTitle = capitalizeTitles ? logTypeTitle.uppercased() : logTypeTitle
-        logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
-        
-        let titlePart = "\(logTypeEmojiSymbole) \(logTypeTitle)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        let idPart = !id.isEmpty ? "\(idEmojiSymbole) \(id)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) : ""
-        
-        let titlePartOpeningSquareBracket = !titlePart.isEmpty ? "[" : ""
-        let titlePartClosingSquareBracket = !titlePart.isEmpty ? "] " : ""
-        
-        let idPartOpeningSquareBracket = !idPart.isEmpty ? "[" : ""
-        let idPartClosingSquareBracket = !idPart.isEmpty ? "]" : ""
-        
-        let detailsPartOpening = logDetails.isEmpty ? "" : " \(arrowSymbole) \(starSymbole)\(starSymbole)"
-        let detailsPartClosing = logDetails.isEmpty ? "" : "\(starSymbole)\(starSymbole)"
-        
-        let logTime = hideLogsTime ? "" : "[\(watchEmojiSymbole)\(getLogDateForFormat())] "
-        
-        print("Printer \(arrowSymbole) \(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)\(logTime)\(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)")
+        if isPlainType {
+            continueSimple(id: id, details: details)
+        } else {
+            logTypeTitle = capitalizeTitles ? logTypeTitle.uppercased() : logTypeTitle
+            logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
+            
+            let titlePart = "\(logTypeEmojiSymbole) \(logTypeTitle)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let idPart = !id.isEmpty ? "\(idEmojiSymbole) \(id)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) : ""
+            
+            let titlePartOpeningSquareBracket = !titlePart.isEmpty ? "[" : ""
+            let titlePartClosingSquareBracket = !titlePart.isEmpty ? "] " : ""
+            
+            let idPartOpeningSquareBracket = !idPart.isEmpty ? "[" : ""
+            let idPartClosingSquareBracket = !idPart.isEmpty ? "]" : ""
+            
+            let detailsPartOpening = logDetails.isEmpty ? "" : " \(arrowSymbole) \(starSymbole)\(starSymbole)"
+            let detailsPartClosing = logDetails.isEmpty ? "" : "\(starSymbole)\(starSymbole)"
+            
+            let logTime = hideLogsTime ? "" : "\(getLogDateForFormat())"
+            let logTimePart = hideLogsTime ? "" : "[\(watchEmojiSymbole)\(logTime)] "
+            
+            let finalLog = "Printer \(arrowSymbole) \(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)\(logTimePart)\(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)"
+            
+            print(finalLog)
+            
+            addLineWithPrint()
+            
+            addLogForTracking(log: PLog(id: id, details: details, time: logTime, logType: lType))
+        }
     }
     
     //MARK: Helper to add a line after each Print
@@ -582,15 +685,22 @@ class Printer {
     //This should be a quicker way to logs.
     private func simple(id:String, details:String) -> Bool {
         if plainLog {
-            let idPart = id.isEmpty ? "" : " ID \(arrowSymbole) "
-            let detailsPart = details.isEmpty ? "" : " Details \(arrowSymbole) "
-            var logDetails = details.isEmpty ? "" : details
-            logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
-            let logTime = hideLogsTime ? "" : "[\(getLogDateForFormat())]"
-            print("Printer \(arrowSymbole) \(logTime)\(idPart)\(id)\(detailsPart)\(logDetails)")
-            addLineWithPrint()
+            continueSimple(id: id, details: details)
             return true
         }
         return false
+    }
+    
+    private func continueSimple(id:String, details:String) -> Void {
+        let idPart = id.isEmpty ? "" : " ID \(arrowSymbole) "
+        let detailsPart = details.isEmpty ? "" : " Details \(arrowSymbole) "
+        var logDetails = details.isEmpty ? "" : details
+        logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
+        let logTime = hideLogsTime ? "" : "\(getLogDateForFormat())"
+        let logTimePart = hideLogsTime ? "" : "[\(logTime)] "
+        let finalLog = "Printer \(arrowSymbole) \(logTimePart)\(idPart)\(id)\(detailsPart)\(logDetails)"
+        print(finalLog)
+        addLogForTracking(log: PLog(id: id, details: details, time: logTime, logType: .plain))
+        addLineWithPrint()
     }
 }
