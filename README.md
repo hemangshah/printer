@@ -257,25 +257,29 @@
 
     Printer.log.printOnlyIfDebugMode = false
     
-## Todo[s]
+## ToDo[s]
 
 <b><i>[New Features]</i></b>
 
-- [x] Manual Tracing.
 - [x] Filter Logs.
 - [x] Disable Logs.
-- [ ] Tracing directly with logging methods.
-- [ ] Log application background/foreground events.
+- [x] Manual Tracing.
+- [ ] Tracing directly with logging methods. What we're doing with Manual Tracing, should be done automatically.
+- [ ] Skipping logs for a particular file.
+- [ ] All logs - Track all the logs and print all at once.
 - [ ] Maintain a log file separately.
+- [ ] Log application events. Example: Background/Foreground events.
+- [ ] Future Logs – A function which will print a log after a certain time.
+- [ ] Add a function to get a 'print' of all the logs. :printer:
 - [ ] Colors for logs. Example: Error log -> Red color, Warning log -> Yellow color. Check [this](https://github.com/robbiehanson/XcodeColors).
 
-<b>Have an idea for improvements of this class? Please feel free to open an [issue](https://github.com/hemangshah/printer/issues).</b>
+<b>Have an idea for improvements of this class? Please open an [issue](https://github.com/hemangshah/printer/issues).</b>
     
 ## Credits
 
 <b>[Hemang Shah](https://about.me/hemang.shah)</b>
 
-**For any queries or concerns please feel free to send me an [email](http://www.google.com/recaptcha/mailhide/d?k=01IzGihUsyfigse2G9z80rBw==&c=vU7vyAaau8BctOAIJFwHVbKfgtIqQ4QLJaL73yhnB3k=).**
+**For any queries or concerns please send me an [email](http://www.google.com/recaptcha/mailhide/d?k=01IzGihUsyfigse2G9z80rBw==&c=vU7vyAaau8BctOAIJFwHVbKfgtIqQ4QLJaL73yhnB3k=).**
    
 ## Licence
 
