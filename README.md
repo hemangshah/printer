@@ -73,6 +73,12 @@
     Printer ➞ [04-27-2017 10:50:30] ID ➞ 003 Details ➞ This is an Information message.
     Printer ➞ [04-27-2017 10:50:30] ID ➞ 004 Details ➞ This is a Warning message.
     Printer ➞ [04-27-2017 10:50:30] ID ➞ 005 Details ➞ This is an Alert message.
+    
+<b>We have a new</b>`.plain`<b> type added with </b>show()<b> function</b>.
+
+    Printer.log.show(id: "001", details: "This is a Plain message.", logType: .plain)
+    
+> This is useful when you only want few plain logs.
 
 > **IMPORTANT**: Any properties you're setting should be set in advance or before printing any logs to get the exact effect.
 
