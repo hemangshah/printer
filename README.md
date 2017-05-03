@@ -259,11 +259,20 @@
     
 ## Todo[s]
 
+<b><i>[New Features]</i></b>
+
 - [ ] Tracing directly with logging methods.
-    
+- [ ] Log application background/foreground events.
+- [ ] Maintain a log file separately.
+- [ ] Colors for logs. Example: Error log -> Red color, Warning log -> Yellow color. Check [this](https://github.com/robbiehanson/XcodeColors).
+
+<b>Have an idea for improvements of this class? Please feel free to open an [issue](https://github.com/hemangshah/printer/issues).</b>
+    
 ## Credits
 
 <b>[Hemang Shah](https://about.me/hemang.shah)</b>
+
+**For any queries or concerns please feel free to send me an [email](http://www.google.com/recaptcha/mailhide/d?k=01IzGihUsyfigse2G9z80rBw==&c=vU7vyAaau8BctOAIJFwHVbKfgtIqQ4QLJaL73yhnB3k=).**
    
 ## Licence
 
