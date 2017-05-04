@@ -288,12 +288,9 @@
 - [x] Manual Tracing.
 - [x] All logs - Track all the logs and print all at once.
 - [ ] Skipping logs for a particular file.
-- [ ] Tracing directly with logging methods. What we're doing with Manual Tracing, should be done automatically.
 - [ ] Maintain a log file separately.
 - [ ] Log application events. Example: Background/Foreground events.
 - [ ] Future Logs – A function which will print a log after a certain time.
-- [ ] Add a function to get a 'print' of all the logs. :printer:
-- [ ] Colors for logs. Example: Error log -> Red color, Warning log -> Yellow color. Check [this](https://github.com/robbiehanson/XcodeColors).
 
 <b>Have an idea for improvements of this class? Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
     
