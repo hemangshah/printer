@@ -19,6 +19,7 @@ enum LogType {
     case plain
 }
 
+//MARK: PLog
 class PLog {
     
     var id:String
@@ -35,6 +36,7 @@ class PLog {
     }
 }
 
+//MARK: Printer
 class Printer {
 
     //You can always change the Emojis here but it's not suggestible.
@@ -140,7 +142,7 @@ class Printer {
     ///To print all the tracked logs. 'keepTracking' should be set to 'true' before logging.
     func all() -> Void {
         guard arrayLogs.count > 0 else {
-            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            information(details: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
             return
         }
         for log:PLog in arrayLogs {
@@ -155,7 +157,7 @@ class Printer {
     ///To print the tracked logs based on the filter values. 'keepTracking' should be set to 'true' before logging.
     func all(filterLogTypes:Array<LogType>) -> Void {
         guard arrayLogs.count > 0 else {
-            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            information(details: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
             return
         }
         
@@ -168,7 +170,7 @@ class Printer {
         }
         
         guard filteredArray.count > 0 else {
-            print("No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)")
+            information(details: "No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)")
             return
         }
         
@@ -226,7 +228,7 @@ class Printer {
                 if !printOnlyIfDebugMode {
                     continueShow(id: id, details: details, logType: lType)
                 } else {
-                    simple(id: "", details: "Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                    information(details: "Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
                 }
             #endif
         }
@@ -257,7 +259,7 @@ class Printer {
                 if !printOnlyIfDebugMode {
                     continueTrace(file: fileName, line: lineNumber, function: functionName)
                 } else {
-                    simple(id: "", details: "Printer can't trace as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                    information(details: "Printer can't trace as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
                 }
             #endif
         }
@@ -617,28 +619,22 @@ class Printer {
     private func logForType(id:String, details:String, lType:LogType) -> Void {
         
         var logTypeEmojiSymbole = ""
-        var logTypeTitle = ""
+        var logTypeTitle = relativeValueForLogType(lType: lType)
         var logDetails = details
         var isPlainType:Bool = false
         
         switch lType {
         case .success:
-            logTypeTitle = successLogTitle
             logTypeEmojiSymbole = successEmojiSymbole
         case .error:
-            logTypeTitle = errorLogTitle
             logTypeEmojiSymbole = errorEmojiSymbole
         case .warning:
-            logTypeTitle = warningLogTitle
             logTypeEmojiSymbole = warningEmojiSymbole
         case .information:
-            logTypeTitle = infoLogTitle
             logTypeEmojiSymbole = infoEmojiSymbole
         case .alert:
-            logTypeTitle = alertLogTitle
             logTypeEmojiSymbole = alertEmojiSymbole
         case .plain:
-            logTypeTitle = ""
             logTypeEmojiSymbole = ""
             isPlainType = true
         }
