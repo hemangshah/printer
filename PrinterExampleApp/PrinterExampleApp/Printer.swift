@@ -271,6 +271,14 @@ class Printer {
         addLineWithPrint()
     }
     
+    //MARK: Future Logs
+    ///To show a specific log after a certain time.
+    func showInFuture(id:String, details:String, logType lType:LogType, afterSeconds seconds:Double) -> Void {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            self.show(id: id, details: details, logType: lType)
+        }
+    }
+    
     //MARK: Overrided **show(id:details:logType)** function to logs without ID parameter input.
     ///If you want to call the main 'show' function without providing ID parameter, you can call this 'show' function with only 'details' and 'logType'.
     ///# Example: Print a Success log.
