@@ -56,6 +56,12 @@
 
     Printer.log.show(details: "This is a Success message.", logType: .success)
     Printer.log.show(details: "This is an Alert message.", logType: .alert)
+    
+<b>Show a future log.</b>
+
+    Printer.log.showInFuture(id: "006", details: "This is a future Success message.", logType: .success, afterSeconds: 3)
+    
+> This will print a log after specified seconds. In this case, success log after three (3) seconds.
 
 ## plainLog
 
