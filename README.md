@@ -293,10 +293,10 @@
 - [x] Disable Logs.
 - [x] Manual Tracing.
 - [x] All logs - Track all the logs and print all at once.
+- [x] Future Logs – A function which will print a log after a certain time.
 - [ ] Skipping logs for a particular file.
 - [ ] Maintain a log file separately.
 - [ ] Log application events. Example: Background/Foreground events.
-- [ ] Future Logs – A function which will print a log after a certain time.
 
 <b>Have an idea for improvements of this class? Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
     
