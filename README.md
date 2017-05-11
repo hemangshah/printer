@@ -297,6 +297,8 @@
 - [ ] Skipping logs for a particular file.
 - [ ] Maintain a log file separately.
 - [ ] Log application events. Example: Background/Foreground events.
+- [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
+- [ ] Delegate calls for to let you know the Printer logged.
 
 <b>Have an idea for improvements of this class? Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
     
