@@ -90,7 +90,10 @@ class Printer {
     var disable:Bool = false
     ///To keep track of all the logs. To print all the logs later. This will be ignore if 'disable' is set to 'true'.
     var keepTracking:Bool = false
+    ///To keep tracing with all the logs. No need to call trace() separately if this is set to 'true'. DEFAULT: true
+    var keepAutoTracing:Bool = true
     
+    private var filterFiles:Array = Array<String>()
     private var arrayLogs = Array<PLog>()
     
     //MARK: Helpers to set custom date format for each logs
@@ -107,7 +110,33 @@ class Printer {
         }
     }
     
-    //MARK: Filter for Logs.
+    //MARK: Filter for Logs. [Files]
+    func skipFile(filename:String = #file) -> Void {
+        if !checkIfFileFilterExist(file: filename) {
+            filterFiles.append(filename)
+        }
+    }
+    
+    func addFile(filename:String = #file) -> Void {
+        if checkIfFileFilterExist(file: filename) {
+            if let index = filterFiles.index(of: filename) {
+                filterFiles.remove(at: index)
+            }
+        }
+    }
+    
+    private func isFileFilterApplied() -> Bool {
+        return !filterFiles.isEmpty
+    }
+    
+    private func checkIfFileFilterExist(file:String) -> Bool {
+        guard filterFiles.contains(file) else {
+            return false
+        }
+        return true
+    }
+    
+    //MARK: Filter for Logs. [LogType]
     private var _filterLogs:Array = Array<LogType>()
     ///To logs only specific type. Please return an Array<LogType>.
     ///Printer.log.filterLogs = [.success, .alert]
@@ -121,7 +150,7 @@ class Printer {
         }
     }
     
-    private func isFilterApplied() -> Bool {
+    private func isLogTypeFilterApplied() -> Bool {
         return !filterLogs.isEmpty
     }
     
@@ -179,6 +208,7 @@ class Printer {
         }
     }
     
+    //Code Reducing to get a log title.
     private func relativeValueForLogType(lType:LogType) -> String {
         var logTypeTitle:String = ""
         switch lType {
@@ -220,13 +250,18 @@ class Printer {
      - Returns: Void
      
      */
-    func show(id:String, details:String, logType lType:LogType) -> Void {
+    func show(id:String, details:String, logType lType:LogType, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        printerlog(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
+    }
+    
+    
+    private func printerlog(id:String, details:String, logType lType:LogType, fileName:String, lineNumber:Int, functionName: String) -> Void {
         if !disable {
             #if DEBUG
-                continueShow(id: id, details: details, logType: lType)
+                printerlogger(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
             #else
                 if !printOnlyIfDebugMode {
-                    continueShow(id: id, details: details, logType: lType)
+                    printerlogger(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
                 } else {
                     information(details: "Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
                 }
@@ -234,23 +269,40 @@ class Printer {
         }
     }
     
-    private func continueShow(id:String, details:String, logType lType:LogType) -> Void {
-        var isFilterSatisfied = true
-        if isFilterApplied() {
-            if !checkIfFilterExist(logType: lType) {
-                isFilterSatisfied = false
-            }
-        }
-        
-        if isFilterSatisfied {
+    private func printerlogger(id:String, details:String, logType lType:LogType, fileName:String, lineNumber:Int, functionName: String) -> Void {
+        if isLogFilterValidates(logType: lType, fileName: fileName) {
             if !simple(id: id, details: details) {
-                logForType(id: id, details: details, lType: lType)
+                logForType(id: id, details: details, lType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
             }
         }
     }
     
+    //Right now, we're supporting two types of filters.
+    //1. LogType Filter
+    //      We can filter the logs based on its type. That's success, alert, warning, information, error.
+    //2. File Filter
+    //      We can filter the logs based on file. ViewController.self, or simply: self.
+    private func isLogFilterValidates(logType lType:LogType, fileName:String) -> Bool {
+        var isLogTypeFilterSatisfied = true
+        var isFileFilterSatisfied = true
+        
+        if isLogTypeFilterApplied() {
+            if !checkIfFilterExist(logType: lType) {
+                isLogTypeFilterSatisfied = false
+            }
+        }
+        
+        if isFileFilterApplied() {
+            if checkIfFileFilterExist(file: fileName) {
+                isFileFilterSatisfied = false
+            }
+        }
+        
+        return (isLogTypeFilterSatisfied && isFileFilterSatisfied)
+    }
+    
     //MARK: Trace
-    ///Print To print class name, function name and line number.
+    ///To print current class name, function name and line number from where trace() called.
     func trace(fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         if !disable {
             #if DEBUG
@@ -266,16 +318,18 @@ class Printer {
     }
     
     private func continueTrace(file:String, line:Int, function:String) -> Void {
-        let logTime = hideLogsTime ? "" : "[\(getLogDateForFormat())] "
-        print("Printer [Trace] \(arrowSymbole) \(logTime)\(file.components(separatedBy: "/").last!) \(arrowSymbole) \(function) #\(line)")
-        addLineWithPrint()
+        if isLogFilterValidates(logType: .plain, fileName: file) {
+            let logTime = hideLogsTime ? "" : "[\(getLogDateForFormat())] "
+            print("Printer [Trace] \(arrowSymbole) \(logTime)\(file.components(separatedBy: "/").last!) \(arrowSymbole) \(function) #\(line)")
+            addLineWithPrint()
+        }
     }
     
     //MARK: Future Logs
-    ///To show a specific log after a certain time.
-    func showInFuture(id:String, details:String, logType lType:LogType, afterSeconds seconds:Double) -> Void {
+    ///To show a specific log after a certain time [seconds].
+    func showInFuture(id:String, details:String, logType lType:LogType, afterSeconds seconds:Double, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
-            self.show(id: id, details: details, logType: lType)
+            self.printerlog(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
         }
     }
     
@@ -288,8 +342,8 @@ class Printer {
     ///- Parameter details: Any string. The description of your logs.
     ///- Parameter logType: The type of log you want to print. i.e. LogType.success or .success
     ///- Returns: Void
-    func show(details:String, logType lType:LogType) -> Void {
-        show(id: "", details: details, logType: lType)
+    func show(details:String, logType lType:LogType, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: "", details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     //MARK: Sub functions to logs without ID parameter input.
@@ -300,8 +354,8 @@ class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func success(details:String) -> Void {
-        show(id: "", details: details, logType: .success)
+    func success(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: "", details: details, logType: .success, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     ///If you don't want to call the main 'show' function, you can call this sub-functions to show a specific type of log without providing 'ID' parameter.
@@ -311,8 +365,8 @@ class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func error(details:String) -> Void {
-        show(id: "", details: details, logType: .error)
+    func error(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: "", details: details, logType: .error, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     ///If you don't want to call the main 'show' function, you can call this sub-functions to show a specific type of log without providing 'ID' parameter.
@@ -322,8 +376,8 @@ class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func warning(details:String) -> Void {
-        show(id: "", details: details, logType: .warning)
+    func warning(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: "", details: details, logType: .warning, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     ///If you don't want to call the main 'show' function, you can call this sub-functions to show a specific type of log without providing 'ID' parameter.
@@ -333,8 +387,8 @@ class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func information(details:String) -> Void {
-        show(id: "", details: details, logType: .information)
+    func information(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: "", details: details, logType: .information, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     ///If you don't want to call the main 'show' function, you can call this sub-functions to show a specific type of log without providing 'ID' parameter.
@@ -344,8 +398,8 @@ class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func alert(details:String) -> Void {
-        show(id: "", details: details, logType: .alert)
+    func alert(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: "", details: details, logType: .alert, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     //MARK: Sub functions to logs
@@ -357,8 +411,8 @@ class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func success(id:String, details:String) -> Void {
-        show(id: id, details: details, logType: .success)
+    func success(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: id, details: details, logType: .success, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     ///If you don't want to call the main 'show' function, you can call this sub-functions to show a specific type of log.
@@ -369,8 +423,8 @@ class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func error(id:String, details:String) -> Void {
-        show(id: id, details: details, logType: .error)
+    func error(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: id, details: details, logType: .error, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     ///If you don't want to call the main 'show' function, you can call this sub-functions to show a specific type of log.
@@ -381,8 +435,8 @@ class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func information(id:String, details:String) -> Void {
-        show(id: id, details: details, logType: .information)
+    func information(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: id, details: details, logType: .information, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     ///If you don't want to call the main 'show' function, you can call this sub-functions to show a specific type of log.
@@ -393,8 +447,8 @@ class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func warning(id:String, details:String) -> Void {
-        show(id: id, details: details, logType: .warning)
+    func warning(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: id, details: details, logType: .warning, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     ///If you don't want to call the main 'show' function, you can call this sub-functions to show a specific type of log.
@@ -405,8 +459,30 @@ class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func alert(id:String, details:String) -> Void {
-        show(id: id, details: details, logType: .alert)
+    func alert(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+        self.printerlog(id: id, details: details, logType: .alert, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
+    }
+    
+    //MARK: Helper to hide Emojis from the log prints.
+    ///You can call this function in advance to print logs without the emojis. This is different than the 'plainLog'.
+    func hideEmojis() -> Void {
+        successEmojiSymbole = ""
+        errorEmojiSymbole = ""
+        warningEmojiSymbole = ""
+        infoEmojiSymbole = ""
+        alertEmojiSymbole = ""
+        watchEmojiSymbole = ""
+        idEmojiSymbole = ""
+    }
+    
+    //MARK: Helper to clear Titles from the log prints.
+    ///You can call this function in advance to print logs without the titles. This is different than the 'plainLog'.
+    func hideTitles() -> Void {
+        successLogTitle = ""
+        errorLogTitle = ""
+        warningLogTitle = ""
+        infoLogTitle = ""
+        alertLogTitle = ""
     }
 
     //MARK: Helpers to set custom titles for each cases
@@ -594,28 +670,6 @@ class Printer {
         }
     }
     
-    //MARK: Helper to hide Emojis from the log prints.
-    ///You can call this function in advance to print logs without the emojis. This is different than the 'plainLog'.
-    func hideEmojis() -> Void {
-        successEmojiSymbole = ""
-        errorEmojiSymbole = ""
-        warningEmojiSymbole = ""
-        infoEmojiSymbole = ""
-        alertEmojiSymbole = ""
-        watchEmojiSymbole = ""
-        idEmojiSymbole = ""
-    }
-    
-    //MARK: Helper to clear Titles from the log prints.
-    ///You can call this function in advance to print logs without the titles. This is different than the 'plainLog'.
-    func hideTitles() -> Void {
-        successLogTitle = ""
-        errorLogTitle = ""
-        warningLogTitle = ""
-        infoLogTitle = ""
-        alertLogTitle = ""
-    }
-    
     //MARK: Helper to get custom date to print with a log
     private func getLogDateForFormat() -> String {
         let currentDate = Date()
@@ -624,7 +678,7 @@ class Printer {
         return df.string(from: currentDate)
     }
     
-    private func logForType(id:String, details:String, lType:LogType) -> Void {
+    private func logForType(id:String, details:String, lType:LogType, fileName:String, lineNumber:Int, functionName: String) -> Void {
         
         var logTypeEmojiSymbole = ""
         var logTypeTitle = relativeValueForLogType(lType: lType)
@@ -671,6 +725,10 @@ class Printer {
             let finalLog = "Printer \(arrowSymbole) \(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)\(logTimePart)\(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)"
             
             print(finalLog)
+            
+            if keepAutoTracing {
+                print("[Trace] \(arrowSymbole) \(fileName.components(separatedBy: "/").last!) \(arrowSymbole) \(functionName) #\(lineNumber)")
+            }
             
             addLineWithPrint()
             

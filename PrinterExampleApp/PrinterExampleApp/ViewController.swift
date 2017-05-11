@@ -31,11 +31,17 @@ class ViewController: UIViewController {
          Let's check what you can do with Printer.
         */
 
+        Printer.log.skipFile()
+
         //Manual Tracing
         Printer.log.trace()
         
+        Printer.log.addFile()
+        
         //To keep track of all the logs. You can always print all the logs by calling 'all()'.
-        Printer.log.keepTracking = true
+        //Printer.log.keepTracking = true
+        
+        //Printer.log.keepAutoTracing = false
         
         Printer.log.show(id: "001", details: "This is a Success message.", logType: .success)
         Printer.log.show(id: "002", details: "This is a Error message.", logType: .error)
@@ -43,7 +49,7 @@ class ViewController: UIViewController {
         Printer.log.show(id: "004", details: "This is a Warning message.", logType: .warning)
         Printer.log.show(id: "005", details: "This is an Alert message.", logType: .alert)
         
-        Printer.log.all()
+        //Printer.log.all()
     }
     
     override func didReceiveMemoryWarning() {
