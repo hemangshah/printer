@@ -292,9 +292,10 @@
 - [x] Filter Logs.
 - [x] Disable Logs.
 - [x] Manual Tracing.
+- [x] Auto Tracing.
 - [x] All logs - Track all the logs and print all at once.
 - [x] Future Logs – A function which will print a log after a certain time.
-- [ ] Skipping logs for a particular file.
+- [x] Skipping logs for a particular file.
 - [ ] Maintain a log file separately.
 - [ ] Log application events. Example: Background/Foreground events.
 - [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
