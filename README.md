@@ -118,6 +118,13 @@
     Printer.log.trace()
     
     Printer.Trace ➞ [05-02-2017 14:58:38] ViewController.swift ➞ viewDidLoad() #40
+
+## Auto Tracing
+
+> **DEFAULT**: `true`
+> **IMPORTANT**: `keepAutoTracing` should set to `true` before logging.
+
+This would print same trace as if you call trace(). If you don't like it, just set `keepAutoTracing` to `false`.
     
 ## All Logs
 
@@ -261,12 +268,20 @@
 
     Printer ➞ [✅ Success] [⌚11:12:23 AM] [🆔 001] ➞ ✹✹This is a Success message.✹✹
    
-## Filter Logs
+## Filter Logs: Filter by Log Types
 <b>Show specific logs with filter.</b>
 
     Printer.log.filterLogs = [.success, .alert]
  
 > This should only print logs of the specified types. I.e. Succes and Alert. All other logs will be ignored.
+
+## Filter Logs: Filter by File
+<b>Written Printer logs everywhere? Want to Skip logging for </b> `LoginViewController.swift`<b> for security?</b>
+
+To Skip logs for a file: `Printer.log.skipFile()`
+To Add logs for a file:  `Printer.log.addFile()`
+
+> **IMPORTANT**: You should call `addFile()` to start printing logs for the same file for which you have called `skipFile()`. This is other than the `disable` property which completely disables logging for all the files.
 
 ## Disable Logs
 <b>To disable all the logs.</b>
