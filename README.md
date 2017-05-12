@@ -1,4 +1,4 @@
-# Printer – A fancy way to print logs.
+![Fancy Logo](https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/printer-logo.png)
 
 ## You can print following types of logs with Printer.
 
