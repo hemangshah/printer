@@ -290,6 +290,26 @@ To Add logs for a file:  `Printer.log.addFile()`
 > **IMPORTANT**: You can set this anywhere and it should not print logs from where it sets.
 
     Printer.log.disable = true
+    
+## Completion Block
+<b>Let you will notified in advance before any logging events.</b>
+
+> **IMPORTANT**: This block will ignore all the filters applied for Printer, means, it will always notify you for any logs whether the log will print or not.
+
+        Printer.log.onLogCompletion = { (log) in
+            print(log)
+            //print(log.0)
+        }
+        
+Will return current log, file name, function name, and line number. You can access it with log.0, log.1 so on.
+
+</b>Usage:</b>
+
+- To notify in advance before a log event.
+- To print logs even if you've applied any filter. 
+- To call your APIs to store log information. Only code at one place. No dependencies.
+
+> You will not get notify if disable is set to `true` or `printOnlyIfDebugMode` is set to `true` and your app is in `release` mode. 
 
 ## Ready to ship your app?
 
@@ -311,10 +331,11 @@ To Add logs for a file:  `Printer.log.addFile()`
 - [x] All logs - Track all the logs and print all at once.
 - [x] Future Logs – A function which will print a log after a certain time.
 - [x] Skipping logs for a particular file.
+- [x] Delegate calls for to let you know the Printer logged.
+- [ ] Log Stats. Example: Total Logs. Logs from Files. Filters Applied.
 - [ ] Maintain a log file separately.
 - [ ] Log application events. Example: Background/Foreground events.
 - [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
-- [ ] Delegate calls for to let you know the Printer logged.
 
 <b>Have an idea for improvements of this class? Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
     
