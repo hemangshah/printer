@@ -19,6 +19,20 @@ enum LogType {
     case plain
 }
 
+//MARK: TraceInfo
+class TraceInfo {
+    
+    var fileName:String
+    var functionName:String
+    var lineNumber:Int
+    
+    init(file fileName:String, function functionName:String, line lineNumber:Int) {
+        self.fileName = fileName
+        self.functionName = functionName
+        self.lineNumber = lineNumber
+    }
+}
+
 //MARK: PLog
 class PLog {
     
@@ -26,13 +40,14 @@ class PLog {
     var details:String
     var logType:LogType
     var time:String
-    var traceInfo:String?
+    var traceInfo:TraceInfo
     
-    init(id:String, details:String, time:String, logType lType:LogType) {
+    init(id:String, details:String, time:String, logType lType:LogType, file fileName:String, function functionName:String, line lineNumber:Int) {
         self.id = id
         self.details = details
         self.time = time
         self.logType = lType
+        self.traceInfo = TraceInfo.init(file: fileName, function: functionName, line: lineNumber)
     }
 }
 
@@ -96,7 +111,9 @@ class Printer {
     ///This will call even if any filters applied so you will always notified about the log events.
     var onLogCompletion:((_ printLog:String,_ fileName:String,_ functionName:String,_ lineNumber:Int) -> ())? = nil
     
+    //This is to store skipped files.
     private var filterFiles:Array = Array<String>()
+    //This is to store all the logs for later use.
     private var arrayLogs = Array<PLog>()
     
     //MARK: Helpers to set custom date format for each logs
@@ -114,6 +131,7 @@ class Printer {
     }
     
     //MARK: Block Completion
+    //This is an internal function to notify a user with completion block.
     private func printerCompletion(printLog:String, fileName:String, functionName: String, lineNumber:Int) -> Void {
         if onLogCompletion != nil {
             onLogCompletion!(printLog, getFileName(name: fileName), functionName, lineNumber)
@@ -121,12 +139,14 @@ class Printer {
     }
     
     //MARK: Filter for Logs. [Files]
+    ///This will add current file to Skip list. And you will not able to print a log from that file until you call `addFile()`.
     func skipFile(filename:String = #file) -> Void {
         if !checkIfFileFilterExist(file: filename) {
             filterFiles.append(filename)
         }
     }
     
+    ///This will remove current file from Skip list. And you will able to print a log from the current file.
     func addFile(filename:String = #file) -> Void {
         if checkIfFileFilterExist(file: filename) {
             if let index = filterFiles.index(of: filename) {
@@ -135,10 +155,12 @@ class Printer {
         }
     }
     
+    //This is to check whether File filter is applied or not.
     private func isFileFilterApplied() -> Bool {
         return !filterFiles.isEmpty
     }
     
+    //This is to check whether a File filter is already applied or not.
     private func checkIfFileFilterExist(file:String) -> Bool {
         guard filterFiles.contains(file) else {
             return false
@@ -160,10 +182,12 @@ class Printer {
         }
     }
     
+    //This is to check whether Log filter is applied or not.
     private func isLogTypeFilterApplied() -> Bool {
         return !filterLogs.isEmpty
     }
     
+    //This is to check whether a Log filter is already applied or not.
     private func checkIfFilterExist(logType:LogType) -> Bool {
         if filterLogs.contains(logType) {
             return true
@@ -179,24 +203,30 @@ class Printer {
     }
     
     ///To print all the tracked logs. 'keepTracking' should be set to 'true' before logging.
-    func all() -> Void {
+    func all(showTrace:Bool) -> Void {
         guard arrayLogs.count > 0 else {
-            information(details: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
             return
         }
         for log:PLog in arrayLogs {
-            guard log.logType != .plain else {
+            if log.logType != .plain {
+                print("Printer [All Logs] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+            } else {
                 print("Printer [All Logs] [\(log.time)] Id:\(log.id) Details:\(log.details)")
-                return
             }
-            print("Printer [All Logs] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+            
+            if showTrace {
+                let trace = log.traceInfo
+                print("[Trace] \(arrowSymbole) \(trace.fileName) \(arrowSymbole) \(trace.functionName) #\(trace.lineNumber)")
+            }
         }
+        addLineWithPrint()
     }
     
     ///To print the tracked logs based on the filter values. 'keepTracking' should be set to 'true' before logging.
-    func all(filterLogTypes:Array<LogType>) -> Void {
+    func all(filterLogTypes:Array<LogType>, showTrace:Bool) -> Void {
         guard arrayLogs.count > 0 else {
-            information(details: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
             return
         }
         
@@ -209,13 +239,24 @@ class Printer {
         }
         
         guard filteredArray.count > 0 else {
-            information(details: "No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)")
+            print("No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)")
             return
         }
         
         for log:PLog in filteredArray {
-            print("Printer [All Logs.filtered] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+            
+            if log.logType != .plain {
+                print("Printer [All Logs.filtered] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+            } else {
+                print("Printer [All Logs.filtered] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+            }
+
+            if showTrace {
+                let trace = log.traceInfo
+                print("[Trace] \(arrowSymbole) \(trace.fileName) \(arrowSymbole) \(trace.functionName) #\(trace.lineNumber)")
+            }
         }
+        addLineWithPrint()
     }
     
     //Code Reducing to get a log title.
@@ -273,7 +314,7 @@ class Printer {
                 if !printOnlyIfDebugMode {
                     printerlogger(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
                 } else {
-                    information(details: "Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                    print("Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
                 }
             #endif
         }
@@ -284,7 +325,7 @@ class Printer {
         printerCompletion(printLog: details, fileName: fileName, functionName: functionName, lineNumber: lineNumber)
         
         if isLogFilterValidates(logType: lType, fileName: fileName) {
-            if !simple(id: id, details: details) {
+            if !simple(id: id, details: details, fileName: fileName, lineNumber: lineNumber, functionName: functionName) {
                 logForType(id: id, details: details, lType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
             }
         }
@@ -324,7 +365,7 @@ class Printer {
                 if !printOnlyIfDebugMode {
                     continueTrace(file: fileName, line: lineNumber, function: functionName)
                 } else {
-                    information(details: "Printer can't trace as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                    print("Printer can't trace as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
                 }
             #endif
         }
@@ -691,6 +732,8 @@ class Printer {
         return df.string(from: currentDate)
     }
     
+    //MARK: Main Logger 
+    //This is the main logger to print the logs. This will handle loggings for plain (simple) or fancy logs.
     private func logForType(id:String, details:String, lType:LogType, fileName:String, lineNumber:Int, functionName: String) -> Void {
         
         var logTypeEmojiSymbole = ""
@@ -715,7 +758,7 @@ class Printer {
         }
         
         if isPlainType {
-            continueSimple(id: id, details: details)
+            continueSimple(id: id, details: details, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
         } else {
             logTypeTitle = capitalizeTitles ? logTypeTitle.uppercased() : logTypeTitle
             logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
@@ -745,10 +788,11 @@ class Printer {
             
             addLineWithPrint()
             
-            addLogForTracking(log: PLog(id: id, details: details, time: logTime, logType: lType))
+            addLogForTracking(log: PLog.init(id: id, details: details, time: logTime, logType: lType, file: getFileName(name: fileName), function: functionName, line: lineNumber))
         }
     }
     
+    //MARK: Helper to convert full path to a file name.
     private func getFileName(name:String) -> String {
         guard !name.isEmpty else {
             return ""
@@ -765,15 +809,16 @@ class Printer {
     
     //MARK: This function is used to print the logs as plain text
     //This should be a quicker way to logs.
-    private func simple(id:String, details:String) -> Bool {
+    private func simple(id:String, details:String, fileName:String, lineNumber:Int, functionName: String) -> Bool {
         if plainLog {
-            continueSimple(id: id, details: details)
+            continueSimple(id: id, details: details, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
             return true
         }
         return false
     }
     
-    private func continueSimple(id:String, details:String) -> Void {
+    //This function is calling from more than one place thus we have created a common function.
+    private func continueSimple(id:String, details:String, fileName:String, lineNumber:Int, functionName: String) -> Void {
         let idPart = id.isEmpty ? "" : " ID \(arrowSymbole) "
         let detailsPart = details.isEmpty ? "" : " Details \(arrowSymbole) "
         var logDetails = details.isEmpty ? "" : details
@@ -781,8 +826,15 @@ class Printer {
         let logTime = hideLogsTime ? "" : "\(getLogDateForFormat())"
         let logTimePart = hideLogsTime ? "" : "[\(logTime)] "
         let finalLog = "Printer \(arrowSymbole) \(logTimePart)\(idPart)\(id)\(detailsPart)\(logDetails)"
+        
         print(finalLog)
-        addLogForTracking(log: PLog(id: id, details: details, time: logTime, logType: .plain))
+        
+        if keepAutoTracing {
+            print("[Trace] \(arrowSymbole) \(getFileName(name: fileName)) \(arrowSymbole) \(functionName) #\(lineNumber)")
+        }
+        
         addLineWithPrint()
+        
+        addLogForTracking(log: PLog.init(id: id, details: details, time: logTime, logType: .plain, file: getFileName(name: fileName), function: functionName, line: lineNumber))
     }
 }

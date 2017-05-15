@@ -33,9 +33,11 @@ class ViewController: UIViewController {
          It's advice you to read the README file to avail most of the features of Printer. 
         */
         
+        //Printer.log.plainLog = true
+        
         //To get a call back before a log prints. This completion blocks will ignore all the filters.
         Printer.log.onLogCompletion = { (log) in
-            print(log)
+            //print(log)
             //print(log.0)
         }
     
@@ -68,7 +70,8 @@ class ViewController: UIViewController {
         //Without ID
         Printer.log.success(details: "This is a Success message.")
 
-        //Printer.log.all()
+        //Printer.log.all(showTrace: true)
+        //Printer.log.all(filterLogTypes: [.success], showTrace: true)
     }
     
     override func didReceiveMemoryWarning() {
