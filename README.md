@@ -39,18 +39,18 @@
 <b>Don't want to specify the logType everytime? No problem, we have function for that too.</b>
     
     Printer.log.success(id: "101", details: "This is a Success message. No need to specify logType.")
-    Printer.log.error(id: "102", details: "This is a Error message. No need to specify logType.")
+    Printer.log.error(id: "102", details: "This is an Error message. No need to specify logType.")
     Printer.log.warning(id: "103", details: "This is a Warning message. No need to specify logType.")
-    Printer.log.information(id: "104", details: "This is a Information message. No need to specify logType.")
-    Printer.log.alert(id: "105", details: "This is a Alert message. No need to specify logType.")
+    Printer.log.information(id: "104", details: "This is an Information message. No need to specify logType.")
+    Printer.log.alert(id: "105", details: "This is an Alert message. No need to specify logType.")
 
 <b>Don't want to specify IDs? We have taken care about that too.</b>
 
     Printer.log.success(details: "This is a Success message without ID.")
-    Printer.log.error(details: "This is a Error message without ID.")
+    Printer.log.error(details: "This is an Error message without ID.")
     Printer.log.warning(details: "This is a Warning message without ID.")
-    Printer.log.information(details: "This is a Information message without ID.")
-    Printer.log.alert(details: "This is a Alert message without ID.")
+    Printer.log.information(details: "This is an Information message without ID.")
+    Printer.log.alert(details: "This is an Alert message without ID.")
 
 <b>We have overrided the 'show' function.</b>
 
@@ -61,7 +61,7 @@
 
     Printer.log.showInFuture(id: "006", details: "This is a future Success message.", logType: .success, afterSeconds: 3)
     
-> This will print a log after specified seconds. In this case, success log after three (3) seconds.
+> This will print a log after specified seconds. In this case, success log after three (<b>3</b>) seconds.
 
 ## plainLog
 
@@ -95,14 +95,22 @@
 
             //set the properties and call the specific function as per the need.
 
-            Printer.log.plainLog = true
+            //Printer.log.plainLog = true
             Printer.log.addLineAfterEachPrint = true
             Printer.log.capitalizeTitles = true
             Printer.log.capitalizeDetails = true
             Printer.log.printOnlyIfDebugMode = true
+            
+           //Applied filters to only print success and alert type logs.
+           //Printer.log.filterLogs = [.success, .alert]
+           
+            Printer.log.onLogCompletion = { (log) in
+              //print(log)
+              //print(log.0)
+            }
 
-            Printer.log.hideTitles()
-            Printer.log.hideEmojis()
+            //Printer.log.hideTitles()
+            //Printer.log.hideEmojis()
 
             return true
         }
@@ -128,19 +136,30 @@ This would print same trace as if you call trace(). If you don't like it, just s
     
 ## All Logs
 
-<b>Want to print all the logs for a different usecase?</b>
+<b>Want to print all the logs for a different use case?</b>
 
-> **IMPORTANT**: `keepTracking` should set to `true` before logging.
+> **IMPORTANT**: `keepTracking` should set to `true` before logging. Even if `keepAutoTracing` is set to `false` if you passes `showTrace` to `true`, you will see the traced info. This is helpful if you don't want to trace while logging.
 
-    Printer.log.all()
+    Printer.log.all(showTrace: true)
     
 <b>You can filter them as well.</b>
 
-    Printer.log.all(filterLogTypes: [.alert])
+    Printer.log.all(filterLogTypes: [.alert], showTrace: true)
    
-> This will only print `.alert` type tracked logs.
+> This will only print `.alert` type tracked logs with tracing info.
 
 > all() function will always print plain logs. <i>No fancy things</i>.
+
+    Printer [All Logs] [Success] [05-15-2017 14:28:03] Id:001 Details:This is a Success message.
+    [Trace] ➞ ViewController.swift ➞ viewDidLoad() #58
+    Printer [All Logs] [Error] [05-15-2017 14:28:03] Id:002 Details:This is a Error message.
+    [Trace] ➞ ViewController.swift ➞ viewDidLoad() #59
+    Printer [All Logs] [Information] [05-15-2017 14:28:03] Id:003 Details:This is an Information message.
+    [Trace] ➞ ViewController.swift ➞ viewDidLoad() #60
+    Printer [All Logs] [Warning] [05-15-2017 14:28:03] Id:004 Details:This is a Warning message.
+    [Trace] ➞ ViewController.swift ➞ viewDidLoad() #61
+    Printer [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
+    [Trace] ➞ ViewController.swift ➞ viewDidLoad() #62
 
 ## Customize Printer
 
@@ -337,13 +356,14 @@ Will return current log, file name, function name, and line number. You can acce
 - [ ] Log application events. Example: Background/Foreground events.
 - [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
 
-<b>Have an idea for improvements of this class? Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
+<b>Have an idea for improvements of this class?
+Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
     
 ## Credits
 
 <b>[Hemang Shah](https://about.me/hemang.shah)</b>
 
-**For any queries or concerns please send me an [email](http://www.google.com/recaptcha/mailhide/d?k=01IzGihUsyfigse2G9z80rBw==&c=vU7vyAaau8BctOAIJFwHVbKfgtIqQ4QLJaL73yhnB3k=).**
+**You can shoot me an [email](http://www.google.com/recaptcha/mailhide/d?k=01IzGihUsyfigse2G9z80rBw==&c=vU7vyAaau8BctOAIJFwHVbKfgtIqQ4QLJaL73yhnB3k=) to contact.**
    
 ## Licence
 
