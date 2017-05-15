@@ -419,10 +419,10 @@ Will return current log, file name, function name, and line number. You can acce
 - [x] Skipping logs for a particular file.
 - [x] Delegate calls for to let you know the Printer logged.
 - [x] Maintain a log file separately.
+- [x] Improve README file with following: Features List for direct link to a particular point.
 - [ ] Log Stats. Example: Total Logs. Logs from Files. Filters Applied.
 - [ ] Log application events. Example: Background/Foreground events.
 - [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
-- [ ] Improve README file with following: Features List for direct link to a particular point.
 
 <b>Have an idea for improvements of this class?
 Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
