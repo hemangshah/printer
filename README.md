@@ -159,10 +159,10 @@ This would print same trace as if you call trace(). If you don't like it, just s
    
 > This will only print `.alert` type tracked logs with tracing info.
 
-> all() function will always print plain logs. <i>No fancy things</i>.
-
     Printer [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #62
+    
+> all() function will always print plain logs. <i>No fancy things</i>.
 
 ## Customize Printer
 
