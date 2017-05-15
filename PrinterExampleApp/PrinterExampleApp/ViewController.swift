@@ -81,6 +81,10 @@ class ViewController: UIViewController {
                 //or do something with logs.
             })
         }
+        
+        Printer.log.saveLogsToFile(logs: array)
+        //Printer.log.deleteLogFiles()
+        //Printer.log.flush()
     }
     
     override func didReceiveMemoryWarning() {

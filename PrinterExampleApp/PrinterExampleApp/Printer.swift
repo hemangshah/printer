@@ -42,12 +42,17 @@ class PLog {
     var time:String
     var traceInfo:TraceInfo
     
+    var printableLog:String
+    var printableTrace:String
+    
     init(id:String, details:String, time:String, logType lType:LogType, file fileName:String, function functionName:String, line lineNumber:Int) {
         self.id = id
         self.details = details
         self.time = time
         self.logType = lType
         self.traceInfo = TraceInfo.init(file: fileName, function: functionName, line: lineNumber)
+        printableLog = ""
+        printableTrace = ""
     }
 }
 
@@ -193,6 +198,94 @@ class Printer {
             return true
         }
         return false
+    }
+    
+    //MARK: Handling of Log Files
+    ///This is to save the log file. Need to pass Array having PLog objects.
+    func saveLogsToFile(logs arrayLog:Array<PLog>) -> Void {
+        
+        if arrayLog.isEmpty {
+            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            return
+        }
+        
+        if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+            
+            //Create a directory: Printer - to save all the logs inside that folder.
+            let logsPath = documentDirectories.appending("/Printer")
+            do {
+                try FileManager.default.createDirectory(atPath: logsPath, withIntermediateDirectories: true, attributes: nil)
+            } catch let error as NSError {
+                print("Unable to create directory \(error.debugDescription)")
+            }
+            
+            //Generate a randome file name.
+            let documentsFilePath = logsPath + "/" + randomFileName(length: 10) + ".txt"
+            
+            //Create a String.
+            var logString:String = ""
+            arrayLog.forEach({ (log) in
+                logString += log.printableLog
+                if keepTracking {
+                    logString += "\n"
+                    logString += log.printableTrace
+                }
+                logString += "\n"
+            })
+            
+            //Additional Info.
+            logString += "________________________________________________________________________________________"
+            logString += "\n"
+            logString += "The log file is generated using Printer • https://github.com/hemangshah/printer"
+            logString += "\n"
+            logString += "Time:\(getLogDateForFormat())"
+            logString += "\n"
+            logString += "________________________________________________________________________________________"
+            
+            //Save log file.
+            do {
+                try logString.write(to: URL.init(fileURLWithPath: documentsFilePath), atomically: false, encoding: String.Encoding.utf8)
+                print("Log file has been saved at following path:")
+                print("\n\t\(documentsFilePath)\n")
+            } catch {
+                print("Error while saving log file.\(error)")
+            }
+        }
+    }
+    
+    ///This is to delete all the logs created with Printer.
+    func deleteLogFiles() -> Void {
+        if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+            let logsPath = documentDirectories.appending("/Printer")
+            do {
+                try FileManager.default.removeItem(atPath: logsPath)
+            } catch let error as NSError {
+                print("Unable to delete directory \(error.debugDescription)")
+            }
+        }
+    }
+    
+    //MARK: Flush All
+    ///To free up things which is created with Printer. Caution: All logs and log files will be deleted.
+    func flush() -> Void {
+        arrayLogs.removeAll()
+        deleteLogFiles()
+    }
+    
+    //To generate random string for file name.
+    private func randomFileName(length: Int) -> String {
+        let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let allowedCharsCount = UInt32(allowedChars.characters.count)
+        var randomString = ""
+        
+        for _ in 0..<length {
+            let randomNum = Int(arc4random_uniform(allowedCharsCount))
+            let randomIndex = allowedChars.index(allowedChars.startIndex, offsetBy: randomNum)
+            let newCharacter = allowedChars[randomIndex]
+            randomString += String(newCharacter)
+        }
+        
+        return randomString
     }
     
     //MARK: Tracking of logs
@@ -815,13 +908,17 @@ class Printer {
             
             print(finalLog)
             
+            let plObj = PLog.init(id: id, details: details, time: logTime, logType: lType, file: getFileName(name: fileName), function: functionName, line: lineNumber)
+            plObj.printableLog = finalLog
+            
             if keepAutoTracing {
-                print("[Trace] \(arrowSymbole) \(getFileName(name: fileName)) \(arrowSymbole) \(functionName) #\(lineNumber)")
+                plObj.printableTrace = "[Trace] \(arrowSymbole) \(getFileName(name: fileName)) \(arrowSymbole) \(functionName) #\(lineNumber)"
+                print(plObj.printableTrace)
             }
             
             addLineWithPrint()
             
-            addLogForTracking(log: PLog.init(id: id, details: details, time: logTime, logType: lType, file: getFileName(name: fileName), function: functionName, line: lineNumber))
+            addLogForTracking(log: plObj)
         }
     }
     
@@ -860,14 +957,18 @@ class Printer {
         let logTimePart = hideLogsTime ? "" : "[\(logTime)] "
         let finalLog = "Printer \(arrowSymbole) \(logTimePart)\(idPart)\(id)\(detailsPart)\(logDetails)"
         
-        print(finalLog)
+        let plObj = PLog.init(id: id, details: details, time: logTime, logType: .plain, file: getFileName(name: fileName), function: functionName, line: lineNumber)
+        plObj.printableLog = finalLog
         
+        print(finalLog)
+
         if keepAutoTracing {
-            print("[Trace] \(arrowSymbole) \(getFileName(name: fileName)) \(arrowSymbole) \(functionName) #\(lineNumber)")
+            plObj.printableTrace = "[Trace] \(arrowSymbole) \(getFileName(name: fileName)) \(arrowSymbole) \(functionName) #\(lineNumber)"
+            print(plObj.printableTrace)
         }
         
         addLineWithPrint()
         
-        addLogForTracking(log: PLog.init(id: id, details: details, time: logTime, logType: .plain, file: getFileName(name: fileName), function: functionName, line: lineNumber))
+        addLogForTracking(log: plObj)
     }
 }
