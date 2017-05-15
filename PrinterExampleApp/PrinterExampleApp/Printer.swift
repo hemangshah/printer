@@ -202,6 +202,39 @@ class Printer {
         }
     }
     
+    ///To get all the PLog objects.
+    func getAllLogs() -> Array<PLog> {
+        guard arrayLogs.count > 0 else {
+            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            return []
+        }
+        let allLogs = arrayLogs
+        return allLogs
+    }
+    
+    ///To get all the PLog objects with filter.
+    func getAllLogs(filterLogTypes:Array<LogType>) -> Array<PLog> {
+        guard arrayLogs.count > 0 else {
+            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            return []
+        }
+        
+        let filteredArray:Array<PLog> = arrayLogs.filter() {
+            if let type = ($0 as PLog).logType as LogType! {
+                return (filterLogTypes.contains(type))
+            } else {
+                return false
+            }
+        }
+        
+        guard filteredArray.count > 0 else {
+            print("No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)")
+            return []
+        }
+        
+        return filteredArray
+    }
+    
     ///To print all the tracked logs. 'keepTracking' should be set to 'true' before logging.
     func all(showTrace:Bool) -> Void {
         guard arrayLogs.count > 0 else {

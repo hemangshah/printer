@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         Printer.log.addFile()
         
         //To keep track of all the logs. You can always print all the logs by calling 'all()'.
-        //Printer.log.keepTracking = true
+        Printer.log.keepTracking = true
         
         //Printer.log.keepAutoTracing = false //Default: true
         
@@ -72,6 +72,15 @@ class ViewController: UIViewController {
 
         //Printer.log.all(showTrace: true)
         //Printer.log.all(filterLogTypes: [.success], showTrace: true)
+        
+//        let array = Printer.log.getAllLogs()
+        let array = Printer.log.getAllLogs(filterLogTypes: [.success])
+        if !array.isEmpty {
+            array.forEach({ (log) in
+                print(log.details)
+                //or do something with logs.
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {
