@@ -92,6 +92,9 @@ class Printer {
     var keepTracking:Bool = false
     ///To keep tracing with all the logs. No need to call trace() separately if this is set to 'true'. DEFAULT: true
     var keepAutoTracing:Bool = true
+    ///To get a completion block for the Printer.
+    ///This will call even if any filters applied so you will always notified about the log events.
+    var onLogCompletion:((_ printLog:String,_ fileName:String,_ functionName:String,_ lineNumber:Int) -> ())? = nil
     
     private var filterFiles:Array = Array<String>()
     private var arrayLogs = Array<PLog>()
@@ -107,6 +110,13 @@ class Printer {
             if !newValue.isEmpty {
                 _logDateFormat = newValue
             }
+        }
+    }
+    
+    //MARK: Block Completion
+    private func printerCompletion(printLog:String, fileName:String, functionName: String, lineNumber:Int) -> Void {
+        if onLogCompletion != nil {
+            onLogCompletion!(printLog, getFileName(name: fileName), functionName, lineNumber)
         }
     }
     
@@ -270,6 +280,9 @@ class Printer {
     }
     
     private func printerlogger(id:String, details:String, logType lType:LogType, fileName:String, lineNumber:Int, functionName: String) -> Void {
+        //We are forcing completion block to print logs even before any filter checks.
+        printerCompletion(printLog: details, fileName: fileName, functionName: functionName, lineNumber: lineNumber)
+        
         if isLogFilterValidates(logType: lType, fileName: fileName) {
             if !simple(id: id, details: details) {
                 logForType(id: id, details: details, lType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
@@ -320,7 +333,7 @@ class Printer {
     private func continueTrace(file:String, line:Int, function:String) -> Void {
         if isLogFilterValidates(logType: .plain, fileName: file) {
             let logTime = hideLogsTime ? "" : "[\(getLogDateForFormat())] "
-            print("Printer [Trace] \(arrowSymbole) \(logTime)\(file.components(separatedBy: "/").last!) \(arrowSymbole) \(function) #\(line)")
+            print("Printer [Trace] \(arrowSymbole) \(logTime)\(getFileName(name: file)) \(arrowSymbole) \(function) #\(line)")
             addLineWithPrint()
         }
     }
@@ -727,13 +740,20 @@ class Printer {
             print(finalLog)
             
             if keepAutoTracing {
-                print("[Trace] \(arrowSymbole) \(fileName.components(separatedBy: "/").last!) \(arrowSymbole) \(functionName) #\(lineNumber)")
+                print("[Trace] \(arrowSymbole) \(getFileName(name: fileName)) \(arrowSymbole) \(functionName) #\(lineNumber)")
             }
             
             addLineWithPrint()
             
             addLogForTracking(log: PLog(id: id, details: details, time: logTime, logType: lType))
         }
+    }
+    
+    private func getFileName(name:String) -> String {
+        guard !name.isEmpty else {
+            return ""
+        }
+        return (name.components(separatedBy: "/").last!)
     }
     
     //MARK: Helper to add a line after each Print

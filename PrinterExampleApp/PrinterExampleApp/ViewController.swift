@@ -29,19 +29,29 @@ class ViewController: UIViewController {
          easily identify what's exactly the log is. Moreover, it will looks cool too.
          
          Let's check what you can do with Printer.
+         
+         It's advice you to read the README file to avail most of the features of Printer. 
         */
-
+        
+        //To get a call back before a log prints. This completion blocks will ignore all the filters.
+        Printer.log.onLogCompletion = { (log) in
+            print(log)
+            //print(log.0)
+        }
+    
+        //To Skip a file from logging.
         Printer.log.skipFile()
 
         //Manual Tracing
         Printer.log.trace()
         
+        //To Add a file for logging.
         Printer.log.addFile()
         
         //To keep track of all the logs. You can always print all the logs by calling 'all()'.
         //Printer.log.keepTracking = true
         
-        //Printer.log.keepAutoTracing = false
+        //Printer.log.keepAutoTracing = false //Default: true
         
         Printer.log.show(id: "001", details: "This is a Success message.", logType: .success)
         Printer.log.show(id: "002", details: "This is a Error message.", logType: .error)
@@ -49,6 +59,15 @@ class ViewController: UIViewController {
         Printer.log.show(id: "004", details: "This is a Warning message.", logType: .warning)
         Printer.log.show(id: "005", details: "This is an Alert message.", logType: .alert)
         
+        Printer.log.show(details: "This is another Success message without ID", logType: .success)
+        
+        //Printing of a Success message without providing a log type.
+        //With ID
+        Printer.log.success(id: "001", details: "This is another Success message.")
+        
+        //Without ID
+        Printer.log.success(details: "This is a Success message.")
+
         //Printer.log.all()
     }
     
