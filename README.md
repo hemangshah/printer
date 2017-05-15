@@ -182,6 +182,32 @@ This would print same trace as if you call trace(). If you don't like it, just s
 - To make API calls with log details.
 - To do anything which [Printer] isn't supports.
 
+## Save Logs to a File
+
+<b>Want to create a log file for use? We have covered it too.</b>
+
+    let array = Printer.log.getAllLogs()
+    if !array.isEmpty {
+        array.forEach({ (log) in
+            print(log.details)
+            //or do something with logs.
+        })
+    }
+        
+    Printer.log.saveLogToFile(logs: array)
+
+> All your logs will be created in a separate file under Printer folder.
+
+<b>Delete all Log files?</b>
+
+    Printer.log.deleteLogFiles()
+    
+## Flush
+
+<b>Want to delete all the log files and free up some space?</b>
+
+    Printer.log.flush()
+
 ## Customize Printer
 
 <b>You can add a line after each logs.</b>
@@ -349,7 +375,7 @@ Will return current log, file name, function name, and line number. You can acce
 - To print logs even if you've applied any filter. 
 - To call your APIs to store log information. Only code at one place. No dependencies.
 
-> You will not get notify if disable is set to `true` or `printOnlyIfDebugMode` is set to `true` and your app is in `release` mode. 
+> You will not get notify if `disable` is set to `true` or `printOnlyIfDebugMode` is set to `true` and your app is in `release` mode. 
 
 ## Ready to ship your app?
 
@@ -372,8 +398,8 @@ Will return current log, file name, function name, and line number. You can acce
 - [x] Future Logs – A function which will print a log after a certain time.
 - [x] Skipping logs for a particular file.
 - [x] Delegate calls for to let you know the Printer logged.
+- [x] Maintain a log file separately.
 - [ ] Log Stats. Example: Total Logs. Logs from Files. Filters Applied.
-- [ ] Maintain a log file separately.
 - [ ] Log application events. Example: Background/Foreground events.
 - [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
 - [ ] Improve README file with following: Features List for direct link to a particular point.
