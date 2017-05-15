@@ -134,7 +134,7 @@
 
 This would print same trace as if you call trace(). If you don't like it, just set `keepAutoTracing` to `false`.
     
-## All Logs
+## All Logs for Print
 
 <b>Want to print all the logs for a different use case?</b>
 
@@ -163,6 +163,24 @@ This would print same trace as if you call trace(). If you don't like it, just s
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #62
     
 > all() function will always print plain logs. <i>No fancy things</i>.
+
+## All Logs for Use
+
+<b>Want to get all the logs?</b>
+
+    //let array = Printer.log.getAllLogs()
+    let array = Printer.log.getAllLogs(filterLogTypes: [.success])
+    if !array.isEmpty {
+        array.forEach({ (log) in
+             print(log.details)
+            //or do something else.
+        })
+    }
+
+<b>Use cases:</b>
+- To store it somewhere.
+- To make API calls with log details.
+- To do anything which [Printer] isn't supports.
 
 ## Customize Printer
 
@@ -325,7 +343,7 @@ To Add logs for a file:  `Printer.log.addFile()`
         
 Will return current log, file name, function name, and line number. You can access it with log.0, log.1 so on.
 
-</b>Usage:</b>
+</b>Use cases:</b>
 
 - To notify in advance before a log event.
 - To print logs even if you've applied any filter. 
