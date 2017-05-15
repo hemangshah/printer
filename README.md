@@ -142,14 +142,6 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
     Printer.log.all(showTrace: true)
     
-<b>You can filter them as well.</b>
-
-    Printer.log.all(filterLogTypes: [.alert], showTrace: true)
-   
-> This will only print `.alert` type tracked logs with tracing info.
-
-> all() function will always print plain logs. <i>No fancy things</i>.
-
     Printer [All Logs] [Success] [05-15-2017 14:28:03] Id:001 Details:This is a Success message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #58
     Printer [All Logs] [Error] [05-15-2017 14:28:03] Id:002 Details:This is a Error message.
@@ -158,6 +150,17 @@ This would print same trace as if you call trace(). If you don't like it, just s
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #60
     Printer [All Logs] [Warning] [05-15-2017 14:28:03] Id:004 Details:This is a Warning message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #61
+    Printer [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
+    [Trace] ➞ ViewController.swift ➞ viewDidLoad() #62
+    
+<b>You can filter them as well.</b>
+
+    Printer.log.all(filterLogTypes: [.alert], showTrace: true)
+   
+> This will only print `.alert` type tracked logs with tracing info.
+
+> all() function will always print plain logs. <i>No fancy things</i>.
+
     Printer [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #62
 
@@ -355,6 +358,7 @@ Will return current log, file name, function name, and line number. You can acce
 - [ ] Maintain a log file separately.
 - [ ] Log application events. Example: Background/Foreground events.
 - [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
+- [ ] Improve README file with following: Features List for direct link to a particular point.
 
 <b>Have an idea for improvements of this class?
 Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
