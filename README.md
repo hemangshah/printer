@@ -15,6 +15,21 @@
 
 > With each of the type, it will print a particular emoji and titles which will help you to easily identify what's exactly the log is. Moreover, it will looks cool too.
 
+## Features
+
+1.	[Different ways to print Logs](https://github.com/hemangshah/printer/#different-ways-to-print-logs)
+3.	[Plain Logs](https://github.com/hemangshah/printer/#plainlog)
+4.	[Tracing](https://github.com/hemangshah/printer/#tracing)
+5.	[All Logs for Print](https://github.com/hemangshah/printer/#all-logs-for-print)
+6.	[All Logs for Use](https://github.com/hemangshah/printer/#all-logs-for-use)
+7.	[Save Logs to a file](https://github.com/hemangshah/printer/#save-logs-to-a-file)
+8.	[Flush](https://github.com/hemangshah/printer/#flush)
+9.	[Customize Printer](https://github.com/hemangshah/printer/#customize-printer)
+10.	[Filter Logs](https://github.com/hemangshah/printer/#filter-logs-filter-by-log-types)
+11.	[Disable Logs](https://github.com/hemangshah/printer/#disable-logs)
+12.	[Completion Block](https://github.com/hemangshah/printer/#completion-block)
+13.	[Shipping to AppStore?](https://github.com/hemangshah/printer/#ready-to-ship-your-app)
+
 ## Let's see what you can do with Printer.
 
 <b>Printer has a singleton, you should always use it with it's singleton.</b>
