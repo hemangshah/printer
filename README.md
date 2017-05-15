@@ -1,5 +1,7 @@
 ![Fancy Logo](https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/printer-logo.png)
 
+![Swift 3.x](https://img.shields.io/badge/Swift-3.x-blue.svg)
+
 ## You can print following types of logs with Printer.
 
   - ✅ Success
