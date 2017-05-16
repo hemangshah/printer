@@ -207,14 +207,9 @@ This would print same trace as if you call trace(). If you don't like it, just s
 <b>Want to create a log file for use? We have covered it too.</b>
 
     let array = Printer.log.getAllLogs()
-    if !array.isEmpty {
-        array.forEach({ (log) in
-            print(log.details)
-            //or do something with logs.
-        })
-    }
-        
-    Printer.log.saveLogToFile(logs: array)
+    if !array.isEmpty {    
+        Printer.log.saveLogToFile(logs: array)
+    }        
 
 > All your logs will be created in a separate file under Printer folder.
 
