@@ -29,6 +29,7 @@
 10.	[Filter Logs](https://github.com/hemangshah/printer/#filter-logs-filter-by-log-types)
 11.	[Disable Logs](https://github.com/hemangshah/printer/#disable-logs)
 12.	[Completion Block](https://github.com/hemangshah/printer/#completion-block)
+14. [Background or Foreground Logs](https://github.com/hemangshah/printer/#background-or-foreground-logs)
 13.	[Shipping to AppStore?](https://github.com/hemangshah/printer/#ready-to-ship-your-app)
 
 ## Let's see what you can do with Printer.
@@ -393,6 +394,21 @@ Will return current log, file name, function name, and line number. You can acce
 
 > You will not get notify if `disable` is set to `true` or `printOnlyIfDebugMode` is set to `true` and your app is in `release` mode. 
 
+## Background or Foreground Logs
+
+<b>Want to see when app goes to background or comes to foreground?</b>
+
+    Printer.log.addAppEventsHandler()
+    
+    Printer ➞ [📣 INFORMATION] [⌚05-17-2017 13:17:38]  ➞ ✹✹App is in foreground now.✹✹
+    ________________________________________________________________________________________
+    
+<b>Stop logging for background or foreground events?</b>
+
+    Printer.log.removeAppEventsHandler()
+    
+> This is helpful when you're checking all the logs and want to see what happended after app went to background or comes to foreground?    
+
 ## Ready to ship your app?
 
 <b>Don't want to print the logs in RELEASE mode?</b>
@@ -416,8 +432,8 @@ Will return current log, file name, function name, and line number. You can acce
 - [x] Delegate calls for to let you know the Printer logged.
 - [x] Maintain a log file separately.
 - [x] Improve README file with following: Features List for direct link to a particular point.
+- [x] Log application events. Example: Background/Foreground events.
 - [ ] Log Stats. Example: Total Logs. Logs from Files. Filters Applied.
-- [ ] Log application events. Example: Background/Foreground events.
 - [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
 
 <b>Have an idea for improvements of this class?
