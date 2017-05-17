@@ -25,6 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Printer.log.addLineAfterEachPrint = true
         Printer.log.capitalizeTitles = true
         
+        //To let log for app events: Background,Foreground.
+        Printer.log.addAppEventsHandler()
+        
+        //To let stop log for app events: Background,Foreground.
+        //Printer.log.removeAppEventsHandler()
+        
         return true
     }
 

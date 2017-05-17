@@ -73,7 +73,7 @@ class ViewController: UIViewController {
         //Printer.log.all(showTrace: true)
         //Printer.log.all(filterLogTypes: [.success], showTrace: true)
         
-//        let array = Printer.log.getAllLogs()
+        //let array = Printer.log.getAllLogs()
         let array = Printer.log.getAllLogs(filterLogTypes: [.success])
         if !array.isEmpty {
             array.forEach({ (log) in
@@ -84,7 +84,9 @@ class ViewController: UIViewController {
         
         Printer.log.saveLogsToFile(logs: array)
         //Printer.log.deleteLogFiles()
-        //Printer.log.flush()
+        //Printer.log.flush()                
+        
+        Printer.log.success(details: "This is a Success message.")
     }
     
     override func didReceiveMemoryWarning() {

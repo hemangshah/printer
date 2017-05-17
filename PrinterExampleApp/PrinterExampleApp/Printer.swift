@@ -120,6 +120,8 @@ class Printer {
     private var filterFiles:Array = Array<String>()
     //This is to store all the logs for later use.
     private var arrayLogs = Array<PLog>()
+    //This is to store keepAutoTracing value. For Enable/Disable tracing for sometime.
+    private var tKeepAutoTracing:Bool?
     
     //MARK: Helpers to set custom date format for each logs
     ///By default, we will use the below date format to show with each logs. You can always customize it with it's property.
@@ -205,7 +207,7 @@ class Printer {
     func saveLogsToFile(logs arrayLog:Array<PLog>) -> Void {
         
         if arrayLog.isEmpty {
-            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return
         }
         
@@ -216,7 +218,7 @@ class Printer {
             do {
                 try FileManager.default.createDirectory(atPath: logsPath, withIntermediateDirectories: true, attributes: nil)
             } catch let error as NSError {
-                print("Unable to create directory \(error.debugDescription)")
+                privateprinter(message: "Unable to create directory \(error.debugDescription)", logType: .alert)
             }
             
             //Generate a randome file name.
@@ -245,10 +247,9 @@ class Printer {
             //Save log file.
             do {
                 try logString.write(to: URL.init(fileURLWithPath: documentsFilePath), atomically: false, encoding: String.Encoding.utf8)
-                print("Log file has been saved at following path:")
-                print("\n\t\(documentsFilePath)\n")
+                privateprinter(message: "Log file has been saved at following path:\n\t \(documentsFilePath)", logType: .success)
             } catch {
-                print("Error while saving log file.\(error)")
+                privateprinter(message: "Error while saving log file.\(error)", logType: .alert)
             }
         }
     }
@@ -260,6 +261,7 @@ class Printer {
             do {
                 try FileManager.default.removeItem(atPath: logsPath)
             } catch let error as NSError {
+                privateprinter(message: "Unable to delete directory \(error.debugDescription)", logType: .alert)
                 print("Unable to delete directory \(error.debugDescription)")
             }
         }
@@ -270,6 +272,51 @@ class Printer {
     func flush() -> Void {
         arrayLogs.removeAll()
         deleteLogFiles()
+    }
+    
+    //MARK: Handling Background/Foreground Log Events
+    func addAppEventsHandler() -> Void {
+        
+        removeAppEventsHandler()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    func removeAppEventsHandler() -> Void {
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    @objc private func appDidEnterBackground() -> Void {
+        privateprinter(message: "App went to Background.", logType: .information)
+    }
+    
+    @objc private func appWillEnterForeground() -> Void {
+        privateprinter(message: "App will be coming to foreground.", logType: .information)
+    }
+    
+    @objc private func appDidBecomeActive() -> Void {
+        privateprinter(message: "App is in foreground now.", logType: .information)
+    }
+    
+    //MARK: Enable/Disable AutoTracing
+    private func onOffAutoTracing(reverse:Bool) -> Void {
+        if reverse {
+            self.keepAutoTracing = tKeepAutoTracing!
+        } else {
+            tKeepAutoTracing = self.keepAutoTracing
+            self.keepAutoTracing = false
+        }
+    }
+    
+    //MARK: Private Printer : to print messages from the Printer class.
+    private func privateprinter(message:String, logType lType:LogType) -> Void {
+        onOffAutoTracing(reverse: false)
+        show(details: message, logType: lType)
+        onOffAutoTracing(reverse: true)
     }
     
     //To generate random string for file name.
@@ -298,7 +345,7 @@ class Printer {
     ///To get all the PLog objects.
     func getAllLogs() -> Array<PLog> {
         guard arrayLogs.count > 0 else {
-            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return []
         }
         let allLogs = arrayLogs
@@ -308,7 +355,7 @@ class Printer {
     ///To get all the PLog objects with filter.
     func getAllLogs(filterLogTypes:Array<LogType>) -> Array<PLog> {
         guard arrayLogs.count > 0 else {
-            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return []
         }
         
@@ -321,7 +368,7 @@ class Printer {
         }
         
         guard filteredArray.count > 0 else {
-            print("No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)")
+            privateprinter(message: "No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)", logType: .information)
             return []
         }
         
@@ -331,7 +378,7 @@ class Printer {
     ///To print all the tracked logs. 'keepTracking' should be set to 'true' before logging.
     func all(showTrace:Bool) -> Void {
         guard arrayLogs.count > 0 else {
-            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return
         }
         for log:PLog in arrayLogs {
@@ -352,7 +399,7 @@ class Printer {
     ///To print the tracked logs based on the filter values. 'keepTracking' should be set to 'true' before logging.
     func all(filterLogTypes:Array<LogType>, showTrace:Bool) -> Void {
         guard arrayLogs.count > 0 else {
-            print("No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.")
+            privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return
         }
         
@@ -365,7 +412,7 @@ class Printer {
         }
         
         guard filteredArray.count > 0 else {
-            print("No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)")
+            privateprinter(message: "No tracked logs for filter. Total tracked logs: #\(arrayLogs.count)", logType: .information)
             return
         }
         
@@ -440,7 +487,7 @@ class Printer {
                 if !printOnlyIfDebugMode {
                     printerlogger(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
                 } else {
-                    print("Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                    privateprinter(message: "Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.", logType: .information)
                 }
             #endif
         }
@@ -491,7 +538,7 @@ class Printer {
                 if !printOnlyIfDebugMode {
                     continueTrace(file: fileName, line: lineNumber, function: functionName)
                 } else {
-                    print("Printer can't trace as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                    privateprinter(message: "Printer can't trace as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.", logType: .information)
                 }
             #endif
         }
