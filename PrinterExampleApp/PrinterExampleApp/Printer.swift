@@ -487,7 +487,7 @@ class Printer {
                 if !printOnlyIfDebugMode {
                     printerlogger(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
                 } else {
-                    privateprinter(message: "Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.", logType: .information)
+                    print("Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
                 }
             #endif
         }
