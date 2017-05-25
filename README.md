@@ -40,7 +40,7 @@
         
 <b>See the output. Isn't it cool?</b>
         
-    Printer ➞ [✅ Success] [⌚04-27-2017 10:39:26] [🆔 101] ➞ ✹✹This is a Success message.✹✹
+    [✅ Success] [⌚04-27-2017 10:39:26] [🆔 101] ➞ ✹✹This is a Success message.✹✹
         
 <b>So here are other options you can do with Printer.</b>
 
@@ -51,10 +51,10 @@
 
 <b>Output:</b>
 
-    Printer ➞ [❌ Error] [⌚04-27-2017 10:41:39] [🆔 102] ➞ ✹✹This is a Error message.✹✹
-    Printer ➞ [🚧 Warning] [⌚04-27-2017 10:41:39] [🆔 103] ➞ ✹✹This is a Warning message.✹✹
-    Printer ➞ [📣 Information] [⌚04-27-2017 10:41:39] [🆔 104] ➞ ✹✹This is an Information message.✹✹
-    Printer ➞ [🚨 Alert] [⌚04-27-2017 10:41:39] [🆔 105] ➞ ✹✹This is an Alert message.✹✹
+    [❌ Error] [⌚04-27-2017 10:41:39] [🆔 102] ➞ ✹✹This is a Error message.✹✹
+    [🚧 Warning] [⌚04-27-2017 10:41:39] [🆔 103] ➞ ✹✹This is a Warning message.✹✹
+    [📣 Information] [⌚04-27-2017 10:41:39] [🆔 104] ➞ ✹✹This is an Information message.✹✹
+    [🚨 Alert] [⌚04-27-2017 10:41:39] [🆔 105] ➞ ✹✹This is an Alert message.✹✹
 
 ## Different ways to print logs.
 
@@ -96,11 +96,11 @@
     
 <b>Exmaple when </b>`plainLog`<b> is set to </b>`true`<b>.</b>
 
-    Printer ➞ [04-27-2017 10:50:30] ID ➞ 001 Details ➞ This is a Success message.
-    Printer ➞ [04-27-2017 10:50:30] ID ➞ 002 Details ➞ This is a Error message.
-    Printer ➞ [04-27-2017 10:50:30] ID ➞ 003 Details ➞ This is an Information message.
-    Printer ➞ [04-27-2017 10:50:30] ID ➞ 004 Details ➞ This is a Warning message.
-    Printer ➞ [04-27-2017 10:50:30] ID ➞ 005 Details ➞ This is an Alert message.
+    [04-27-2017 10:50:30] ID ➞ 001 Details ➞ This is a Success message.
+    [04-27-2017 10:50:30] ID ➞ 002 Details ➞ This is a Error message.
+    [04-27-2017 10:50:30] ID ➞ 003 Details ➞ This is an Information message.
+    [04-27-2017 10:50:30] ID ➞ 004 Details ➞ This is a Warning message.
+    [04-27-2017 10:50:30] ID ➞ 005 Details ➞ This is an Alert message.
     
 <b>We have a new</b>`.plain`<b> type added with </b>show()<b> function</b>.
 
@@ -236,15 +236,15 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 <b>Example when addLineAfterEachPrint is set to </b>`true`<b>.</b>
 
-    Printer ➞ [✅ Success] [⌚04-27-2017 10:53:28] [🆔 001] ➞ ✹✹This is a Success message.✹✹
+    [✅ Success] [⌚04-27-2017 10:53:28] [🆔 001] ➞ ✹✹This is a Success message.✹✹
     ________________________________________________________________________________________
-    Printer ➞ [❌ Error] [⌚04-27-2017 10:53:28] [🆔 002] ➞ ✹✹This is a Error message.✹✹
+    [❌ Error] [⌚04-27-2017 10:53:28] [🆔 002] ➞ ✹✹This is a Error message.✹✹
     ________________________________________________________________________________________
-    Printer ➞ [📣 Information] [⌚04-27-2017 10:53:28] [🆔 003] ➞ ✹✹This is an Information message.✹✹
+    [📣 Information] [⌚04-27-2017 10:53:28] [🆔 003] ➞ ✹✹This is an Information message.✹✹
     ________________________________________________________________________________________
-    Printer ➞ [🚧 Warning] [⌚04-27-2017 10:53:28] [🆔 004] ➞ ✹✹This is a Warning message.✹✹
+    [🚧 Warning] [⌚04-27-2017 10:53:28] [🆔 004] ➞ ✹✹This is a Warning message.✹✹
     ________________________________________________________________________________________
-    Printer ➞ [🚨 Alert] [⌚04-27-2017 10:53:28] [🆔 005] ➞ ✹✹This is an Alert message.✹✹
+    [🚨 Alert] [⌚04-27-2017 10:53:28] [🆔 005] ➞ ✹✹This is an Alert message.✹✹
     ________________________________________________________________________________________
 
 ## Capitalize Titles & Details
@@ -263,7 +263,7 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 <b>Example when capitalizeTitles and capitalizeDetails are set to </b>`true`<b>.</b>
 
-    Printer ➞ [✅ SUCCESS] [⌚04-27-2017 11:09:37] [🆔 001] ➞ ✹✹THIS IS A SUCCESS MESSAGE.✹✹
+    [✅ SUCCESS] [⌚04-27-2017 11:09:37] [🆔 001] ➞ ✹✹THIS IS A SUCCESS MESSAGE.✹✹
 
 <b>Don't want to show Emojis?</b>
 
@@ -273,11 +273,11 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 <b>Example when</b> `hideEmojis()` <b>call.</b>
 
-    Printer ➞ [Success] [04-27-2017 11:08:45] [001] ➞ ✹✹This is a Success message.✹✹
-    Printer ➞ [Error] [04-27-2017 11:08:45] [002] ➞ ✹✹This is a Error message.✹✹
-    Printer ➞ [Information] [04-27-2017 11:08:45] [003] ➞ ✹✹This is an Information message.✹✹
-    Printer ➞ [Warning] [04-27-2017 11:08:45] [004] ➞ ✹✹This is a Warning message.✹✹
-    Printer ➞ [Alert] [04-27-2017 11:08:45] [005] ➞ ✹✹This is an Alert message.✹✹
+    [Success] [04-27-2017 11:08:45] [001] ➞ ✹✹This is a Success message.✹✹
+    [Error] [04-27-2017 11:08:45] [002] ➞ ✹✹This is a Error message.✹✹
+    [Information] [04-27-2017 11:08:45] [003] ➞ ✹✹This is an Information message.✹✹
+    [Warning] [04-27-2017 11:08:45] [004] ➞ ✹✹This is a Warning message.✹✹
+    [Alert] [04-27-2017 11:08:45] [005] ➞ ✹✹This is an Alert message.✹✹
 
 <b>Don't want to show Titles?</b>
 
@@ -349,7 +349,7 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 <b>Example when logDateFormat is set to a different format.</b>
 
-    Printer ➞ [✅ Success] [⌚11:12:23 AM] [🆔 001] ➞ ✹✹This is a Success message.✹✹
+    [✅ Success] [⌚11:12:23 AM] [🆔 001] ➞ ✹✹This is a Success message.✹✹
    
 ## Filter Logs: Filter by Log Types
 <b>Show specific logs with filter.</b>
@@ -400,7 +400,7 @@ Will return current log, file name, function name, and line number. You can acce
 
     Printer.log.addAppEventsHandler()
     
-    Printer ➞ [📣 INFORMATION] [⌚05-17-2017 13:17:38]  ➞ ✹✹App is in foreground now.✹✹
+    [📣 INFORMATION] [⌚05-17-2017 13:17:38]  ➞ ✹✹App is in foreground now.✹✹
     ________________________________________________________________________________________
     
 <b>Stop logging for background or foreground events?</b>
