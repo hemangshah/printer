@@ -164,15 +164,15 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
     Printer.log.all(showTrace: true)
     
-    Printer [All Logs] [Success] [05-15-2017 14:28:03] Id:001 Details:This is a Success message.
+    [All Logs] [Success] [05-15-2017 14:28:03] Id:001 Details:This is a Success message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #58
-    Printer [All Logs] [Error] [05-15-2017 14:28:03] Id:002 Details:This is a Error message.
+    [All Logs] [Error] [05-15-2017 14:28:03] Id:002 Details:This is a Error message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #59
-    Printer [All Logs] [Information] [05-15-2017 14:28:03] Id:003 Details:This is an Information message.
+    [All Logs] [Information] [05-15-2017 14:28:03] Id:003 Details:This is an Information message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #60
-    Printer [All Logs] [Warning] [05-15-2017 14:28:03] Id:004 Details:This is a Warning message.
+    [All Logs] [Warning] [05-15-2017 14:28:03] Id:004 Details:This is a Warning message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #61
-    Printer [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
+    [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #62
     
 <b>You can filter them as well.</b>
@@ -181,7 +181,7 @@ This would print same trace as if you call trace(). If you don't like it, just s
    
 > This will only print `.alert` type tracked logs with tracing info.
 
-    Printer [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
+    [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #62
     
 > all() function will always print plain logs. <i>No fancy things</i>.
