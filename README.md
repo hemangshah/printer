@@ -298,16 +298,16 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 > **IMPORTANT**: Should be call in advance.
 
-    Printer.log.successEmojiSymbole = "🎃"
+    Printer.log.successEmojiSymbol = "🎃"
 
 <b>Oter properties for Emojis customization.</b>
 
 > **IMPORTANT**: Should be call in advance.
 
-    Printer.log.errorEmojiSymbole = "<SetNew>"    
-    Printer.log.warningEmojiSymbole = "<SetNew>"    
-    Printer.log.infoEmojiSymbole = "<SetNew>"    
-    Printer.log.alertEmojiSymbole = "<SetNew>"
+    Printer.log.errorEmojiSymbol = "<SetNew>"    
+    Printer.log.warningEmojiSymbol = "<SetNew>"    
+    Printer.log.infoEmojiSymbol = "<SetNew>"    
+    Printer.log.alertEmojiSymbol = "<SetNew>"
 
 ## Customize Titles
 
@@ -326,19 +326,19 @@ This would print same trace as if you call trace(). If you don't like it, just s
     Printer.log.infoLogTitle = "<SetNew>"    
     Printer.log.alertLogTitle = "<SetNew>"
 
-## Customize Symboles
+## Customize Symbols
 
-<b>Don't like the Symboles which is available? Want to set your own? You can do this.</b>
+<b>Don't like the Symbols which is available? Want to set your own? You can do this.</b>
 
 > **IMPORTANT**: Should be call in advance.
 
-    Printer.log.arrowSymbole = "⇨"
+    Printer.log.arrowSymbol = "⇨"
     
-<b>Oter properties for Symbole customization.</b>
+<b>Oter properties for Symbol customization.</b>
 
 > **IMPORTANT**: Should be call in advance.
 
-    Printer.log.starSymbole = "<SetNew>"
+    Printer.log.starSymbol = "<SetNew>"
 
 <b>Don't like the date format in logs? You can change it too.</b>
 
