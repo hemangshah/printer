@@ -20,13 +20,13 @@ enum LogType {
 }
 
 //MARK: TraceInfo
-class TraceInfo {
+final class TraceInfo {
     
     var fileName:String
     var functionName:String
     var lineNumber:Int
     
-    init(file fileName:String, function functionName:String, line lineNumber:Int) {
+    fileprivate init(file fileName:String, function functionName:String, line lineNumber:Int) {
         self.fileName = fileName
         self.functionName = functionName
         self.lineNumber = lineNumber
@@ -34,7 +34,7 @@ class TraceInfo {
 }
 
 //MARK: PLog
-class PLog {
+final class PLog {
     
     var id:String
     var details:String
@@ -45,7 +45,7 @@ class PLog {
     var printableLog:String
     var printableTrace:String
     
-    init(id:String, details:String, time:String, logType lType:LogType, file fileName:String, function functionName:String, line lineNumber:Int) {
+    fileprivate init(id:String, details:String, time:String, logType lType:LogType, file fileName:String, function functionName:String, line lineNumber:Int) {
         self.id = id
         self.details = details
         self.time = time
@@ -57,7 +57,7 @@ class PLog {
 }
 
 //MARK: Printer
-class Printer {
+final class Printer {
 
     //You can always change the Emojis here but it's not suggestible.
     //So if you want to change Emojis or everything please use the respective properties.
@@ -91,6 +91,9 @@ class Printer {
     //MARK: Singleton
     ///Always use a Singleton to use the Printer globally with the defined settings/properties.
     static let log = Printer()
+    
+    //Please always use the single ton method to use this class.
+    private init() {}
     
     //MARK: Properties
     ///Don't like emojis and formation? Set this to 'true' and it will print the plain text. DEFAULT: false
