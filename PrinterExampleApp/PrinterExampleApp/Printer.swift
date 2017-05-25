@@ -71,9 +71,9 @@ class Printer {
         case id = "🆔"
     }
     
-    //You can always change the Symboles here but it's not suggestible.
-    //So if you want to change Symboles or everything please use the respective properties.
-    private enum Symboles:String {
+    //You can always change the Symbols here but it's not suggestible.
+    //So if you want to change Symbols or everything please use the respective properties.
+    private enum Symbols:String {
         case arrow = "➞"
         case star = "✹"
     }
@@ -390,7 +390,7 @@ class Printer {
             
             if showTrace {
                 let trace = log.traceInfo
-                print("[Trace] \(arrowSymbole) \(trace.fileName) \(arrowSymbole) \(trace.functionName) #\(trace.lineNumber)")
+                print("[Trace] \(arrowSymbol) \(trace.fileName) \(arrowSymbol) \(trace.functionName) #\(trace.lineNumber)")
             }
         }
         addLineWithPrint()
@@ -426,7 +426,7 @@ class Printer {
 
             if showTrace {
                 let trace = log.traceInfo
-                print("[Trace] \(arrowSymbole) \(trace.fileName) \(arrowSymbole) \(trace.functionName) #\(trace.lineNumber)")
+                print("[Trace] \(arrowSymbol) \(trace.fileName) \(arrowSymbol) \(trace.functionName) #\(trace.lineNumber)")
             }
         }
         addLineWithPrint()
@@ -547,7 +547,7 @@ class Printer {
     private func continueTrace(file:String, line:Int, function:String) -> Void {
         if isLogFilterValidates(logType: .plain, fileName: file) {
             let logTime = hideLogsTime ? "" : "[\(getLogDateForFormat())] "
-            print("Printer [Trace] \(arrowSymbole) \(logTime)\(getFileName(name: file)) \(arrowSymbole) \(function) #\(line)")
+            print("Printer [Trace] \(arrowSymbol) \(logTime)\(getFileName(name: file)) \(arrowSymbol) \(function) #\(line)")
             addLineWithPrint()
         }
     }
@@ -693,13 +693,13 @@ class Printer {
     //MARK: Helper to hide Emojis from the log prints.
     ///You can call this function in advance to print logs without the emojis. This is different than the 'plainLog'.
     func hideEmojis() -> Void {
-        successEmojiSymbole = ""
-        errorEmojiSymbole = ""
-        warningEmojiSymbole = ""
-        infoEmojiSymbole = ""
-        alertEmojiSymbole = ""
-        watchEmojiSymbole = ""
-        idEmojiSymbole = ""
+        successEmojiSymbol = ""
+        errorEmojiSymbol = ""
+        warningEmojiSymbol = ""
+        infoEmojiSymbol = ""
+        alertEmojiSymbol = ""
+        watchEmojiSymbol = ""
+        idEmojiSymbol = ""
     }
     
     //MARK: Helper to clear Titles from the log prints.
@@ -778,121 +778,121 @@ class Printer {
         }
     }
     
-    //MARK: Helpers to set custom symboles in place of arrow and star
-    private var _arrowSymbole:String = Symboles.arrow.rawValue
-    ///You can customize the symboles used for each logs.
-    var arrowSymbole:String {
+    //MARK: Helpers to set custom symbols in place of arrow and star
+    private var _arrowSymbol:String = Symbols.arrow.rawValue
+    ///You can customize the Symbols used for each logs.
+    var arrowSymbol:String {
         get {
-            return _arrowSymbole
+            return _arrowSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _arrowSymbole = newValue
+                _arrowSymbol = newValue
             }
         }
     }
     
-    private var _starSymbole:String = Symboles.star.rawValue
-    ///You can customize the symboles used for each logs.
-    var starSymbole:String {
+    private var _starSymbol:String = Symbols.star.rawValue
+    ///You can customize the Symbols used for each logs.
+    var starSymbol:String {
         get {
-            return _starSymbole
+            return _starSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _starSymbole = newValue
+                _starSymbol = newValue
             }
         }
     }
     
     //MARK: Helpers to set custom emojis for each cases
-    private var _successEmojiSymbole:String = Emojis.success.rawValue
+    private var _successEmojiSymbol:String = Emojis.success.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var successEmojiSymbole:String {
+    var successEmojiSymbol:String {
         get {
-            return _successEmojiSymbole
+            return _successEmojiSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _successEmojiSymbole = newValue
+                _successEmojiSymbol = newValue
             }
         }
     }
     
-    private var _errorEmojiSymbole:String = Emojis.error.rawValue
+    private var _errorEmojiSymbol:String = Emojis.error.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var errorEmojiSymbole:String {
+    var errorEmojiSymbol:String {
         get {
-            return _errorEmojiSymbole
+            return _errorEmojiSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _errorEmojiSymbole = newValue
+                _errorEmojiSymbol = newValue
             }
         }
     }
     
-    private var _warningEmojiSymbole:String = Emojis.warning.rawValue
+    private var _warningEmojiSymbol:String = Emojis.warning.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var warningEmojiSymbole:String {
+    var warningEmojiSymbol:String {
         get {
-            return _warningEmojiSymbole
+            return _warningEmojiSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _warningEmojiSymbole = newValue
+                _warningEmojiSymbol = newValue
             }
         }
     }
     
-    private var _infoEmojiSymbole:String = Emojis.information.rawValue
+    private var _infoEmojiSymbol:String = Emojis.information.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var infoEmojiSymbole:String {
+    var infoEmojiSymbol:String {
         get {
-            return _infoEmojiSymbole
+            return _infoEmojiSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _infoEmojiSymbole = newValue
+                _infoEmojiSymbol = newValue
             }
         }
     }
     
-    private var _alertEmojiSymbole:String = Emojis.alert.rawValue
+    private var _alertEmojiSymbol:String = Emojis.alert.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var alertEmojiSymbole:String {
+    var alertEmojiSymbol:String {
         get {
-            return _alertEmojiSymbole
+            return _alertEmojiSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _alertEmojiSymbole = newValue
+                _alertEmojiSymbol = newValue
             }
         }
     }
     
-    private var _watchEmojiSymbole:String = Emojis.watch.rawValue
+    private var _watchEmojiSymbol:String = Emojis.watch.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var watchEmojiSymbole:String {
+    var watchEmojiSymbol:String {
         get {
-            return _watchEmojiSymbole
+            return _watchEmojiSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _watchEmojiSymbole = newValue
+                _watchEmojiSymbol = newValue
             }
         }
     }
     
-    private var _idEmojiSymbole:String = Emojis.id.rawValue
+    private var _idEmojiSymbol:String = Emojis.id.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var idEmojiSymbole:String {
+    var idEmojiSymbol:String {
         get {
-            return _idEmojiSymbole
+            return _idEmojiSymbol
         }
         set (newValue) {
             if !newValue.isEmpty {
-                _idEmojiSymbole = newValue
+                _idEmojiSymbol = newValue
             }
         }
     }
@@ -909,24 +909,24 @@ class Printer {
     //This is the main logger to print the logs. This will handle loggings for plain (simple) or fancy logs.
     private func logForType(id:String, details:String, lType:LogType, fileName:String, lineNumber:Int, functionName: String) -> Void {
         
-        var logTypeEmojiSymbole = ""
+        var logTypeEmojiSymbol = ""
         var logTypeTitle = relativeValueForLogType(lType: lType)
         var logDetails = details
         var isPlainType:Bool = false
         
         switch lType {
         case .success:
-            logTypeEmojiSymbole = successEmojiSymbole
+            logTypeEmojiSymbol = successEmojiSymbol
         case .error:
-            logTypeEmojiSymbole = errorEmojiSymbole
+            logTypeEmojiSymbol = errorEmojiSymbol
         case .warning:
-            logTypeEmojiSymbole = warningEmojiSymbole
+            logTypeEmojiSymbol = warningEmojiSymbol
         case .information:
-            logTypeEmojiSymbole = infoEmojiSymbole
+            logTypeEmojiSymbol = infoEmojiSymbol
         case .alert:
-            logTypeEmojiSymbole = alertEmojiSymbole
+            logTypeEmojiSymbol = alertEmojiSymbol
         case .plain:
-            logTypeEmojiSymbole = ""
+            logTypeEmojiSymbol = ""
             isPlainType = true
         }
         
@@ -936,8 +936,8 @@ class Printer {
             logTypeTitle = capitalizeTitles ? logTypeTitle.uppercased() : logTypeTitle
             logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
             
-            let titlePart = "\(logTypeEmojiSymbole) \(logTypeTitle)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            let idPart = !id.isEmpty ? "\(idEmojiSymbole) \(id)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) : ""
+            let titlePart = "\(logTypeEmojiSymbol) \(logTypeTitle)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            let idPart = !id.isEmpty ? "\(idEmojiSymbol) \(id)".trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) : ""
             
             let titlePartOpeningSquareBracket = !titlePart.isEmpty ? "[" : ""
             let titlePartClosingSquareBracket = !titlePart.isEmpty ? "] " : ""
@@ -945,13 +945,13 @@ class Printer {
             let idPartOpeningSquareBracket = !idPart.isEmpty ? "[" : ""
             let idPartClosingSquareBracket = !idPart.isEmpty ? "]" : ""
             
-            let detailsPartOpening = logDetails.isEmpty ? "" : " \(arrowSymbole) \(starSymbole)\(starSymbole)"
-            let detailsPartClosing = logDetails.isEmpty ? "" : "\(starSymbole)\(starSymbole)"
+            let detailsPartOpening = logDetails.isEmpty ? "" : " \(arrowSymbol) \(starSymbol)\(starSymbol)"
+            let detailsPartClosing = logDetails.isEmpty ? "" : "\(starSymbol)\(starSymbol)"
             
             let logTime = hideLogsTime ? "" : "\(getLogDateForFormat())"
-            let logTimePart = hideLogsTime ? "" : "[\(watchEmojiSymbole)\(logTime)] "
+            let logTimePart = hideLogsTime ? "" : "[\(watchEmojiSymbol)\(logTime)] "
             
-            let finalLog = "Printer \(arrowSymbole) \(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)\(logTimePart)\(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)"
+            let finalLog = "Printer \(arrowSymbol) \(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)\(logTimePart)\(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)"
             
             print(finalLog)
             
@@ -959,7 +959,7 @@ class Printer {
             plObj.printableLog = finalLog
             
             if keepAutoTracing {
-                plObj.printableTrace = "[Trace] \(arrowSymbole) \(getFileName(name: fileName)) \(arrowSymbole) \(functionName) #\(lineNumber)"
+                plObj.printableTrace = "[Trace] \(arrowSymbol) \(getFileName(name: fileName)) \(arrowSymbol) \(functionName) #\(lineNumber)"
                 print(plObj.printableTrace)
             }
             
@@ -996,13 +996,13 @@ class Printer {
     
     //This function is calling from more than one place thus we have created a common function.
     private func continueSimple(id:String, details:String, fileName:String, lineNumber:Int, functionName: String) -> Void {
-        let idPart = id.isEmpty ? "" : " ID \(arrowSymbole) "
-        let detailsPart = details.isEmpty ? "" : " Details \(arrowSymbole) "
+        let idPart = id.isEmpty ? "" : " ID \(arrowSymbol) "
+        let detailsPart = details.isEmpty ? "" : " Details \(arrowSymbol) "
         var logDetails = details.isEmpty ? "" : details
         logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
         let logTime = hideLogsTime ? "" : "\(getLogDateForFormat())"
         let logTimePart = hideLogsTime ? "" : "[\(logTime)] "
-        let finalLog = "Printer \(arrowSymbole) \(logTimePart)\(idPart)\(id)\(detailsPart)\(logDetails)"
+        let finalLog = "Printer \(arrowSymbol) \(logTimePart)\(idPart)\(id)\(detailsPart)\(logDetails)"
         
         let plObj = PLog.init(id: id, details: details, time: logTime, logType: .plain, file: getFileName(name: fileName), function: functionName, line: lineNumber)
         plObj.printableLog = finalLog
@@ -1010,7 +1010,7 @@ class Printer {
         print(finalLog)
 
         if keepAutoTracing {
-            plObj.printableTrace = "[Trace] \(arrowSymbole) \(getFileName(name: fileName)) \(arrowSymbole) \(functionName) #\(lineNumber)"
+            plObj.printableTrace = "[Trace] \(arrowSymbol) \(getFileName(name: fileName)) \(arrowSymbol) \(functionName) #\(lineNumber)"
             print(plObj.printableTrace)
         }
         
