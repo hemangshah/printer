@@ -386,9 +386,9 @@ final class Printer {
         }
         for log:PLog in arrayLogs {
             if log.logType != .plain {
-                print("Printer [All Logs] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+                print("[All Logs] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
             } else {
-                print("Printer [All Logs] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+                print("[All Logs] [\(log.time)] Id:\(log.id) Details:\(log.details)")
             }
             
             if showTrace {
@@ -422,9 +422,9 @@ final class Printer {
         for log:PLog in filteredArray {
             
             if log.logType != .plain {
-                print("Printer [All Logs.filtered] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+                print("[All Logs.filtered] [\(relativeValueForLogType(lType: log.logType))] [\(log.time)] Id:\(log.id) Details:\(log.details)")
             } else {
-                print("Printer [All Logs.filtered] [\(log.time)] Id:\(log.id) Details:\(log.details)")
+                print("[All Logs.filtered] [\(log.time)] Id:\(log.id) Details:\(log.details)")
             }
 
             if showTrace {
@@ -550,7 +550,7 @@ final class Printer {
     private func continueTrace(file:String, line:Int, function:String) -> Void {
         if isLogFilterValidates(logType: .plain, fileName: file) {
             let logTime = hideLogsTime ? "" : "[\(getLogDateForFormat())] "
-            print("Printer [Trace] \(arrowSymbol) \(logTime)\(getFileName(name: file)) \(arrowSymbol) \(function) #\(line)")
+            print("[Trace] \(arrowSymbol) \(logTime)\(getFileName(name: file)) \(arrowSymbol) \(function) #\(line)")
             addLineWithPrint()
         }
     }
@@ -954,7 +954,7 @@ final class Printer {
             let logTime = hideLogsTime ? "" : "\(getLogDateForFormat())"
             let logTimePart = hideLogsTime ? "" : "[\(watchEmojiSymbol)\(logTime)] "
             
-            let finalLog = "Printer \(arrowSymbol) \(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)\(logTimePart)\(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)"
+            let finalLog = "\(titlePartOpeningSquareBracket)\(titlePart)\(titlePartClosingSquareBracket)\(logTimePart)\(idPartOpeningSquareBracket)\(idPart)\(idPartClosingSquareBracket)\(detailsPartOpening)\(logDetails)\(detailsPartClosing)"
             
             print(finalLog)
             
@@ -1005,7 +1005,7 @@ final class Printer {
         logDetails = capitalizeDetails ? logDetails.uppercased() : logDetails
         let logTime = hideLogsTime ? "" : "\(getLogDateForFormat())"
         let logTimePart = hideLogsTime ? "" : "[\(logTime)] "
-        let finalLog = "Printer \(arrowSymbol) \(logTimePart)\(idPart)\(id)\(detailsPart)\(logDetails)"
+        let finalLog = "\(logTimePart)\(idPart)\(id)\(detailsPart)\(logDetails)"
         
         let plObj = PLog.init(id: id, details: details, time: logTime, logType: .plain, file: getFileName(name: fileName), function: functionName, line: lineNumber)
         plObj.printableLog = finalLog
