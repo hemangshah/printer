@@ -204,6 +204,39 @@ This would print same trace as if you call trace(). If you don't like it, just s
 - To make API calls with log details.
 - To do anything which [Printer] isn't supports.
 
+# PrinterViewController
+
+<b>See all the printer logs in </b> `PrinterViewController`<b>. You can also filter the logs within the view controller.</b>
+
+> **IMPORTANT**: `PrinterViewController` is based on the set properties for `Printer` and works exactly same, so make sure about the properties which you have set.
+
+<b>Use cases:</b>
+- To see all the logs inside your application.
+- No need to check Xcode or Console.
+- Filter options.
+- Easy to setup.
+
+<table>
+<tr>
+<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/Printer/Screenshots/PrinterVC-2.png" alt = "All Logs"></td>
+<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/Printer/Screenshots/PrinterVC-3.png" alt = "No Logs"></td>
+<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/Printer/Screenshots/PrinterVC-4.png" alt = "Alert Logs"></td>
+</tr>
+</table>
+
+<b>How to use?</b>
+
+> You can always use Printer without PrinterViewController. But it's suggestible to add this class for better logging.
+
+1. Add `PrinterTableViewCell.swift`, `PrinterViewController.swift` and `Printer.swift` in your Project. You can simply add "Printer" folder as well.
+2. Add `PrinterViewController` view from `Main.storyboard` from the given example. Everything is already set, no setup requires.
+3. Everything is added, so now you only have to write below code to present `PrinterViewController` from your app.
+
+> Always add it to someplace (example: navigation bar, side menu, tabbar, app settings) from where you can always present it while development.
+
+    let navcontroller = UINavigationController.init(rootViewController: (self.storyboard?.instantiateViewController(withIdentifier: "PrinterViewControllerID"))!)
+    self.present(navcontroller, animated: true, completion: nil)
+
 ## Save Logs to a File
 
 <b>Want to create a log file for use? We have covered it too.</b>
@@ -433,8 +466,8 @@ Will return current log, file name, function name, and line number. You can acce
 - [x] Maintain a log file separately.
 - [x] Improve README file with following: Features List for direct link to a particular point.
 - [x] Log application events. Example: Background/Foreground events.
+- [x] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
 - [ ] Log Stats. Example: Total Logs. Logs from Files. Filters Applied.
-- [ ] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
 
 <b>Have an idea for improvements of this class?
 Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
