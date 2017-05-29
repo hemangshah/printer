@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-s.name             = "printer"
+s.name             = "printer-loggger"
 s.version          = "1.0"
 s.summary          = "Printer is just another logger but fancy. ✅❌🚧📣🚨"
 s.description      = "Want to print logs in a fancy way? Here's the Swift 3.x supported logger for you. We calls it – Printer 🖨"
