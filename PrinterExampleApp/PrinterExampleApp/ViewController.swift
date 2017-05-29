@@ -33,6 +33,7 @@ class ViewController: UIViewController {
          It's advice you to read the README file to avail most of the features of Printer. 
         */
         
+        
         //Printer.log.plainLog = true
         
         //To get a call back before a log prints. This completion blocks will ignore all the filters.
@@ -66,7 +67,7 @@ class ViewController: UIViewController {
         //Printing of a Success message without providing a log type.
         //With ID
         Printer.log.success(id: "001", details: "This is another Success message.")
-        
+                
         //Without ID
         Printer.log.success(details: "This is a Success message.")
 
@@ -77,20 +78,18 @@ class ViewController: UIViewController {
         let array = Printer.log.getAllLogs(filterLogTypes: [.success])
         if !array.isEmpty {
             array.forEach({ (log) in
-                print(log.details)
+                //print(log.details)
                 //or do something with logs.
             })
         }
         
         Printer.log.saveLogsToFile(logs: array)
         //Printer.log.deleteLogFiles()
-        //Printer.log.flush()                
-        
-        Printer.log.success(details: "This is a Success message.")
+        //Printer.log.flush()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func actionOpenPrinterView(_ sender: Any) {
+        let navcontroller = UINavigationController.init(rootViewController: (self.storyboard?.instantiateViewController(withIdentifier: "PrinterViewControllerID"))!)
+        self.present(navcontroller, animated: true, completion: nil)
     }
 }

@@ -12,7 +12,9 @@
 		F1B9F9491EB1B34000D8A9FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B9F9471EB1B34000D8A9FF /* Main.storyboard */; };
 		F1B9F94B1EB1B34000D8A9FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1B9F94A1EB1B34000D8A9FF /* Assets.xcassets */; };
 		F1B9F94E1EB1B34000D8A9FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B9F94C1EB1B34000D8A9FF /* LaunchScreen.storyboard */; };
-		F1B9F9561EB1B36500D8A9FF /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B9F9551EB1B36500D8A9FF /* Printer.swift */; };
+		F1DC08661EDBDD3D00E3F244 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08631EDBDD3D00E3F244 /* Printer.swift */; };
+		F1DC08671EDBDD3D00E3F244 /* PrinterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08641EDBDD3D00E3F244 /* PrinterTableViewCell.swift */; };
+		F1DC08681EDBDD3D00E3F244 /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08651EDBDD3D00E3F244 /* PrinterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +25,9 @@
 		F1B9F94A1EB1B34000D8A9FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1B9F94D1EB1B34000D8A9FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1B9F94F1EB1B34000D8A9FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F1B9F9551EB1B36500D8A9FF /* Printer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
+		F1DC08631EDBDD3D00E3F244 /* Printer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
+		F1DC08641EDBDD3D00E3F244 /* PrinterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterTableViewCell.swift; sourceTree = "<group>"; };
+		F1DC08651EDBDD3D00E3F244 /* PrinterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +60,7 @@
 		F1B9F9421EB1B34000D8A9FF /* PrinterExampleApp */ = {
 			isa = PBXGroup;
 			children = (
-				F1B9F9551EB1B36500D8A9FF /* Printer.swift */,
+				F1DC08621EDBDD3D00E3F244 /* Printer */,
 				F1B9F9431EB1B34000D8A9FF /* AppDelegate.swift */,
 				F1B9F9451EB1B34000D8A9FF /* ViewController.swift */,
 				F1B9F9471EB1B34000D8A9FF /* Main.storyboard */,
@@ -65,6 +69,16 @@
 				F1B9F94F1EB1B34000D8A9FF /* Info.plist */,
 			);
 			path = PrinterExampleApp;
+			sourceTree = "<group>";
+		};
+		F1DC08621EDBDD3D00E3F244 /* Printer */ = {
+			isa = PBXGroup;
+			children = (
+				F1DC08631EDBDD3D00E3F244 /* Printer.swift */,
+				F1DC08641EDBDD3D00E3F244 /* PrinterTableViewCell.swift */,
+				F1DC08651EDBDD3D00E3F244 /* PrinterViewController.swift */,
+			);
+			path = Printer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +153,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1B9F9561EB1B36500D8A9FF /* Printer.swift in Sources */,
+				F1DC08671EDBDD3D00E3F244 /* PrinterTableViewCell.swift in Sources */,
+				F1DC08661EDBDD3D00E3F244 /* Printer.swift in Sources */,
 				F1B9F9461EB1B34000D8A9FF /* ViewController.swift in Sources */,
+				F1DC08681EDBDD3D00E3F244 /* PrinterViewController.swift in Sources */,
 				F1B9F9441EB1B34000D8A9FF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +319,7 @@
 				F1B9F9541EB1B34100D8A9FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
