@@ -160,7 +160,9 @@ class PrinterViewController: UITableViewController {
         let log:PLog = arrayLogs[indexPath.row]
         cell.lblTitle.attributedText = getLogTitle(log: log)
         cell.lblLogDetails.text = log.details
-        cell.lblTraceInfo.attributedText = getLightAttributedString(value:getTraceInfo(log: log))
+        if Printer.log.keepAutoTracing {
+            cell.lblTraceInfo.attributedText = getLightAttributedString(value:getTraceInfo(log: log))
+        }
         return cell
     }
     

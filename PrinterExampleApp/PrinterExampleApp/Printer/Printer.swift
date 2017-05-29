@@ -318,10 +318,7 @@ final class Printer {
     
     //MARK: Private Printer : to print messages from the Printer class.
     private func privateprinter(message:String, logType lType:LogType) -> Void {
-        onOffAutoTracing(reverse: false)
         show(details: message, logType: lType)
-        //logForType(id: "", details: message, lType: lType, fileName: "Printer", lineNumber: 0, functionName: "privateprinter")
-        onOffAutoTracing(reverse: true)
     }
     
     //To generate random string for file name.
