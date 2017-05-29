@@ -18,7 +18,7 @@
 
 ## Features
 
-1.	[Different ways to print Logs](https://github.com/hemangshah/printer/#different-ways-to-print-logs)
+1.	[Different ways to print Logs](#different-ways-to-print-logs)
 3.	[Plain Logs](https://github.com/hemangshah/printer/#plainlog)
 4.	[Tracing](https://github.com/hemangshah/printer/#tracing)
 5.	[All Logs for Print](https://github.com/hemangshah/printer/#all-logs-for-print)
