@@ -15,10 +15,7 @@
 		F1DC08661EDBDD3D00E3F244 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08631EDBDD3D00E3F244 /* Printer.swift */; };
 		F1DC08671EDBDD3D00E3F244 /* PrinterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08641EDBDD3D00E3F244 /* PrinterTableViewCell.swift */; };
 		F1DC08681EDBDD3D00E3F244 /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08651EDBDD3D00E3F244 /* PrinterViewController.swift */; };
-		F1DC086E1EDBE7BF00E3F244 /* PrinterVC-1.png in Resources */ = {isa = PBXBuildFile; fileRef = F1DC086A1EDBE7BF00E3F244 /* PrinterVC-1.png */; };
-		F1DC086F1EDBE7BF00E3F244 /* PrinterVC-2.png in Resources */ = {isa = PBXBuildFile; fileRef = F1DC086B1EDBE7BF00E3F244 /* PrinterVC-2.png */; };
-		F1DC08701EDBE7BF00E3F244 /* PrinterVC-3.png in Resources */ = {isa = PBXBuildFile; fileRef = F1DC086C1EDBE7BF00E3F244 /* PrinterVC-3.png */; };
-		F1DC08711EDBE7BF00E3F244 /* PrinterVC-4.png in Resources */ = {isa = PBXBuildFile; fileRef = F1DC086D1EDBE7BF00E3F244 /* PrinterVC-4.png */; };
+		F1DC08931EDC438800E3F244 /* Printer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1DC08921EDC438800E3F244 /* Printer.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,10 +29,7 @@
 		F1DC08631EDBDD3D00E3F244 /* Printer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		F1DC08641EDBDD3D00E3F244 /* PrinterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterTableViewCell.swift; sourceTree = "<group>"; };
 		F1DC08651EDBDD3D00E3F244 /* PrinterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterViewController.swift; sourceTree = "<group>"; };
-		F1DC086A1EDBE7BF00E3F244 /* PrinterVC-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PrinterVC-1.png"; sourceTree = "<group>"; };
-		F1DC086B1EDBE7BF00E3F244 /* PrinterVC-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PrinterVC-2.png"; sourceTree = "<group>"; };
-		F1DC086C1EDBE7BF00E3F244 /* PrinterVC-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PrinterVC-3.png"; sourceTree = "<group>"; };
-		F1DC086D1EDBE7BF00E3F244 /* PrinterVC-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PrinterVC-4.png"; sourceTree = "<group>"; };
+		F1DC08921EDC438800E3F244 /* Printer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Printer.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,23 +76,12 @@
 		F1DC08621EDBDD3D00E3F244 /* Printer */ = {
 			isa = PBXGroup;
 			children = (
-				F1DC08691EDBE7BF00E3F244 /* Screenshots */,
 				F1DC08631EDBDD3D00E3F244 /* Printer.swift */,
 				F1DC08641EDBDD3D00E3F244 /* PrinterTableViewCell.swift */,
 				F1DC08651EDBDD3D00E3F244 /* PrinterViewController.swift */,
+				F1DC08921EDC438800E3F244 /* Printer.storyboard */,
 			);
 			path = Printer;
-			sourceTree = "<group>";
-		};
-		F1DC08691EDBE7BF00E3F244 /* Screenshots */ = {
-			isa = PBXGroup;
-			children = (
-				F1DC086A1EDBE7BF00E3F244 /* PrinterVC-1.png */,
-				F1DC086B1EDBE7BF00E3F244 /* PrinterVC-2.png */,
-				F1DC086C1EDBE7BF00E3F244 /* PrinterVC-3.png */,
-				F1DC086D1EDBE7BF00E3F244 /* PrinterVC-4.png */,
-			);
-			path = Screenshots;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,10 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1B9F94E1EB1B34000D8A9FF /* LaunchScreen.storyboard in Resources */,
-				F1DC08701EDBE7BF00E3F244 /* PrinterVC-3.png in Resources */,
-				F1DC086E1EDBE7BF00E3F244 /* PrinterVC-1.png in Resources */,
-				F1DC08711EDBE7BF00E3F244 /* PrinterVC-4.png in Resources */,
-				F1DC086F1EDBE7BF00E3F244 /* PrinterVC-2.png in Resources */,
+				F1DC08931EDC438800E3F244 /* Printer.storyboard in Resources */,
 				F1B9F94B1EB1B34000D8A9FF /* Assets.xcassets in Resources */,
 				F1B9F9491EB1B34000D8A9FF /* Main.storyboard in Resources */,
 			);

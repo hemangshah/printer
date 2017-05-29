@@ -89,7 +89,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func actionOpenPrinterView(_ sender: Any) {
-        let navcontroller = UINavigationController.init(rootViewController: (self.storyboard?.instantiateViewController(withIdentifier: "PrinterViewControllerID"))!)
+        let printerStoryboard = UIStoryboard.init(name: "Printer", bundle: Bundle.main)
+        let navcontroller = UINavigationController.init(rootViewController: (printerStoryboard.instantiateViewController(withIdentifier: "PrinterViewControllerID")))
         self.present(navcontroller, animated: true, completion: nil)
     }
 }
