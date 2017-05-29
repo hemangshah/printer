@@ -23,6 +23,7 @@
 4.	[Tracing](https://github.com/hemangshah/printer/#tracing)
 5.	[All Logs for Print](https://github.com/hemangshah/printer/#all-logs-for-print)
 6.	[All Logs for Use](https://github.com/hemangshah/printer/#all-logs-for-use)
+7.  [PrinterViewController](https://github.com/hemangshah/printer#printerviewcontroller)
 7.	[Save Logs to a file](https://github.com/hemangshah/printer/#save-logs-to-a-file)
 8.	[Flush](https://github.com/hemangshah/printer/#flush)
 9.	[Customize Printer](https://github.com/hemangshah/printer/#customize-printer)
