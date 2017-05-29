@@ -19,19 +19,25 @@
 ## Features
 
 1.	[Different ways to print Logs](#different-ways-to-print-logs)
-3.	[Plain Logs](https://github.com/hemangshah/printer/#plainlog)
-4.	[Tracing](https://github.com/hemangshah/printer/#tracing)
-5.	[All Logs for Print](https://github.com/hemangshah/printer/#all-logs-for-print)
-6.	[All Logs for Use](https://github.com/hemangshah/printer/#all-logs-for-use)
-7.  [PrinterViewController](https://github.com/hemangshah/printer#printerviewcontroller)
-7.	[Save Logs to a file](https://github.com/hemangshah/printer/#save-logs-to-a-file)
-8.	[Flush](https://github.com/hemangshah/printer/#flush)
-9.	[Customize Printer](https://github.com/hemangshah/printer/#customize-printer)
-10.	[Filter Logs](https://github.com/hemangshah/printer/#filter-logs-filter-by-log-types)
-11.	[Disable Logs](https://github.com/hemangshah/printer/#disable-logs)
-12.	[Completion Block](https://github.com/hemangshah/printer/#completion-block)
-14. [Background or Foreground Logs](https://github.com/hemangshah/printer/#background-or-foreground-logs)
-13.	[Shipping to AppStore?](https://github.com/hemangshah/printer/#ready-to-ship-your-app)
+3.	[Plain Logs](#plainlog)
+4.	[Tracing](#tracing)
+5.	[All Logs for Print](#all-logs-for-print)
+6.	[All Logs for Use](#all-logs-for-use)
+7.  [PrinterViewController](#printerviewcontroller)
+7.	[Save Logs to a file](#save-logs-to-a-file)
+8.	[Flush](#flush)
+9.	[Customize Printer](#customize-printer)
+10.	[Filter Logs](#filter-logs-filter-by-log-types)
+11.	[Disable Logs](#disable-logs)
+12.	[Completion Block](#completion-block)
+14. [Background or Foreground Logs](#background-or-foreground-logs)
+13.	[Shipping to AppStore?](#ready-to-ship-your-app)
+
+## Extras
+
+1. [ToDos](#todos)
+2. [Credits](#credits)
+3. [License](#license)
 
 ## Let's see what you can do with Printer.
 
@@ -479,7 +485,7 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
 
 **You can shoot me an [email](http://www.google.com/recaptcha/mailhide/d?k=01IzGihUsyfigse2G9z80rBw==&c=vU7vyAaau8BctOAIJFwHVbKfgtIqQ4QLJaL73yhnB3k=) to contact.**
    
-## Licence
+## License
 
 The MIT License (MIT)
 
