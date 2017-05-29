@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F14074AA1EDC4DA6008D2CBB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B9F9471EB1B34000D8A9FF /* Main.storyboard */; };
+		F14074AB1EDC4DAC008D2CBB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B9F94C1EB1B34000D8A9FF /* LaunchScreen.storyboard */; };
 		F1B9F9441EB1B34000D8A9FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B9F9431EB1B34000D8A9FF /* AppDelegate.swift */; };
 		F1B9F9461EB1B34000D8A9FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B9F9451EB1B34000D8A9FF /* ViewController.swift */; };
-		F1B9F9491EB1B34000D8A9FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B9F9471EB1B34000D8A9FF /* Main.storyboard */; };
 		F1B9F94B1EB1B34000D8A9FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1B9F94A1EB1B34000D8A9FF /* Assets.xcassets */; };
-		F1B9F94E1EB1B34000D8A9FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1B9F94C1EB1B34000D8A9FF /* LaunchScreen.storyboard */; };
 		F1DC08661EDBDD3D00E3F244 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08631EDBDD3D00E3F244 /* Printer.swift */; };
 		F1DC08671EDBDD3D00E3F244 /* PrinterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08641EDBDD3D00E3F244 /* PrinterTableViewCell.swift */; };
 		F1DC08681EDBDD3D00E3F244 /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DC08651EDBDD3D00E3F244 /* PrinterViewController.swift */; };
@@ -143,10 +143,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1B9F94E1EB1B34000D8A9FF /* LaunchScreen.storyboard in Resources */,
+				F14074AB1EDC4DAC008D2CBB /* LaunchScreen.storyboard in Resources */,
+				F14074AA1EDC4DA6008D2CBB /* Main.storyboard in Resources */,
 				F1DC08931EDC438800E3F244 /* Printer.storyboard in Resources */,
 				F1B9F94B1EB1B34000D8A9FF /* Assets.xcassets in Resources */,
-				F1B9F9491EB1B34000D8A9FF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
