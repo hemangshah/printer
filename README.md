@@ -225,24 +225,26 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 <table>
 <tr>
-<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/Printer/Screenshots/PrinterVC-2.png" alt = "All Logs"></td>
-<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/Printer/Screenshots/PrinterVC-3.png" alt = "No Logs"></td>
-<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/Printer/Screenshots/PrinterVC-4.png" alt = "Alert Logs"></td>
+<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/Screenshots/PrinterVC-2.png" alt = "All Logs"></td>
+<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/Screenshots/PrinterVC-3.png" alt = "No Logs"></td>
+<td><img src = "https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/Screenshots/PrinterVC-4.png" alt = "Alert Logs"></td>
 </tr>
 </table>
 
 <b>How to use?</b>
 
+If you prefers manually installation.
+
 > You can always use Printer without PrinterViewController. But it's suggestible to add this class for better logging.
 
-1. Add `PrinterTableViewCell.swift`, `PrinterViewController.swift` and `Printer.swift` in your Project. You can simply add "Printer" folder as well.
-2. Add `PrinterViewController` view from `Main.storyboard` from the given example. Everything is already set, no setup requires.
-3. Everything is added, so now you only have to write below code to present `PrinterViewController` from your app.
+1. Add `PrinterTableViewCell.swift`, `PrinterViewController.swift`, `Printer.storyboard` and `Printer.swift` in your Project. You can simply add **Printer** folder as well.
+2. Everything is added, so now you only have to write below code to present `PrinterViewController` from your app.
 
 > Always add it to someplace (example: navigation bar, side menu, tabbar, app settings) from where you can always present it while development.
 
-    let navcontroller = UINavigationController.init(rootViewController: (self.storyboard?.instantiateViewController(withIdentifier: "PrinterViewControllerID"))!)
-    self.present(navcontroller, animated: true, completion: nil)
+        let printerStoryboard = UIStoryboard.init(name: "Printer", bundle: Bundle.main)
+        let navcontroller = UINavigationController.init(rootViewController: (printerStoryboard.instantiateViewController(withIdentifier: "PrinterViewControllerID")))
+        self.present(navcontroller, animated: true, completion: nil)
 
 ## Save Logs to a File
 
