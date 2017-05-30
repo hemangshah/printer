@@ -500,7 +500,7 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
 
 <b> Without these people, repos and posts I couldn't make a better Printer.</b>
 
-> In order I have of help received.
+> In order of help received.
 
 1. StackOverflow's posts.
 2. [Robert M Ryan](https://github.com/robertmryan) for providing tips on improving the Printer class.
