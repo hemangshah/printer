@@ -45,8 +45,8 @@
 
 1. [ToDos](#todos)
 2. [Credits](#credits)
-3. [License](#license)
-4. [Thanks](#thanks)
+3. [Thanks](#thank-you)
+4. [License](#license)
 
 ## Let's see what you can do with Printer.
 
