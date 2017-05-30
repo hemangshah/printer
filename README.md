@@ -500,11 +500,11 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
 
 <b> Without these people, repos and posts I couldn't make a better Printer.</b>
 
-> In order I have received any help.
+> In order I have of help received.
 
 1. StackOverflow's posts.
-2. https://github.com/robertmryan for providing tips on improving Printer class.
-3. https://github.com/thellimist/EZPods for a step by step guide to add Printer on CocoaPods for easy integration.
+2. [Robert M Ryan](https://github.com/robertmryan) for providing tips on improving the Printer class.
+3. [thellimist](https://github.com/thellimist/EZPods) for a step by step guide to add the Printer on CocoaPods.
 
 ## License
 
