@@ -16,6 +16,14 @@
 
 > With each of the type, it will print a particular emoji and titles which will help you to easily identify what's exactly the log is. Moreover, it will looks cool too.
 
+## Installation
+
+1. Manually - Add Printer folder to your Project. All set. If you don't want [PrinterViewController](#printerviewcontroller) only add `Printer.swift`.
+
+2. CocoaPods [Coming soon].
+
+3. Carthage [Coming soon]. Reference: https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2
+
 ## Features
 
 1.	[Different ways to print Logs](#different-ways-to-print-logs)
@@ -38,6 +46,7 @@
 1. [ToDos](#todos)
 2. [Credits](#credits)
 3. [License](#license)
+4. [Thanks](#thanks)
 
 ## Let's see what you can do with Printer.
 
@@ -487,6 +496,16 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
 
 **You can shoot me an [email](http://www.google.com/recaptcha/mailhide/d?k=01IzGihUsyfigse2G9z80rBw==&c=vU7vyAaau8BctOAIJFwHVbKfgtIqQ4QLJaL73yhnB3k=) to contact.**
    
+## Thank You!!
+
+<b> Without these people, repos and posts I couldn't make a better Printer.</b>
+
+> In order I have received any help.
+
+1. StackOverflow's posts.
+2. https://github.com/robertmryan for providing tips on improving Printer class.
+3. https://github.com/thellimist/EZPods for a step by step guide to add Printer on CocoaPods for easy integration.
+
 ## License
 
 The MIT License (MIT)
