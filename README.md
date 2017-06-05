@@ -511,7 +511,7 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
 1. StackOverflow's posts.
 2. [Robert M Ryan](https://github.com/robertmryan) for providing tips on improving the Printer class.
 3. [thellimist](https://github.com/thellimist/EZPods) for a step by step guide to add the Printer on CocoaPods.
-4. [Kiran Jasvanee](https://github.com/KiranJasvanee) for provide idea about access specifiers to make code access when using CocoaPods.
+4. [Kiran Jasvanee](https://github.com/KiranJasvanee) for providing idea about the access specifiers.
 
 ## License
 
