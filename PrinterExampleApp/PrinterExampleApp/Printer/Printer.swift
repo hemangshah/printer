@@ -8,11 +8,11 @@
 
 import Foundation
 
-let notificationPrinterLogAdded = "notificationPrinterLogAdded"
+public let notificationPrinterLogAdded = "notificationPrinterLogAdded"
 
 //MARK: Enumurations
 ///Different log cases available for print. You can use it with LogType.success or .success
-enum LogType {
+public enum LogType {
     case success
     case error
     case warning
@@ -22,7 +22,7 @@ enum LogType {
 }
 
 //MARK: TraceInfo
-final class TraceInfo {
+public final class TraceInfo {
     
     var fileName:String
     var functionName:String
@@ -36,7 +36,7 @@ final class TraceInfo {
 }
 
 //MARK: PLog
-final class PLog {
+public final class PLog {
     
     var id:String
     var details:String
@@ -59,7 +59,7 @@ final class PLog {
 }
 
 //MARK: Printer
-final class Printer {
+public final class Printer {
 
     //You can always change the Emojis here but it's not suggestible.
     //So if you want to change Emojis or everything please use the respective properties.
@@ -92,7 +92,7 @@ final class Printer {
     
     //MARK: Singleton
     ///Always use a Singleton to use the Printer globally with the defined settings/properties.
-    static let log = Printer()
+    public static let log = Printer()
     
     //Please always use the single ton method to use this class.
     fileprivate init() {}
@@ -476,10 +476,9 @@ final class Printer {
      - Returns: Void
      
      */
-    func show(id:String, details:String, logType lType:LogType, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func show(id:String, details:String, logType lType:LogType, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         printerlog(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
-    
     
     fileprivate func printerlog(id:String, details:String, logType lType:LogType, fileName:String, lineNumber:Int, functionName: String) -> Void {
         if !disable {
