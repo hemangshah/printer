@@ -18,11 +18,17 @@
 
 ## Installation
 
-1. Manually - Add Printer folder to your Project. All set. If you don't want [PrinterViewController](#printerviewcontroller) only add `Printer.swift`.
+1.Manually - Add Printer folder to your Project. All set. If you don't want [PrinterViewController](#printerviewcontroller) only add `Printer.swift`.
 
-2. CocoaPods [Coming soon].
+2.CocoaPods:
 
-3. Carthage [Coming soon]. Reference: https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2
+    source 'https://github.com/CocoaPods/Specs.git'
+    target 'Sample' do
+    use_frameworks!
+    pod 'printer-logger', '~>1.0'
+    end
+
+3.Carthage [Coming soon]. [Reference](https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2)
 
 ## Features
 
@@ -505,6 +511,7 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
 1. StackOverflow's posts.
 2. [Robert M Ryan](https://github.com/robertmryan) for providing tips on improving the Printer class.
 3. [thellimist](https://github.com/thellimist/EZPods) for a step by step guide to add the Printer on CocoaPods.
+4. [Kiran Jasvanee](https://github.com/KiranJasvanee) for provide idea about access specifiers to make code access when using CocoaPods.
 
 ## License
 
