@@ -24,9 +24,9 @@ public enum LogType {
 //MARK: TraceInfo
 public final class TraceInfo {
     
-    var fileName:String
-    var functionName:String
-    var lineNumber:Int
+    public var fileName:String
+    public var functionName:String
+    public var lineNumber:Int
     
     fileprivate init(file fileName:String, function functionName:String, line lineNumber:Int) {
         self.fileName = fileName
@@ -38,14 +38,14 @@ public final class TraceInfo {
 //MARK: PLog
 public final class PLog {
     
-    var id:String
-    var details:String
-    var logType:LogType
-    var time:String
-    var traceInfo:TraceInfo
+    public var id:String
+    public var details:String
+    public var logType:LogType
+    public var time:String
+    public var traceInfo:TraceInfo
     
-    var printableLog:String //This will store the final log.
-    var printableTrace:String //This will store the final trace log.
+    public var printableLog:String //This will store the final log.
+    public var printableTrace:String //This will store the final trace log.
     
     fileprivate init(id:String, details:String, time:String, logType lType:LogType, file fileName:String, function functionName:String, line lineNumber:Int) {
         self.id = id
@@ -100,26 +100,26 @@ public final class Printer {
     //MARK: Properties
     ///Don't like emojis and formation? Set this to 'true' and it will print the plain text. DEFAULT: false
     ///You can also use show with log type: .plain to print a plain log. This is helpful when you only want to print few plain logs.
-    var plainLog:Bool = false
+    public var plainLog:Bool = false
     ///To add a line after each logs. DEFAULT: false
-    var addLineAfterEachPrint:Bool = false
+    public var addLineAfterEachPrint:Bool = false
     ///Capitalize the titles. DEFAULT: false
-    var capitalizeTitles:Bool = false
+    public var capitalizeTitles:Bool = false
     ///Capitalize the Details. DEFAULT: false
-    var capitalizeDetails:Bool = false
+    public var capitalizeDetails:Bool = false
     ///To print logs only when app is in development. DEFAULT: true
-    var printOnlyIfDebugMode:Bool = true
+    public var printOnlyIfDebugMode:Bool = true
     ///To hide time from the logs. DEFAULT: false
-    var hideLogsTime:Bool = false
+    public var hideLogsTime:Bool = false
     ///To disable all the logs. You can set this anywhere and it should not print logs from where it sets. DEFAULT: false
-    var disable:Bool = false
+    public var disable:Bool = false
     ///To keep track of all the logs. To print all the logs later. This will be ignore if 'disable' is set to 'true'.
-    var keepTracking:Bool = false
+    public var keepTracking:Bool = false
     ///To keep tracing with all the logs. No need to call trace() separately if this is set to 'true'. DEFAULT: true
-    var keepAutoTracing:Bool = true
+    public var keepAutoTracing:Bool = true
     ///To get a completion block for the Printer.
     ///This will call even if any filters applied so you will always notified about the log events.
-    var onLogCompletion:((_ printLog:String,_ fileName:String,_ functionName:String,_ lineNumber:Int) -> ())? = nil
+    public var onLogCompletion:((_ printLog:String,_ fileName:String,_ functionName:String,_ lineNumber:Int) -> ())? = nil
     
     //This is to store skipped files.
     fileprivate var filterFiles:Array = Array<String>()
@@ -131,7 +131,7 @@ public final class Printer {
     //MARK: Helpers to set custom date format for each logs
     ///By default, we will use the below date format to show with each logs. You can always customize it with it's property.
     fileprivate var _logDateFormat:String = "MM-dd-yyyy HH:mm:ss"
-    var logDateFormat:String {
+    public var logDateFormat:String {
         get {
             return _logDateFormat
         }
@@ -152,14 +152,14 @@ public final class Printer {
     
     //MARK: Filter for Logs. [Files]
     ///This will add current file to Skip list. And you will not able to print a log from that file until you call `addFile()`.
-    func skipFile(filename:String = #file) -> Void {
+    public func skipFile(filename:String = #file) -> Void {
         if !checkIfFileFilterExist(file: filename) {
             filterFiles.append(filename)
         }
     }
     
     ///This will remove current file from Skip list. And you will able to print a log from the current file.
-    func addFile(filename:String = #file) -> Void {
+    public func addFile(filename:String = #file) -> Void {
         if checkIfFileFilterExist(file: filename) {
             if let index = filterFiles.index(of: filename) {
                 filterFiles.remove(at: index)
@@ -184,7 +184,7 @@ public final class Printer {
     fileprivate var _filterLogs:Array = Array<LogType>()
     ///To logs only specific type. Please return an Array<LogType>.
     ///Printer.log.filterLogs = [.success, .alert]
-    var filterLogs:Array<LogType> {
+    public var filterLogs:Array<LogType> {
         get {
             return _filterLogs
         }
@@ -209,7 +209,7 @@ public final class Printer {
     
     //MARK: Handling of Log Files
     ///This is to save the log file. Need to pass Array having PLog objects.
-    func saveLogsToFile(logs arrayLog:Array<PLog>) -> Void {
+    public func saveLogsToFile(logs arrayLog:Array<PLog>) -> Void {
         
         if arrayLog.isEmpty {
             privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
@@ -260,7 +260,7 @@ public final class Printer {
     }
     
     ///This is to delete all the logs created with Printer.
-    func deleteLogFiles() -> Void {
+    public func deleteLogFiles() -> Void {
         if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
             let logsPath = documentDirectories.appending("/Printer")
             do {
@@ -273,13 +273,13 @@ public final class Printer {
     
     //MARK: Flush All
     ///To free up things which is created with Printer. Caution: All logs and log files will be deleted.
-    func flush() -> Void {
+    public func flush() -> Void {
         arrayLogs.removeAll()
         deleteLogFiles()
     }
     
     //MARK: Handling Background/Foreground Log Events
-    func addAppEventsHandler() -> Void {
+    public func addAppEventsHandler() -> Void {
         
         removeAppEventsHandler()
         
@@ -288,7 +288,7 @@ public final class Printer {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
     }
     
-    func removeAppEventsHandler() -> Void {
+    public func removeAppEventsHandler() -> Void {
         NotificationCenter.default.removeObserver(self, name: .UIApplicationDidEnterBackground, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIApplicationDidBecomeActive, object: nil)
@@ -345,7 +345,7 @@ public final class Printer {
     }
     
     ///To get all the PLog objects.
-    func getAllLogs() -> Array<PLog> {
+    public func getAllLogs() -> Array<PLog> {
         guard arrayLogs.count > 0 else {
             privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return []
@@ -355,7 +355,7 @@ public final class Printer {
     }
     
     ///To get all the PLog objects with filter.
-    func getAllLogs(filterLogTypes:Array<LogType>) -> Array<PLog> {
+    public func getAllLogs(filterLogTypes:Array<LogType>) -> Array<PLog> {
         guard arrayLogs.count > 0 else {
             privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return []
@@ -378,7 +378,7 @@ public final class Printer {
     }
     
     ///To print all the tracked logs. 'keepTracking' should be set to 'true' before logging.
-    func all(showTrace:Bool) -> Void {
+    public func all(showTrace:Bool) -> Void {
         guard arrayLogs.count > 0 else {
             privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return
@@ -399,7 +399,7 @@ public final class Printer {
     }
     
     ///To print the tracked logs based on the filter values. 'keepTracking' should be set to 'true' before logging.
-    func all(filterLogTypes:Array<LogType>, showTrace:Bool) -> Void {
+    public func all(filterLogTypes:Array<LogType>, showTrace:Bool) -> Void {
         guard arrayLogs.count > 0 else {
             privateprinter(message: "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType: .information)
             return
@@ -531,7 +531,7 @@ public final class Printer {
     
     //MARK: Trace
     ///To print current class name, function name and line number from where trace() called.
-    func trace(fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func trace(fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         if !disable {
             #if DEBUG
                 continueTrace(file: fileName, line: lineNumber, function: functionName)
@@ -555,7 +555,7 @@ public final class Printer {
     
     //MARK: Future Logs
     ///To show a specific log after a certain time [seconds].
-    func showInFuture(id:String, details:String, logType lType:LogType, afterSeconds seconds:Double, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func showInFuture(id:String, details:String, logType lType:LogType, afterSeconds seconds:Double, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
             self.printerlog(id: id, details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
         }
@@ -570,7 +570,7 @@ public final class Printer {
     ///- Parameter details: Any string. The description of your logs.
     ///- Parameter logType: The type of log you want to print. i.e. LogType.success or .success
     ///- Returns: Void
-    func show(details:String, logType lType:LogType, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func show(details:String, logType lType:LogType, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: "", details: details, logType: lType, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -582,7 +582,7 @@ public final class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func success(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func success(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: "", details: details, logType: .success, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -593,7 +593,7 @@ public final class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func error(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func error(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: "", details: details, logType: .error, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -604,7 +604,7 @@ public final class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func warning(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func warning(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: "", details: details, logType: .warning, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -615,7 +615,7 @@ public final class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func information(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func information(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: "", details: details, logType: .information, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -626,7 +626,7 @@ public final class Printer {
     ///````
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func alert(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func alert(details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: "", details: details, logType: .alert, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -639,7 +639,7 @@ public final class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func success(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func success(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: id, details: details, logType: .success, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -651,7 +651,7 @@ public final class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func error(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func error(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: id, details: details, logType: .error, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -663,7 +663,7 @@ public final class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func information(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func information(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: id, details: details, logType: .information, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -675,7 +675,7 @@ public final class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func warning(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func warning(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: id, details: details, logType: .warning, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
@@ -687,13 +687,13 @@ public final class Printer {
     ///- Parameter id: Any string. A number or some text.
     ///- Parameter details: Any string. The description of your logs.
     ///- Returns: Void
-    func alert(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
+    public func alert(id:String, details:String, fileName:String = #file, lineNumber:Int = #line, functionName:String = #function) -> Void {
         self.printerlog(id: id, details: details, logType: .alert, fileName: fileName, lineNumber: lineNumber, functionName: functionName)
     }
     
     //MARK: Helper to hide Emojis from the log prints.
     ///You can call this function in advance to print logs without the emojis. This is different than the 'plainLog'.
-    func hideEmojis() -> Void {
+    public func hideEmojis() -> Void {
         successEmojiSymbol = ""
         errorEmojiSymbol = ""
         warningEmojiSymbol = ""
@@ -705,7 +705,7 @@ public final class Printer {
     
     //MARK: Helper to clear Titles from the log prints.
     ///You can call this function in advance to print logs without the titles. This is different than the 'plainLog'.
-    func hideTitles() -> Void {
+    public func hideTitles() -> Void {
         successLogTitle = ""
         errorLogTitle = ""
         warningLogTitle = ""
@@ -716,7 +716,7 @@ public final class Printer {
     //MARK: Helpers to set custom titles for each cases
     fileprivate var _successLogTitle:String = Titles.success.rawValue
     ///You can customize the titles for each logs, this will be helpful when you want to localize the logs as well.
-    var successLogTitle:String {
+    public var successLogTitle:String {
         get {
             return _successLogTitle
         }
@@ -729,7 +729,7 @@ public final class Printer {
     
     fileprivate var _errorLogTitle:String = Titles.error.rawValue
     ///You can customize the titles for each logs, this will be helpful when you want to localize the logs as well.
-    var errorLogTitle:String {
+    public var errorLogTitle:String {
         get {
             return _errorLogTitle
         }
@@ -742,7 +742,7 @@ public final class Printer {
     
     fileprivate var _warningLogTitle:String = Titles.warning.rawValue
     ///You can customize the titles for each logs, this will be helpful when you want to localize the logs as well.
-    var warningLogTitle:String {
+    public var warningLogTitle:String {
         get {
             return _warningLogTitle
         }
@@ -755,7 +755,7 @@ public final class Printer {
     
     fileprivate var _infoLogTitle:String = Titles.information.rawValue
     ///You can customize the titles for each logs, this will be helpful when you want to localize the logs as well.
-    var infoLogTitle:String {
+    public var infoLogTitle:String {
         get {
             return _infoLogTitle
         }
@@ -768,7 +768,7 @@ public final class Printer {
     
     fileprivate var _alertLogTitle:String = Titles.alert.rawValue
     ///You can customize the titles for each logs, this will be helpful when you want to localize the logs as well.
-    var alertLogTitle:String {
+    public var alertLogTitle:String {
         get {
             return _alertLogTitle
         }
@@ -782,7 +782,7 @@ public final class Printer {
     //MARK: Helpers to set custom symbols in place of arrow and star
     fileprivate var _arrowSymbol:String = Symbols.arrow.rawValue
     ///You can customize the Symbols used for each logs.
-    var arrowSymbol:String {
+    public var arrowSymbol:String {
         get {
             return _arrowSymbol
         }
@@ -795,7 +795,7 @@ public final class Printer {
     
     fileprivate var _starSymbol:String = Symbols.star.rawValue
     ///You can customize the Symbols used for each logs.
-    var starSymbol:String {
+    public var starSymbol:String {
         get {
             return _starSymbol
         }
@@ -809,7 +809,7 @@ public final class Printer {
     //MARK: Helpers to set custom emojis for each cases
     fileprivate var _successEmojiSymbol:String = Emojis.success.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var successEmojiSymbol:String {
+    public var successEmojiSymbol:String {
         get {
             return _successEmojiSymbol
         }
@@ -822,7 +822,7 @@ public final class Printer {
     
     fileprivate var _errorEmojiSymbol:String = Emojis.error.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var errorEmojiSymbol:String {
+    public var errorEmojiSymbol:String {
         get {
             return _errorEmojiSymbol
         }
@@ -835,7 +835,7 @@ public final class Printer {
     
     fileprivate var _warningEmojiSymbol:String = Emojis.warning.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var warningEmojiSymbol:String {
+    public var warningEmojiSymbol:String {
         get {
             return _warningEmojiSymbol
         }
@@ -848,7 +848,7 @@ public final class Printer {
     
     fileprivate var _infoEmojiSymbol:String = Emojis.information.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var infoEmojiSymbol:String {
+    public var infoEmojiSymbol:String {
         get {
             return _infoEmojiSymbol
         }
@@ -861,7 +861,7 @@ public final class Printer {
     
     fileprivate var _alertEmojiSymbol:String = Emojis.alert.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var alertEmojiSymbol:String {
+    public var alertEmojiSymbol:String {
         get {
             return _alertEmojiSymbol
         }
@@ -874,7 +874,7 @@ public final class Printer {
     
     fileprivate var _watchEmojiSymbol:String = Emojis.watch.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var watchEmojiSymbol:String {
+    public var watchEmojiSymbol:String {
         get {
             return _watchEmojiSymbol
         }
@@ -887,7 +887,7 @@ public final class Printer {
     
     fileprivate var _idEmojiSymbol:String = Emojis.id.rawValue
     ///You can customize the emojis for each logs, this will be helpful when you want to use a different emoji for a particular log.
-    var idEmojiSymbol:String {
+    public var idEmojiSymbol:String {
         get {
             return _idEmojiSymbol
         }

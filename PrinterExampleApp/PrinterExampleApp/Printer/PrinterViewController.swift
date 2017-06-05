@@ -8,7 +8,7 @@
 
 import UIKit
 
-private extension String {
+fileprivate extension String {
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
@@ -16,7 +16,7 @@ private extension String {
     }
 }
 
-private extension NSAttributedString {
+fileprivate extension NSAttributedString {
     func height(withConstrainedWidth width: CGFloat) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, context: nil)
@@ -30,18 +30,18 @@ private extension NSAttributedString {
     }
 }
 
-private let fixedCellHeight:CGFloat = 90
+fileprivate let fixedCellHeight:CGFloat = 90
 
-private let fontLogDetails = UIFont.init(name: "Verdana", size: 15)
+fileprivate let fontLogDetails = UIFont.init(name: "Verdana", size: 15)
 
-private let printerTableViewCellIdentifier = "PrinterTableViewCellIdentifier"
+fileprivate let printerTableViewCellIdentifier = "PrinterTableViewCellIdentifier"
 
-class PrinterViewController: UITableViewController {
+public class PrinterViewController: UITableViewController {
     
     private var arrayLogs = Array<PLog>()
     
     //MARK: View Life Cycle
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
@@ -69,7 +69,7 @@ class PrinterViewController: UITableViewController {
     }
     
     //MARK: Segnement Target
-    @objc private func filterApply(segment:UISegmentedControl) -> Void {
+    @objc fileprivate func filterApply(segment:UISegmentedControl) -> Void {
         switch segment.selectedSegmentIndex {
         case 1:
             fetchLogs(filter: [.success])
@@ -89,27 +89,27 @@ class PrinterViewController: UITableViewController {
     }
     
     //MARK: Dismiss View Controller
-    @objc private func dismissViewControlle() -> Void {
+    @objc fileprivate func dismissViewControlle() -> Void {
         self.navigationController?.dismiss(animated: false, completion: nil)
     }
     
     //MARK: Notification Handler
-    private func addNotificationHandler() -> Void {
+    fileprivate func addNotificationHandler() -> Void {
         removeNotificationHandler()
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateViewForLogs), name: NSNotification.Name(rawValue: notificationPrinterLogAdded), object: nil)
     }
     
-    private func removeNotificationHandler() -> Void {
+    fileprivate func removeNotificationHandler() -> Void {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: notificationPrinterLogAdded), object: nil)
     }
 
     //MARK: Fetch Logs
-    @objc private func updateViewForLogs() -> Void {
+    @objc fileprivate func updateViewForLogs() -> Void {
         //If tracking is enabled then only we can fetch the current logs.
         fetchLogs(filter: nil)
     }
     
-    private func fetchLogs(filter:Array<LogType>?) -> Void {
+    fileprivate func fetchLogs(filter:Array<LogType>?) -> Void {
         arrayLogs.removeAll()
         if let filterArray = filter {
             arrayLogs.append(contentsOf: Printer.log.getAllLogs(filterLogTypes: filterArray))
@@ -120,7 +120,7 @@ class PrinterViewController: UITableViewController {
     }
     
     //MARK: UITable Helpers
-    private func calculateHeightAtIndexPath(indexPath:IndexPath) -> CGFloat {
+    fileprivate func calculateHeightAtIndexPath(indexPath:IndexPath) -> CGFloat {
         let margins:CGFloat = 5.0
         let heightOfTitle:CGFloat = 30.0
         let heightOfTrace:CGFloat = 30.0
@@ -135,7 +135,7 @@ class PrinterViewController: UITableViewController {
     }
     
     //MARK: UITableView Datasource
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard arrayLogs.count > 0 else {
             return "Printer [No Logs]"
         }
@@ -147,15 +147,15 @@ class PrinterViewController: UITableViewController {
         return "Printer [\(arrayLogs.count) Logs]"
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayLogs.count
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return calculateHeightAtIndexPath(indexPath: indexPath)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> PrinterTableViewCell {
+    override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> PrinterTableViewCell {
         let cell:PrinterTableViewCell = (tableView.dequeueReusableCell(withIdentifier: printerTableViewCellIdentifier) as! PrinterTableViewCell)
         let log:PLog = arrayLogs[indexPath.row]
         cell.lblTitle.attributedText = getLogTitle(log: log)
@@ -167,7 +167,7 @@ class PrinterViewController: UITableViewController {
     }
     
     //MARK: Data Helpers
-    private func getLogTitle(log:PLog) -> NSMutableAttributedString {
+    fileprivate func getLogTitle(log:PLog) -> NSMutableAttributedString {
         let title:NSMutableAttributedString = createLogTitle(log: log)
         if log.logType != .plain {
             if !log.id.isEmpty {
@@ -183,7 +183,7 @@ class PrinterViewController: UITableViewController {
         return title
     }
     
-    private func getTraceInfo(log:PLog) -> String {
+    fileprivate func getTraceInfo(log:PLog) -> String {
         let traceInfo:TraceInfo = log.traceInfo
         let file = traceInfo.fileName
         let function = traceInfo.functionName
@@ -191,7 +191,7 @@ class PrinterViewController: UITableViewController {
         return "\(file) \(Printer.log.arrowSymbol) \(function) #\(line)"
     }
     
-    private func createLogTitle(log:PLog) -> NSMutableAttributedString {
+    fileprivate func createLogTitle(log:PLog) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()
         switch log.logType {
             case .success:
@@ -220,14 +220,14 @@ class PrinterViewController: UITableViewController {
         }
     }
     
-    private func getBoldAttributedString(value:String) -> NSAttributedString {
+    fileprivate func getBoldAttributedString(value:String) -> NSAttributedString {
         let font = UIFont.init(name: "Verdana-Bold", size: 12)
         let attribute = [NSFontAttributeName:font]
         let attributedString = NSAttributedString(string: value, attributes: attribute as Any as? [String : Any])
         return attributedString
     }
     
-    private func getLightAttributedString(value:String) -> NSAttributedString {
+    fileprivate func getLightAttributedString(value:String) -> NSAttributedString {
         let font = UIFont.init(name: "Verdana", size: 10)
         let attribute = [NSFontAttributeName:font]
         let attributedString = NSAttributedString(string: value, attributes: attribute as Any as? [String : Any])
