@@ -490,8 +490,8 @@ Will return current log, file name, function name, and line number. You can acce
 - [x] Maintain a log file separately.
 - [x] Improve README file with following: Features List for direct link to a particular point.
 - [x] Log application events. Example: Background/Foreground events.
-- [x] Open a ViewController to show up all the logs. Possible functions: Filter, Search, Print(!), and Share logs.
-- [ ] Log Stats. Example: Total Logs. Logs from Files. Filters Applied.
+- [x] Open a ViewController to show up all the logs. 
+- [ ] Possible functions with ViewController: Filter, Search, Print(!), and Share logs.
 
 <b>Have an idea for improvements of this class?
 Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
@@ -512,6 +512,7 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
 2. [Robert M Ryan](https://github.com/robertmryan) for providing tips on improving the Printer class.
 3. [thellimist](https://github.com/thellimist/EZPods) for a step by step guide to add the Printer on CocoaPods.
 4. [Kiran Jasvanee](https://github.com/KiranJasvanee) for providing idea about the access specifiers.
+5. [... and you all lovely people, who encouraged me to keep developing on Printer](https://github.com/hemangshah/printer/stargazers)
 
 ## License
 
