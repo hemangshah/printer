@@ -5,6 +5,7 @@
 ![Platform](https://img.shields.io/badge/Platforms-iOS-red.svg)
 ![Swift 3.x](https://img.shields.io/badge/Swift-3.x-blue.svg) 
 ![MadeWithLove](https://img.shields.io/badge/Made%20with%20%E2%9D%A4-India-green.svg)
+[![Blog](https://img.shields.io/badge/Blog-iKiwiTech.com-blue.svg)](http://www.ikiwitech.com)
 
 ## You can print following types of logs with Printer.
 
