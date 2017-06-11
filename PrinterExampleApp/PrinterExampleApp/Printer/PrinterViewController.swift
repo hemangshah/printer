@@ -90,7 +90,7 @@ public class PrinterViewController: UITableViewController {
     
     //MARK: Dismiss View Controller
     @objc fileprivate func dismissViewControlle() -> Void {
-        self.navigationController?.dismiss(animated: false, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     //MARK: Notification Handler
@@ -164,6 +164,23 @@ public class PrinterViewController: UITableViewController {
             cell.lblTraceInfo.attributedText = getLightAttributedString(value:getTraceInfo(log: log))
         }
         return cell
+    }
+    
+    //MARK: Copy Options
+    override public func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override public func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return action == #selector(copy(_:))
+    }
+    
+    override public func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        if action == #selector(copy(_:)) {
+            let log:PLog = arrayLogs[indexPath.row]
+            let pasteboard = UIPasteboard.general
+            pasteboard.string = "\(log.printableLog)\n\(log.printableTrace)"
+        }
     }
     
     //MARK: Data Helpers
