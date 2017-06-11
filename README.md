@@ -248,13 +248,14 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 [**Upcoming**]
 
-- Send a Log file over email.
-- Search Logs.
-- Set Properties within the log file. Example: Plain Log [Switch On/Off] *Like that!*
-- Clear logs.
-- Air Print.
-- See all the log files.
-- Log files management.
+- [ ] Send a Log file over email.
+- [ ] Search Logs.
+- [ ] Set Properties within the log file. Example: Plain Log [Switch On/Off] *Like that!*
+- [ ] Clear logs.
+- [ ] Air Print.
+- [ ] See all the log files.
+- [ ] Log files management.
+- [ ] Export Text Log files to a PDF.
 
 
 <table>
@@ -510,7 +511,7 @@ Will return current log, file name, function name, and line number. You can acce
 - [x] Improve README file with following: Features List for direct link to a particular point.
 - [x] Log application events. Example: Background/Foreground events.
 - [x] Open a ViewController to show up all the logs. 
-- [ ] Upcoming features of PrinterViewController.
+- [ ] Upcoming features of [PrinterViewController](#printerviewcontroller).
 
 <b>Have an idea for improvements of this class?
 Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
