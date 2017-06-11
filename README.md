@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/hemangshah/printer.svg?branch=master)](https://travis-ci.org/hemangshah/printer)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)
 ![Platform](https://img.shields.io/badge/Platforms-iOS-red.svg)
+![Swift 4.x](https://img.shields.io/badge/Swift-4.x-blue.svg)
 ![Swift 3.x](https://img.shields.io/badge/Swift-3.x-blue.svg) 
 ![CocoaPods](https://img.shields.io/cocoapods/dt/printer-logger.svg)
 ![MadeWithLove](https://img.shields.io/badge/Made%20with%20%E2%9D%A4-India-green.svg)
@@ -20,17 +21,19 @@
 
 ## Installation
 
-1.Manually - Add Printer folder to your Project. All set. If you don't want [PrinterViewController](#printerviewcontroller) only add `Printer.swift`.
+1.**Manually** - Add Printer folder to your Project. All set. If you don't want [PrinterViewController](#printerviewcontroller) only add `Printer.swift`.
 
-2.CocoaPods:
+2.**CocoaPods**:
 
     source 'https://github.com/CocoaPods/Specs.git'
     target 'Sample' do
     use_frameworks!
-    pod 'printer-logger', '~>1.0'
+    pod 'printer-logger', '~>1.1'
     end
 
-3.Carthage [Coming soon]. [Reference](https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2)
+3.**Carthage** [Coming soon]. [Reference](https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2)
+
+> You can read the [CHANGELOG](https://github.com/hemangshah/printer/blob/master/CHANGELOG.md) file for a particular release.
 
 ## Features
 
@@ -235,10 +238,24 @@ This would print same trace as if you call trace(). If you don't like it, just s
 > **IMPORTANT**: `PrinterViewController` is based on the set properties for `Printer` and works exactly same, so make sure about the properties which you have set.
 
 <b>Use cases:</b>
-- To see all the logs inside your application.
+- To see all the logs inside your application while testing the app either on iDevice or a Simulator.
 - No need to check Xcode or Console.
-- Filter options.
+
+<b>Features:</b>
+- Filter Logs based on types.
+- Copy a particular log.
 - Easy to setup.
+
+[**Upcoming**]
+
+- Send a Log file over email.
+- Search Logs.
+- Set Properties within the log file. Example: Plain Log [Switch On/Off] *Like that!*
+- Clear logs.
+- Air Print.
+- See all the log files.
+- Log files management.
+
 
 <table>
 <tr>
@@ -493,7 +510,7 @@ Will return current log, file name, function name, and line number. You can acce
 - [x] Improve README file with following: Features List for direct link to a particular point.
 - [x] Log application events. Example: Background/Foreground events.
 - [x] Open a ViewController to show up all the logs. 
-- [ ] Possible functions with ViewController: Filter, Search, Print(!), and Share logs.
+- [ ] Upcoming features of PrinterViewController.
 
 <b>Have an idea for improvements of this class?
 Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
