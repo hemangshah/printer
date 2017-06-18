@@ -723,6 +723,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _successLogTitle = newValue
+            } else {
+                _successLogTitle = ""
             }
         }
     }
@@ -736,6 +738,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _errorLogTitle = newValue
+            } else {
+                _errorLogTitle = ""
             }
         }
     }
@@ -749,6 +753,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _warningLogTitle = newValue
+            } else {
+                _warningLogTitle = ""
             }
         }
     }
@@ -762,6 +768,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _infoLogTitle = newValue
+            } else {
+                _infoLogTitle = ""
             }
         }
     }
@@ -775,6 +783,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _alertLogTitle = newValue
+            } else {
+                _alertLogTitle = ""
             }
         }
     }
@@ -816,6 +826,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _successEmojiSymbol = newValue
+            } else {
+                _successEmojiSymbol = ""
             }
         }
     }
@@ -829,6 +841,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _errorEmojiSymbol = newValue
+            } else {
+                _errorEmojiSymbol = ""
             }
         }
     }
@@ -842,6 +856,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _warningEmojiSymbol = newValue
+            } else {
+                _warningEmojiSymbol = ""
             }
         }
     }
@@ -855,6 +871,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _infoEmojiSymbol = newValue
+            } else {
+                _infoEmojiSymbol = ""
             }
         }
     }
@@ -868,6 +886,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _alertEmojiSymbol = newValue
+            } else {
+                _alertEmojiSymbol = ""
             }
         }
     }
@@ -881,6 +901,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _watchEmojiSymbol = newValue
+            } else {
+                _watchEmojiSymbol = ""
             }
         }
     }
@@ -894,6 +916,8 @@ public final class Printer {
         set (newValue) {
             if !newValue.isEmpty {
                 _idEmojiSymbol = newValue
+            } else {
+                _idEmojiSymbol = ""
             }
         }
     }
