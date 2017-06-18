@@ -28,7 +28,7 @@
     source 'https://github.com/CocoaPods/Specs.git'
     target 'Sample' do
     use_frameworks!
-    pod 'printer-logger', '~>1.1'
+    pod 'printer-logger', '~>1.2'
     end
 
 3.**Carthage** [Coming soon]. [Reference](https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2)
@@ -532,7 +532,8 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
 2. [Robert M Ryan](https://github.com/robertmryan) for providing tips on improving the Printer class.
 3. [thellimist](https://github.com/thellimist/EZPods) for a step by step guide to add the Printer on CocoaPods.
 4. [Kiran Jasvanee](https://github.com/KiranJasvanee) for providing idea about the access specifiers.
-5. [... and these lovely people, who encouraged me to keep developing on the Printer](https://github.com/hemangshah/printer/stargazers).
+5. [These lovely people who encouraged me to keep developing on the Printer](https://github.com/hemangshah/printer/stargazers).
+6. [... and these great people who raised issues and provided me enough informations to fixed it.](https://github.com/hemangshah/printer/issues?q=is%3Aissue+is%3Aclosed)
 
 ## License
 
