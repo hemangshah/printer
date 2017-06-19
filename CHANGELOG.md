@@ -6,7 +6,7 @@ Latest release is available [here](https://github.com/hemangshah/printer/release
 
 ## [1.3](https://github.com/hemangshah/printer/releases/tag/1.3) - Jun 19, 2017
 ## Fixed 
-- Shouldn’t print the private logs in onLogCompletion closure.
+- Shouldn’t print the private logs in `onLogCompletion` closure.
 ## Updated for Swift 4.x 
 - Note: We have removed support for Swift 3.x
 
