@@ -145,8 +145,9 @@ public final class Printer {
     //MARK: Block Completion
     //This is an internal function to notify a user with completion block.
     fileprivate func printerCompletion(printLog:String, fileName:String, functionName: String, lineNumber:Int) -> Void {
-        if onLogCompletion != nil {
-            onLogCompletion!(printLog, getFileName(name: fileName), functionName, lineNumber)
+        let isPrivateLog = (fileName == #file)
+        if !isPrivateLog {
+            onLogCompletion?(printLog, getFileName(name: fileName), functionName, lineNumber)
         }
     }
     
