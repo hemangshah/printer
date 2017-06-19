@@ -11,7 +11,7 @@ import UIKit
 fileprivate extension String {
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
         return boundingBox.height
     }
 }
@@ -102,7 +102,7 @@ public class PrinterViewController: UITableViewController {
     fileprivate func removeNotificationHandler() -> Void {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: notificationPrinterLogAdded), object: nil)
     }
-
+    
     //MARK: Fetch Logs
     @objc fileprivate func updateViewForLogs() -> Void {
         //If tracking is enabled then only we can fetch the current logs.
@@ -239,15 +239,15 @@ public class PrinterViewController: UITableViewController {
     
     fileprivate func getBoldAttributedString(value:String) -> NSAttributedString {
         let font = UIFont.init(name: "Verdana-Bold", size: 12)
-        let attribute = [NSFontAttributeName:font]
-        let attributedString = NSAttributedString(string: value, attributes: attribute as Any as? [String : Any])
+        let attribute = [NSAttributedStringKey.font:font]
+        let attributedString = NSAttributedString(string: value, attributes: (attribute as Any as! [NSAttributedStringKey : Any]))
         return attributedString
     }
     
     fileprivate func getLightAttributedString(value:String) -> NSAttributedString {
         let font = UIFont.init(name: "Verdana", size: 10)
-        let attribute = [NSFontAttributeName:font]
-        let attributedString = NSAttributedString(string: value, attributes: attribute as Any as? [String : Any])
+        let attribute = [NSAttributedStringKey.font:font]
+        let attributedString = NSAttributedString(string: value, attributes: (attribute as Any as! [NSAttributedStringKey : Any]))
         return attributedString
     }
 }

@@ -37,9 +37,8 @@ class ViewController: UIViewController {
         //Printer.log.plainLog = true
         
         //To get a call back before a log prints. This completion blocks will ignore all the filters.
-        Printer.log.onLogCompletion = { (log) in
-            //print(log)
-            //print(log.0)
+        Printer.log.onLogCompletion = { (printLog, fileName, functionName, lineNumber) in
+            print(printLog, fileName, functionName, lineNumber)
         }
     
         //To Skip a file from logging.
