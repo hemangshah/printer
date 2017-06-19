@@ -4,7 +4,6 @@
 ![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)
 ![Platform](https://img.shields.io/badge/Platforms-iOS-red.svg)
 ![Swift 4.x](https://img.shields.io/badge/Swift-4.x-blue.svg)
-![Swift 3.x](https://img.shields.io/badge/Swift-3.x-blue.svg) 
 ![CocoaPods](https://img.shields.io/cocoapods/dt/printer-logger.svg)
 ![MadeWithLove](https://img.shields.io/badge/Made%20with%20%E2%9D%A4-India-green.svg)
 [![Blog](https://img.shields.io/badge/Blog-iKiwiTech.com-blue.svg)](http://www.ikiwitech.com)
@@ -28,7 +27,7 @@
     source 'https://github.com/CocoaPods/Specs.git'
     target 'Sample' do
     use_frameworks!
-    pod 'printer-logger', '~>1.2'
+    pod 'printer-logger', '~>1.3'
     end
 
 3.**Carthage** [Coming soon]. [Reference](https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2)
@@ -524,16 +523,7 @@ Please open an [issue](https://github.com/hemangshah/printer/issues/new).</b>
    
 ## Thank You!!
 
-<b> Without these people, repos and posts I couldn't make a better Printer.</b>
-
-> In order of help received.
-
-1. StackOverflow's posts.
-2. [Robert M Ryan](https://github.com/robertmryan) for providing tips on improving the Printer class.
-3. [thellimist](https://github.com/thellimist/EZPods) for a step by step guide to add the Printer on CocoaPods.
-4. [Kiran Jasvanee](https://github.com/KiranJasvanee) for providing idea about the access specifiers.
-5. [These lovely people who encouraged me to keep developing on the Printer](https://github.com/hemangshah/printer/stargazers).
-6. [... and these great people who raised issues and provided me enough informations to fixed it.](https://github.com/hemangshah/printer/issues?q=is%3Aissue+is%3Aclosed)
+See the [contributions](https://github.com/hemangshah/printer/blob/master/CONTRIBUTIONS.md) for details.
 
 ## License
 
