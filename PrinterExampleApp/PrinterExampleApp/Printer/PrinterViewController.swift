@@ -36,23 +36,46 @@ fileprivate let fontLogDetails = UIFont.init(name: "Verdana", size: 15)
 
 fileprivate let printerTableViewCellIdentifier = "PrinterTableViewCellIdentifier"
 
-public class PrinterViewController: UITableViewController {
+public class PrinterViewController: UIViewController {
     
     private var arrayLogs = Array<PLog>()
+    
+    @IBOutlet var tblViewLogs: UITableView!
+    @IBOutlet var filtersSegment: UISegmentedControl!
+    @IBOutlet var searchBarLogs: UISearchBar!
     
     //MARK: View Life Cycle
     override public func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        //Add Filter Segment
-        let items = ["All", Printer.log.successEmojiSymbol, Printer.log.errorEmojiSymbol, Printer.log.infoEmojiSymbol, Printer.log.warningEmojiSymbol, Printer.log.alertEmojiSymbol, "Plain"]
-        let filtersSegment = UISegmentedControl(items: items)
+        //Setup Titles
+        self.tabBarController?.navigationItem.title = "Logs"
+        self.title = "Logs"
+        
+        //Setup SearchBar
+        self.searchBarLogs.placeholder = "Search Logs"
+        
+        //Setup UITableView
+        self.tblViewLogs.keyboardDismissMode = .onDrag
+        self.tblViewLogs.tableFooterView = UIView.init()
+        
+        //Add filters in Segment
+        filtersSegment.setTitle("All", forSegmentAt: 0)
+        filtersSegment.setTitle(Printer.log.successEmojiSymbol, forSegmentAt: 1)
+        filtersSegment.setTitle(Printer.log.errorEmojiSymbol, forSegmentAt: 2)
+        filtersSegment.setTitle(Printer.log.infoEmojiSymbol, forSegmentAt: 3)
+        filtersSegment.setTitle(Printer.log.warningEmojiSymbol, forSegmentAt: 4)
+        filtersSegment.setTitle(Printer.log.alertEmojiSymbol, forSegmentAt: 5)
+        filtersSegment.setTitle("Plain", forSegmentAt: 6)
+        
+        //Setup UISegmentController
         filtersSegment.selectedSegmentIndex = 0
         filtersSegment.tintColor = UIColor.black
-        filtersSegment.addTarget(self, action: #selector(self.filterApply), for: UIControlEvents.valueChanged)
-        let filterBarbutton = UIBarButtonItem.init(customView: filtersSegment)
-        self.navigationItem.rightBarButtonItem = filterBarbutton
+        filtersSegment.layer.cornerRadius = 0.0
+        filtersSegment.layer.borderColor = UIColor.black.cgColor
+        filtersSegment.layer.borderWidth = 3.0
+        filtersSegment.layer.masksToBounds = true
         
         //Add Done Button
         let doneBarbutton = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(dismissViewControlle))
@@ -69,7 +92,7 @@ public class PrinterViewController: UITableViewController {
     }
     
     //MARK: Segnement Target
-    @objc fileprivate func filterApply(segment:UISegmentedControl) -> Void {
+    @objc @IBAction func filterApply(segment:UISegmentedControl) -> Void {
         switch segment.selectedSegmentIndex {
         case 1:
             fetchLogs(filter: [.success])
@@ -116,7 +139,7 @@ public class PrinterViewController: UITableViewController {
         } else {
             arrayLogs.append(contentsOf: Printer.log.getAllLogs())
         }
-        self.tableView.reloadData()
+        self.tblViewLogs.reloadData()
     }
     
     //MARK: UITable Helpers
@@ -125,61 +148,12 @@ public class PrinterViewController: UITableViewController {
         let heightOfTitle:CGFloat = 30.0
         let heightOfTrace:CGFloat = 30.0
         let log:PLog = arrayLogs[indexPath.row]
-        let heightOfDetails = log.details.height(withConstrainedWidth: self.tableView.bounds.size.width, font: fontLogDetails!)
+        let heightOfDetails = log.details.height(withConstrainedWidth: self.tblViewLogs.bounds.size.width, font: fontLogDetails!)
         let totalHeight = (heightOfDetails + heightOfTitle + heightOfTrace + (margins * 2.0))
         if totalHeight > fixedCellHeight {
             return totalHeight
         } else {
             return fixedCellHeight
-        }
-    }
-    
-    //MARK: UITableView Datasource
-    override public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard arrayLogs.count > 0 else {
-            return "Printer [No Logs]"
-        }
-        
-        guard arrayLogs.count > 1 else {
-            return "Printer [\(arrayLogs.count) Log]"
-        }
-        
-        return "Printer [\(arrayLogs.count) Logs]"
-    }
-    
-    override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayLogs.count
-    }
-    
-    override public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return calculateHeightAtIndexPath(indexPath: indexPath)
-    }
-    
-    override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> PrinterTableViewCell {
-        let cell:PrinterTableViewCell = (tableView.dequeueReusableCell(withIdentifier: printerTableViewCellIdentifier) as! PrinterTableViewCell)
-        let log:PLog = arrayLogs[indexPath.row]
-        cell.lblTitle.attributedText = getLogTitle(log: log)
-        cell.lblLogDetails.text = log.details
-        if Printer.log.keepAutoTracing {
-            cell.lblTraceInfo.attributedText = getLightAttributedString(value:getTraceInfo(log: log))
-        }
-        return cell
-    }
-    
-    //MARK: Copy Options
-    override public func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    override public func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return action == #selector(copy(_:))
-    }
-    
-    override public func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
-        if action == #selector(copy(_:)) {
-            let log:PLog = arrayLogs[indexPath.row]
-            let pasteboard = UIPasteboard.general
-            pasteboard.string = "\(log.printableLog)\n\(log.printableTrace)"
         }
     }
     
@@ -251,3 +225,60 @@ public class PrinterViewController: UITableViewController {
         return attributedString
     }
 }
+
+extension PrinterViewController: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrayLogs.count
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return calculateHeightAtIndexPath(indexPath: indexPath)
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard arrayLogs.count > 0 else {
+            return "Printer [No Logs]"
+        }
+        
+        guard arrayLogs.count > 1 else {
+            return "Printer [\(arrayLogs.count) Log]"
+        }
+        
+        return "Printer [\(arrayLogs.count) Logs]"
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:PrinterTableViewCell = (tableView.dequeueReusableCell(withIdentifier: printerTableViewCellIdentifier) as! PrinterTableViewCell)
+        let log:PLog = arrayLogs[indexPath.row]
+        cell.lblTitle.attributedText = getLogTitle(log: log)
+        cell.lblLogDetails.text = log.details
+        if Printer.log.keepAutoTracing {
+            cell.lblTraceInfo.attributedText = getLightAttributedString(value:getTraceInfo(log: log))
+        }
+        return cell
+    }
+}
+
+extension PrinterViewController: UITableViewDelegate {
+    //MARK: Copy Options
+    public func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    public func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return action == #selector(copy(_:))
+    }
+    
+    public func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        if action == #selector(copy(_:)) {
+            let log:PLog = arrayLogs[indexPath.row]
+            let pasteboard = UIPasteboard.general
+            pasteboard.string = "\(log.printableLog)\n\(log.printableTrace)"
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+}
+
