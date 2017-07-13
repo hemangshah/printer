@@ -246,10 +246,11 @@ This would print same trace as if you call trace(). If you don't like it, just s
 - Copy a particular log.
 - Easy to setup.
 
+- [x] Search Logs.
+
 [**Upcoming**]
 
 - [ ] Send a Log file over email.
-- [ ] Search Logs.
 - [ ] Set Properties within the log file. Example: Plain Log [Switch On/Off] *Like that!*
 - [ ] Clear logs.
 - [ ] Air Print.
