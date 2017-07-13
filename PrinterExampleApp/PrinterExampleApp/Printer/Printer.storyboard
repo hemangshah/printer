@@ -93,6 +93,9 @@
                                             <string>Title</string>
                                             <string>Title</string>
                                         </scopeButtonTitles>
+                                        <connections>
+                                            <outlet property="delegate" destination="T7p-c7-EuX" id="BV2-5o-mRd"/>
+                                        </connections>
                                     </searchBar>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6K8-sq-ir5">
                                         <rect key="frame" x="0.0" y="56" width="375" height="29"/>

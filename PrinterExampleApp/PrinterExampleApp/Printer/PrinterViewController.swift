@@ -38,7 +38,10 @@ fileprivate let printerTableViewCellIdentifier = "PrinterTableViewCellIdentifier
 
 public class PrinterViewController: UIViewController {
     
-    private var arrayLogs = Array<PLog>()
+    fileprivate var arrayLogs = Array<PLog>()
+    fileprivate var arrayFilteredLogs = Array<PLog>()
+    
+    fileprivate var searchActive = false
     
     @IBOutlet var tblViewLogs: UITableView!
     @IBOutlet var filtersSegment: UISegmentedControl!
@@ -147,7 +150,7 @@ public class PrinterViewController: UIViewController {
         let margins:CGFloat = 5.0
         let heightOfTitle:CGFloat = 30.0
         let heightOfTrace:CGFloat = 30.0
-        let log:PLog = arrayLogs[indexPath.row]
+        let log:PLog = searchActive ? arrayFilteredLogs[indexPath.row] : arrayLogs[indexPath.row]
         let heightOfDetails = log.details.height(withConstrainedWidth: self.tblViewLogs.bounds.size.width, font: fontLogDetails!)
         let totalHeight = (heightOfDetails + heightOfTitle + heightOfTrace + (margins * 2.0))
         if totalHeight > fixedCellHeight {
@@ -224,10 +227,43 @@ public class PrinterViewController: UIViewController {
         let attributedString = NSAttributedString(string: value, attributes: (attribute as Any as! [NSAttributedStringKey : Any]))
         return attributedString
     }
+    
+    fileprivate func reloadOnSearch() -> Void {
+        
+        if searchBarLogs.isFirstResponder {
+            self.filtersSegment.isEnabled = false
+            if searchBarLogs.text!.characters.count == 0 {
+                searchActive = true
+            } else {
+                if !arrayFilteredLogs.isEmpty {
+                    searchActive = true
+                }
+            }
+        } else {
+            if !arrayFilteredLogs.isEmpty {
+                if searchBarLogs.text!.characters.count == 0 {
+                    //Clear Button Pressed on SearchBar
+                    arrayFilteredLogs.removeAll()
+                    searchActive = false
+                } else {
+                    //Search is tapped on Keyboard
+                    searchActive = true
+                }
+            } else {
+                searchActive = false
+                self.filtersSegment.isEnabled = true
+            }
+        }
+        
+        tblViewLogs.reloadData()
+    }
 }
 
 extension PrinterViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchActive {
+            return arrayFilteredLogs.count
+        }
         return arrayLogs.count
     }
     
@@ -236,20 +272,31 @@ extension PrinterViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        //Searching.
+        if searchActive {
+            guard arrayFilteredLogs.count > 0 else {
+                if self.searchBarLogs.text!.isEmpty {
+                    return "Search"
+                } else {
+                    return "Search | [No Logs]"
+                }
+            }
+            
+            return "Search | [\(arrayLogs.count)] logs found."
+        }
+        
+        //Not Searching.
         guard arrayLogs.count > 0 else {
-            return "Printer [No Logs]"
+            return "[No Logs]"
         }
         
-        guard arrayLogs.count > 1 else {
-            return "Printer [\(arrayLogs.count) Log]"
-        }
-        
-        return "Printer [\(arrayLogs.count) Logs]"
+        return "[\(arrayLogs.count)] logs found."
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:PrinterTableViewCell = (tableView.dequeueReusableCell(withIdentifier: printerTableViewCellIdentifier) as! PrinterTableViewCell)
-        let log:PLog = arrayLogs[indexPath.row]
+        let log:PLog = searchActive ? arrayFilteredLogs[indexPath.row] : arrayLogs[indexPath.row]
         cell.lblTitle.attributedText = getLogTitle(log: log)
         cell.lblLogDetails.text = log.details
         if Printer.log.keepAutoTracing {
@@ -271,7 +318,7 @@ extension PrinterViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
         if action == #selector(copy(_:)) {
-            let log:PLog = arrayLogs[indexPath.row]
+            let log:PLog = searchActive ? arrayFilteredLogs[indexPath.row] : arrayLogs[indexPath.row]
             let pasteboard = UIPasteboard.general
             pasteboard.string = "\(log.printableLog)\n\(log.printableTrace)"
         }
@@ -282,3 +329,68 @@ extension PrinterViewController: UITableViewDelegate {
     }
 }
 
+//Added Search Functionalities to Search the logs.
+/*
+ 
+ Behaviour:
+ 
+ Steps:
+ 1. User taps on the SearchBar.
+ 2. Filter Segments will be disable.
+ 3. Only search within the selected filter.
+ 4. On Cancel/Search button tapped, will back to selected filter.
+ 5. If no results found will show Search | [No Logs].
+ 6. Can search for ID, Details, and within Tracing Info.
+ 
+*/
+extension PrinterViewController: UISearchBarDelegate {
+    
+    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.reloadOnSearch()
+    }
+    
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.reloadOnSearch()
+    }
+    
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchText.isEmpty {
+            self.reloadOnSearch()
+            return
+        }
+        
+        if self.arrayLogs.count > 0 {
+            self.arrayFilteredLogs = self.arrayLogs.filter({ (log) -> Bool in
+                if log.details.contains(searchText) {
+                    return true
+                } else if log.id.contains(searchText) {
+                    return true
+                } else {
+                    if Printer.log.keepAutoTracing {
+                        if log.traceInfo.fileName.contains(searchText) {
+                            return true
+                        } else if log.traceInfo.functionName.contains(searchText) {
+                            return true
+                        } else if String(log.traceInfo.lineNumber).contains(searchText) {
+                            return true
+                        }
+                    }
+                }
+                return false
+            })
+            
+            self.reloadOnSearch()
+        }
+    }
+    
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.arrayFilteredLogs.removeAll()
+        searchBar.resignFirstResponder()
+        self.reloadOnSearch()
+    }
+}
