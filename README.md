@@ -498,7 +498,7 @@ Will return current log, file name, function name, and line number. You can acce
     
 ## ToDo[s]
 
-<b><i>[New Features]</i></b>
+🎁<b><i> [ New Features ] </i></b>🎁
 
 - [x] Filter Logs.
 - [x] Disable Logs.
