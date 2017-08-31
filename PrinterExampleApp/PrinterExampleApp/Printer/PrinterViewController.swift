@@ -82,7 +82,7 @@ public class PrinterViewController: UIViewController {
         
         //Add Done Button
         let doneBarbutton = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(dismissViewControlle))
-        self.navigationItem.leftBarButtonItem = doneBarbutton
+        self.tabBarController?.navigationItem.leftBarButtonItem = doneBarbutton
         
         //Add Notifications Handler
         addNotificationHandler()
