@@ -486,10 +486,10 @@ public final class Printer {
             #if DEBUG
                 printerlogger(id:  id, details:  details, logType:  lType, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
             #else
-                if !printOnlyIfDebugMode {
-                    printerlogger(id:  id, details:  details, logType:  lType, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
-                } else {
+                if printOnlyIfDebugMode {
                     print("Printer can't logs as RELEASE mode is active and you have set 'printOnlyIfDebugMode' to 'true'.")
+                } else {
+                    printerlogger(id:  id, details:  details, logType:  lType, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
                 }
             #endif
         }
@@ -695,23 +695,23 @@ public final class Printer {
     //MARK:  Helper to hide Emojis from the log prints.
     ///You can call this function in advance to print logs without the emojis. This is different than the 'plainLog'.
     public func hideEmojis() -> Void {
-        successEmojiSymbol = ""
-        errorEmojiSymbol = ""
-        warningEmojiSymbol = ""
-        infoEmojiSymbol = ""
-        alertEmojiSymbol = ""
-        watchEmojiSymbol = ""
-        idEmojiSymbol = ""
+        self.successEmojiSymbol = ""
+        self.errorEmojiSymbol = ""
+        self.warningEmojiSymbol = ""
+        self.infoEmojiSymbol = ""
+        self.alertEmojiSymbol = ""
+        self.watchEmojiSymbol = ""
+        self.idEmojiSymbol = ""
     }
     
     //MARK:  Helper to clear Titles from the log prints.
     ///You can call this function in advance to print logs without the titles. This is different than the 'plainLog'.
     public func hideTitles() -> Void {
-        successLogTitle = ""
-        errorLogTitle = ""
-        warningLogTitle = ""
-        infoLogTitle = ""
-        alertLogTitle = ""
+        self.successLogTitle = ""
+        self.errorLogTitle = ""
+        self.warningLogTitle = ""
+        self.infoLogTitle = ""
+        self.alertLogTitle = ""
     }
 
     //MARK:  Helpers to set custom titles for each cases
@@ -1028,6 +1028,8 @@ public final class Printer {
     
     //This function is calling from more than one place thus we have created a common function.
     fileprivate func continueSimple(id: String, details: String, fileName: String, lineNumber: Int, functionName:  String) -> Void {
+        //`isPrivateLog` is to check whether the current log is from within the Printer or not.
+        //We should not include private logs for tracing and tracking.
         let isPrivateLog = (fileName == #file)
         let idPart = id.isEmpty ? "" :  " ID \(arrowSymbol) "
         let detailsPart = details.isEmpty ? "" :  " Details \(arrowSymbol) "
