@@ -1,3 +1,5 @@
+📣📣 <b>Important</b>: Printer can only prints console logs if you're running an app in the Simulator. If you're running in a real device it will not print any of the logs in console, however, you can always access to all the logs using [PrinterViewController](#printerviewcontroller) within your app. Printer is using <b>`print`</b> function internally which is more [effective and speedy](https://stackoverflow.com/questions/25951195/swift-print-vs-println-vs-nslog) then <b>`NSLog`.</b>
+
 ![Fancy Logo](https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/printer-logo.png)
 
 [![Build Status](https://travis-ci.org/hemangshah/printer.svg?branch=master)](https://travis-ci.org/hemangshah/printer)
