@@ -27,11 +27,7 @@
 
 2.**CocoaPods**:
 
-    source 'https://github.com/CocoaPods/Specs.git'
-    target 'Sample' do
-    use_frameworks!
     pod 'printer-logger', '~>1.3'
-    end
 
 3.**Carthage** [Coming soon]. [Reference](https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2)
 
