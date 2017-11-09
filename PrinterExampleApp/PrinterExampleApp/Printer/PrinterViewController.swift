@@ -232,7 +232,7 @@ public class PrinterViewController: UIViewController {
         
         if searchBarLogs.isFirstResponder {
             self.filtersSegment.isEnabled = false
-            if searchBarLogs.text!.characters.count == 0 {
+            if searchBarLogs.text!.count == 0 {
                 searchActive = true
             } else {
                 if !arrayFilteredLogs.isEmpty {
@@ -241,7 +241,7 @@ public class PrinterViewController: UIViewController {
             }
         } else {
             if !arrayFilteredLogs.isEmpty {
-                if searchBarLogs.text!.characters.count == 0 {
+                if searchBarLogs.text!.count == 0 {
                     //Clear Button Pressed on SearchBar
                     arrayFilteredLogs.removeAll()
                     searchActive = false
