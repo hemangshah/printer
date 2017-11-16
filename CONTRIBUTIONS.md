@@ -1,4 +1,4 @@
-<b> Without these people, repos and posts I couldn't make a better Printer.</b>
+<b> Without these peoples repos and posts, I couldn't have made a better Printer.</b>
 
 > In order of help received.
 

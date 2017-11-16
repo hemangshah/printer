@@ -1,4 +1,4 @@
-📣📣 <b>Important</b>: Printer can only prints console logs if you're running an app in the Simulator. If you're running in a real device it will not print any of the logs in console, however, you can always access to all the logs using [PrinterViewController](#printerviewcontroller) within your app. Printer is using <b>`print`</b> function internally which is more [effective and speedy](https://stackoverflow.com/questions/25951195/swift-print-vs-println-vs-nslog) then <b>`NSLog`.</b>
+📣📣 <b>Important</b>: Printer can only print console logs if you're running an app in the Simulator. If you're running in a real device it will not print any of the logs in console, however, you can always access all logs using [PrinterViewController](#printerviewcontroller) within your app. Printer is using <b>`print`</b> function internally which is more [effective and speedy](https://stackoverflow.com/questions/25951195/swift-print-vs-println-vs-nslog) then <b>`NSLog`.</b>
 
 ![Fancy Logo](https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/printer-logo.png)
 
@@ -11,7 +11,7 @@
 [![Blog](https://img.shields.io/badge/Blog-iKiwiTech.com-blue.svg)](http://www.ikiwitech.com)
 [![Awesome-Swift](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/matteocrippa/awesome-swift/)
 
-## You can print following types of logs with Printer.
+## You can print the following types of logs with Printer.
 
   - ✅ Success
   - ❌ Error
@@ -19,7 +19,7 @@
   - 📣 Information
   - 🚨 Alert
 
-> With each of the type, it will print a particular emoji and titles which will help you to easily identify what's exactly the log is. Moreover, it will looks cool too.
+> With each type, it will print a particular emoji and titles which will help you to easily identify what the log is. Moreover, it will look cool too.
 
 ## Installation
 
@@ -59,7 +59,7 @@
 
 ## Let's see what you can do with Printer.
 
-<b>Printer has a singleton, you should always use it with it's singleton.</b>
+<b>Printer has a singleton, you should always use it with its singleton.</b>
 
     Printer.log.show(id: "001", details: "This is a Success message.", logType: .success)
         
@@ -67,7 +67,7 @@
         
     [✅ Success] [⌚04-27-2017 10:39:26] [🆔 101] ➞ ✹✹This is a Success message.✹✹
         
-<b>So here are other options you can do with Printer.</b>
+<b>Here are other options you can do with Printer.</b>
 
     Printer.log.show(id: "002", details: "This is a Error message.", logType: .error)
     Printer.log.show(id: "003", details: "This is an Information message.", logType: .information)
@@ -91,7 +91,7 @@
     Printer.log.information(id: "104", details: "This is an Information message. No need to specify logType.")
     Printer.log.alert(id: "105", details: "This is an Alert message. No need to specify logType.")
 
-<b>Don't want to specify IDs? We have taken care about that too.</b>
+<b>Don't want to specify IDs? We have taken care of that too.</b>
 
     Printer.log.success(details: "This is a Success message without ID.")
     Printer.log.error(details: "This is an Error message without ID.")
@@ -112,14 +112,14 @@
 
 ## plainLog
 
-<b>Don't like this the fancy logs? No worries, we have a plain log option.</b>
+<b>Don't like the fancy logs? No worries, we have a plain log option.</b>
 
 > **DEFAULT**: `false`
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.plainLog = true
     
-<b>Exmaple when </b>`plainLog`<b> is set to </b>`true`<b>.</b>
+<b>Example when </b>`plainLog`<b> is set to </b>`true`<b>.</b>
 
     [04-27-2017 10:50:30] ID ➞ 001 Details ➞ This is a Success message.
     [04-27-2017 10:50:30] ID ➞ 002 Details ➞ This is a Error message.
@@ -131,7 +131,7 @@
 
     Printer.log.show(id: "001", details: "This is a Plain message.", logType: .plain)
     
-> This is useful when you only want few plain logs.
+> This is useful when you only want a few plain logs.
 
 > **IMPORTANT**: Any properties you're setting should be set in advance or before printing any logs to get the exact effect.
 
@@ -166,7 +166,7 @@
 
 ## Tracing
 
-<b> Want to print file name, function name and line number?</b>
+<b> Want to print the file name, function name and line number?</b>
 
 > **IMPORTANT**: Should be call everytime when you want to print a trace.
 
@@ -185,7 +185,7 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 <b>Want to print all the logs for a different use case?</b>
 
-> **IMPORTANT**: `keepTracking` should set to `true` before logging. Even if `keepAutoTracing` is set to `false` if you passes `showTrace` to `true`, you will see the traced info. This is helpful if you don't want to trace while logging.
+> **IMPORTANT**: `keepTracking` should be set to `true` before logging. Even if `keepAutoTracing` is set to `false`; if you pass `showTrace` to `true`, you will see the traced info. This is helpful if you don't want to trace while logging.
 
     Printer.log.all(showTrace: true)
     
@@ -209,7 +209,7 @@ This would print same trace as if you call trace(). If you don't like it, just s
     [All Logs] [Alert] [05-15-2017 14:28:03] Id:005 Details:This is an Alert message.
     [Trace] ➞ ViewController.swift ➞ viewDidLoad() #62
     
-> all() function will always print plain logs. <i>No fancy things</i>.
+> all() function will always print plain logs. <i>No fancy logs</i>.
 
 ## All Logs for Use
 
@@ -233,7 +233,7 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 <b>See all the printer logs in </b> `PrinterViewController`<b>. You can also filter the logs within the view controller.</b>
 
-> **IMPORTANT**: `PrinterViewController` is based on the set properties for `Printer` and works exactly same, so make sure about the properties which you have set.
+> **IMPORTANT**: `PrinterViewController` is based on the set properties for `Printer` and works exactly the same, so please be mindful of the properties that you have set.
 
 <b>Use cases:</b>
 - To see all the logs inside your application while testing the app either on iDevice or a Simulator.
@@ -267,14 +267,14 @@ This would print same trace as if you call trace(). If you don't like it, just s
 
 <b>How to use?</b>
 
-If you prefers manually installation.
+If you prefer manual installation.
 
 > You can always use Printer without PrinterViewController. But it's suggestible to add this class for better logging.
 
 1. Add `PrinterTableViewCell.swift`, `PrinterViewController.swift`, `Printer.storyboard` and `Printer.swift` in your Project. You can simply add **Printer** folder as well.
-2. Everything is added, so now you only have to write below code to present `PrinterViewController` from your app.
+2. Everything is added, so now copy and paste the code below to present `PrinterViewController` from your app.
 
-> Always add it to someplace (example: navigation bar, side menu, tabbar, app settings) from where you can always present it while development.
+> Always add it to someplace (example: navigation bar, side menu, tabbar, app settings) from where you can always present it during development.
 
         let printerStoryboard = UIStoryboard.init(name: "Printer", bundle: Bundle.main)
         let navcontroller = UINavigationController.init(rootViewController: (printerStoryboard.instantiateViewController(withIdentifier: "PrinterViewControllerID")))
@@ -306,11 +306,11 @@ If you prefers manually installation.
 <b>You can add a line after each logs.</b>
 
 > **DEFAULT**: `false`
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
     
     Printer.log.addLineAfterEachPrint = true
 
-<b>Example when addLineAfterEachPrint is set to </b>`true`<b>.</b>
+<b>Example: when addLineAfterEachPrint is set to </b>`true`<b>.</b>
 
     [✅ Success] [⌚04-27-2017 10:53:28] [🆔 001] ➞ ✹✹This is a Success message.✹✹
     ________________________________________________________________________________________
@@ -325,29 +325,29 @@ If you prefers manually installation.
 
 ## Capitalize Titles & Details
 
-<b>You can even capitalized the title and details of logs.</b>
+<b>You can even capitalize the title and details of logs.</b>
 
 > **DEFAULT**: `false`
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.capitalizeTitles = true
 
 > **DEFAULT**: `false`
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.capitalizeDetails = true
 
-<b>Example when capitalizeTitles and capitalizeDetails are set to </b>`true`<b>.</b>
+<b>Example: when capitalizeTitles and capitalizeDetails are set to </b>`true`<b>.</b>
 
     [✅ SUCCESS] [⌚04-27-2017 11:09:37] [🆔 001] ➞ ✹✹THIS IS A SUCCESS MESSAGE.✹✹
 
 <b>Don't want to show Emojis?</b>
 
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.hideEmojis()
 
-<b>Example when</b> `hideEmojis()` <b>call.</b>
+<b>Example: when</b> `hideEmojis()` <b>called.</b>
 
     [Success] [04-27-2017 11:08:45] [001] ➞ ✹✹This is a Success message.✹✹
     [Error] [04-27-2017 11:08:45] [002] ➞ ✹✹This is a Error message.✹✹
@@ -357,28 +357,28 @@ If you prefers manually installation.
 
 <b>Don't want to show Titles?</b>
 
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.hideTitles()
     
 <b>Don't want to show Log Time?</b>
 
 > **DEFAULT**: `false`
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.hideLogsTime = true
 
 ## Customize Emojis
 
-<b>Don't like the Emojis which is available? Want to set your own? You can do this.</b>
+<b>Don't like the current Emojis? You can override the default Emojis with your favorite Emojis.</b>
 
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.successEmojiSymbol = "🎃"
 
-<b>Oter properties for Emojis customization.</b>
+<b>Other properties for Emoji customization.</b>
 
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.errorEmojiSymbol = "<SetNew>"    
     Printer.log.warningEmojiSymbol = "<SetNew>"    
@@ -387,15 +387,15 @@ If you prefers manually installation.
 
 ## Customize Titles
 
-<b>Don't like the Titles which is available? Want to set your own? Want to set the localize titles? You can do this.</b>
+<b>Don't like the current Titles or localize Titles? Want to set your own? You can do this.</b>
 
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.successLogTitle = "Hurray!!"
 
 <b>Other properties for Titles customization.</b>
 
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.errorLogTitle = "<SetNew>"    
     Printer.log.warningLogTitle = "<SetNew>"    
@@ -404,22 +404,22 @@ If you prefers manually installation.
 
 ## Customize Symbols
 
-<b>Don't like the Symbols which is available? Want to set your own? You can do this.</b>
+<b>Don't like the current Symbols? Want to set your own? You can do this.</b>
 
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.arrowSymbol = "⇨"
     
-<b>Oter properties for Symbol customization.</b>
+<b>Other properties for Symbol customization.</b>
 
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.starSymbol = "<SetNew>"
 
 <b>Don't like the date format in logs? You can change it too.</b>
 
 > **DEFAULT**: `MM-dd-yyyy HH:mm:ss`
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.logDateFormat = "hh:mm:ss a"
 
@@ -443,24 +443,24 @@ To Add logs for a file:  `Printer.log.addFile()`
 > **IMPORTANT**: You should call `addFile()` to start printing logs for the same file for which you have called `skipFile()`. This is other than the `disable` property which completely disables logging for all the files.
 
 ## Disable Logs
-<b>To disable all the logs.</b>
+<b>To disable all logs.</b>
 
 > **DEFAULT**: `false`
-> **IMPORTANT**: You can set this anywhere and it should not print logs from where it sets.
+> **IMPORTANT**: You can set this anywhere and it should not print logs from where it was set.
 
     Printer.log.disable = true
     
 ## Completion Block
 <b>Let you will notified in advance before any logging events.</b>
 
-> **IMPORTANT**: This block will ignore all the filters applied for Printer, means, it will always notify you for any logs whether the log will print or not.
+> **IMPORTANT**: This block will ignore all the filters applied for Printer, meaning, it will always notify you for any logs that will print or not print.
 
         Printer.log.onLogCompletion = { (log) in
             print(log)
             //print(log.0)
         }
         
-Will return current log, file name, function name, and line number. You can access it with log.0, log.1 so on.
+Will return current log, file name, function name, and line number. You can access it with log.0, log.1 and so on.
 
 </b>Use cases:</b>
 
@@ -468,11 +468,11 @@ Will return current log, file name, function name, and line number. You can acce
 - To print logs even if you've applied any filter. 
 - To call your APIs to store log information. Only code at one place. No dependencies.
 
-> You will not get notify if `disable` is set to `true` or `printOnlyIfDebugMode` is set to `true` and your app is in `release` mode. 
+> You will not get notified if `disable` is set to `true` or `printOnlyIfDebugMode` is set to `true` and if your app is in `release` mode.
 
 ## Background or Foreground Logs
 
-<b>Want to see when app goes to background or comes to foreground?</b>
+<b>Want to see a log of when your app goes to the background or foreground?</b>
 
     Printer.log.addAppEventsHandler()
     
@@ -483,27 +483,27 @@ Will return current log, file name, function name, and line number. You can acce
 
     Printer.log.removeAppEventsHandler()
     
-> This is helpful when you're checking all the logs and want to see what happended after app went to background or comes to foreground?    
+> This is helpful when you're checking all the logs and want to see what happended after app went to background or comes to foreground?
 
 ## Ready to ship your app?
 
 <b>Don't want to print the logs in RELEASE mode?</b>
 
 > **DEFAULT**: `true`
-> **IMPORTANT**: Should be call in advance.
+> **IMPORTANT**: Should be called in advance.
 
     Printer.log.printOnlyIfDebugMode = false
     
-## ToDo[s]
+## To-Do List
 
 - [x] Filter Logs.
 - [x] Disable Logs.
 - [x] Manual Tracing.
 - [x] Auto Tracing.
-- [x] All logs - Track all the logs and print all at once.
+- [x] All logs - Track all logs and print them all at once.
 - [x] Future Logs – A function which will print a log after a certain time.
 - [x] Skipping logs for a particular file.
-- [x] Delegate calls for to let you know the Printer logged.
+- [x] Delegate calls to let you know the Printer logged.
 - [x] Maintain a log file separately.
 - [x] Improve README file with following: Features List for direct link to a particular point.
 - [x] Log application events. Example: Background/Foreground events.
