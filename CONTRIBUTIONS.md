@@ -8,6 +8,7 @@
 4. [thellimist](https://github.com/thellimist/EZPods) for a step by step guide to add the Printer on CocoaPods.
 5. [Kiran Jasvanee](https://github.com/KiranJasvanee) for providing idea about the access specifiers.
 6. [These lovely people who encouraged me to keep developing on the Printer](https://github.com/hemangshah/printer/stargazers).
-7. [... and these great people who raised issues and provided me enough informations to fixed it.](https://github.com/hemangshah/printer/issues?q=is%3Aissue+is%3Aclosed)
+7. [These great people who raised issues and provided me enough informations to fixed it.](https://github.com/hemangshah/printer/issues?q=is%3Aissue+is%3Aclosed)
+8. [... and this list shouldn't end without these very helpful contributors.](https://github.com/hemangshah/printer/graphs/contributors)
 
 **Thank you so much.** 💙
