@@ -27,7 +27,7 @@
 
 2.**CocoaPods**:
 
-    pod 'printer-logger', '~>1.3'
+    pod 'printer-logger'
 
 3.**Carthage** [Coming soon]. [Reference](https://medium.com/@filippotosetto/how-to-create-a-carthage-framework-8d9d65f98ac2)
 
