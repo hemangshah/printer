@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 Latest release is available [here](https://github.com/hemangshah/printer/releases/latest).
 
+## [1.4](https://github.com/hemangshah/printer/releases/tag/1.4) - Dec 26, 2017
+## Code Refactoring and improvements.
+
 ## [1.3](https://github.com/hemangshah/printer/releases/tag/1.3) - Jun 19, 2017
 ## Fixed 
 - Shouldn’t print the private logs in `onLogCompletion` closure.
