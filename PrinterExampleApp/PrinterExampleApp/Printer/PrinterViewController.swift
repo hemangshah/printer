@@ -30,7 +30,7 @@ fileprivate extension NSAttributedString {
     }
 }
 
-fileprivate let fixedCellHeight:CGFloat = 90
+fileprivate let fixedCellHeight: CGFloat = 90
 
 fileprivate let fontLogDetails = UIFont.init(name: "Verdana", size: 15)
 
@@ -64,53 +64,53 @@ public class PrinterViewController: UIViewController {
         self.tblViewLogs.tableFooterView = UIView.init()
         
         //Add filters in Segment
-        filtersSegment.setTitle("All", forSegmentAt: 0)
-        filtersSegment.setTitle(Printer.log.successEmojiSymbol, forSegmentAt: 1)
-        filtersSegment.setTitle(Printer.log.errorEmojiSymbol, forSegmentAt: 2)
-        filtersSegment.setTitle(Printer.log.infoEmojiSymbol, forSegmentAt: 3)
-        filtersSegment.setTitle(Printer.log.warningEmojiSymbol, forSegmentAt: 4)
-        filtersSegment.setTitle(Printer.log.alertEmojiSymbol, forSegmentAt: 5)
-        filtersSegment.setTitle("Plain", forSegmentAt: 6)
+        self.filtersSegment.setTitle("All", forSegmentAt: 0)
+        self.filtersSegment.setTitle(Printer.log.successEmojiSymbol, forSegmentAt: 1)
+        self.filtersSegment.setTitle(Printer.log.errorEmojiSymbol, forSegmentAt: 2)
+        self.filtersSegment.setTitle(Printer.log.infoEmojiSymbol, forSegmentAt: 3)
+        self.filtersSegment.setTitle(Printer.log.warningEmojiSymbol, forSegmentAt: 4)
+        self.filtersSegment.setTitle(Printer.log.alertEmojiSymbol, forSegmentAt: 5)
+        self.filtersSegment.setTitle("Plain", forSegmentAt: 6)
         
         //Setup UISegmentController
-        filtersSegment.selectedSegmentIndex = 0
-        filtersSegment.tintColor = UIColor.black
-        filtersSegment.layer.cornerRadius = 0.0
-        filtersSegment.layer.borderColor = UIColor.black.cgColor
-        filtersSegment.layer.borderWidth = 3.0
-        filtersSegment.layer.masksToBounds = true
+        self.filtersSegment.selectedSegmentIndex = 0
+        self.filtersSegment.tintColor = UIColor.black
+        self.filtersSegment.layer.cornerRadius = 0.0
+        self.filtersSegment.layer.borderColor = UIColor.black.cgColor
+        self.filtersSegment.layer.borderWidth = 3.0
+        self.filtersSegment.layer.masksToBounds = true
         
         //Add Done Button
-        let doneBarbutton = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(dismissViewControlle))
+        let doneBarbutton = UIBarButtonItem.init(barButtonSystemItem: .done, target: self, action: #selector(self.dismissViewControlle))
         self.tabBarController?.navigationItem.leftBarButtonItem = doneBarbutton
         
         //Add Notifications Handler
-        addNotificationHandler()
+        self.addNotificationHandler()
         //Update Logs
-        updateViewForLogs()
+        self.updateViewForLogs()
     }
     
     deinit {
-        removeNotificationHandler()
+        self.removeNotificationHandler()
     }
     
     //MARK: Segnement Target
     @objc @IBAction func filterApply(segment:UISegmentedControl) -> Void {
         switch segment.selectedSegmentIndex {
         case 1:
-            fetchLogs(filter: [.success])
+            self.fetchLogs(filter: [.success])
         case 2:
-            fetchLogs(filter: [.error])
+            self.fetchLogs(filter: [.error])
         case 3:
-            fetchLogs(filter: [.information])
+            self.fetchLogs(filter: [.information])
         case 4:
-            fetchLogs(filter: [.warning])
+            self.fetchLogs(filter: [.warning])
         case 5:
-            fetchLogs(filter: [.alert])
+            self.fetchLogs(filter: [.alert])
         case 6:
-            fetchLogs(filter: [.plain])
+            self.fetchLogs(filter: [.plain])
         default:
-            fetchLogs(filter: nil)
+            self.fetchLogs(filter: nil)
         }
     }
     
@@ -121,7 +121,7 @@ public class PrinterViewController: UIViewController {
     
     //MARK: Notification Handler
     fileprivate func addNotificationHandler() -> Void {
-        removeNotificationHandler()
+        self.removeNotificationHandler()
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateViewForLogs), name: NSNotification.Name(rawValue: notificationPrinterLogAdded), object: nil)
     }
     
@@ -132,25 +132,25 @@ public class PrinterViewController: UIViewController {
     //MARK: Fetch Logs
     @objc fileprivate func updateViewForLogs() -> Void {
         //If tracking is enabled then only we can fetch the current logs.
-        fetchLogs(filter: nil)
+        self.fetchLogs(filter: nil)
     }
     
     fileprivate func fetchLogs(filter:Array<LogType>?) -> Void {
-        arrayLogs.removeAll()
+        self.arrayLogs.removeAll()
         if let filterArray = filter {
-            arrayLogs.append(contentsOf: Printer.log.getAllLogs(filterLogTypes: filterArray))
+            self.arrayLogs.append(contentsOf: Printer.log.getAllLogs(filterLogTypes: filterArray))
         } else {
-            arrayLogs.append(contentsOf: Printer.log.getAllLogs())
+            self.arrayLogs.append(contentsOf: Printer.log.getAllLogs())
         }
         self.tblViewLogs.reloadData()
     }
     
     //MARK: UITable Helpers
     fileprivate func calculateHeightAtIndexPath(indexPath:IndexPath) -> CGFloat {
-        let margins:CGFloat = 5.0
-        let heightOfTitle:CGFloat = 30.0
-        let heightOfTrace:CGFloat = 30.0
-        let log:PLog = searchActive ? arrayFilteredLogs[indexPath.row] : arrayLogs[indexPath.row]
+        let margins: CGFloat = 5.0
+        let heightOfTitle: CGFloat = 30.0
+        let heightOfTrace: CGFloat = 30.0
+        let log: PLog = searchActive ? arrayFilteredLogs[indexPath.row] : arrayLogs[indexPath.row]
         let heightOfDetails = log.details.height(withConstrainedWidth: self.tblViewLogs.bounds.size.width, font: fontLogDetails!)
         let totalHeight = (heightOfDetails + heightOfTitle + heightOfTrace + (margins * 2.0))
         if totalHeight > fixedCellHeight {
@@ -162,7 +162,7 @@ public class PrinterViewController: UIViewController {
     
     //MARK: Data Helpers
     fileprivate func getLogTitle(log:PLog) -> NSMutableAttributedString {
-        let title:NSMutableAttributedString = createLogTitle(log: log)
+        let title: NSMutableAttributedString = createLogTitle(log: log)
         if log.logType != .plain {
             if !log.id.isEmpty {
                 title.append(NSAttributedString.init(string: (" " + Printer.log.arrowSymbol + " " + Printer.log.idEmojiSymbol + " " + log.id)))
@@ -178,7 +178,7 @@ public class PrinterViewController: UIViewController {
     }
     
     fileprivate func getTraceInfo(log:PLog) -> String {
-        let traceInfo:TraceInfo = log.traceInfo
+        let traceInfo: TraceInfo = log.traceInfo
         let file = traceInfo.fileName
         let function = traceInfo.functionName
         let line = traceInfo.lineNumber
@@ -229,53 +229,52 @@ public class PrinterViewController: UIViewController {
     }
     
     fileprivate func reloadOnSearch() -> Void {
-        
-        if searchBarLogs.isFirstResponder {
+        if self.searchBarLogs.isFirstResponder {
             self.filtersSegment.isEnabled = false
-            if searchBarLogs.text!.count == 0 {
-                searchActive = true
+            if self.searchBarLogs.text!.count == 0 {
+                self.searchActive = true
             } else {
-                if !arrayFilteredLogs.isEmpty {
-                    searchActive = true
+                if !self.arrayFilteredLogs.isEmpty {
+                    self.searchActive = true
                 }
             }
         } else {
-            if !arrayFilteredLogs.isEmpty {
-                if searchBarLogs.text!.count == 0 {
+            if !self.arrayFilteredLogs.isEmpty {
+                if self.searchBarLogs.text!.count == 0 {
                     //Clear Button Pressed on SearchBar
-                    arrayFilteredLogs.removeAll()
-                    searchActive = false
+                    self.arrayFilteredLogs.removeAll()
+                    self.searchActive = false
                 } else {
                     //Search is tapped on Keyboard
-                    searchActive = true
+                    self.searchActive = true
                 }
             } else {
-                searchActive = false
+                self.searchActive = false
                 self.filtersSegment.isEnabled = true
             }
         }
         
-        tblViewLogs.reloadData()
+        self.tblViewLogs.reloadData()
     }
 }
 
 extension PrinterViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchActive {
-            return arrayFilteredLogs.count
+        if self.searchActive {
+            return self.arrayFilteredLogs.count
         }
-        return arrayLogs.count
+        return self.arrayLogs.count
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return calculateHeightAtIndexPath(indexPath: indexPath)
+        return self.calculateHeightAtIndexPath(indexPath: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         //Searching.
-        if searchActive {
-            guard arrayFilteredLogs.count > 0 else {
+        if self.searchActive {
+            guard self.arrayFilteredLogs.count > 0 else {
                 if self.searchBarLogs.text!.isEmpty {
                     return "Search"
                 } else {
@@ -283,24 +282,24 @@ extension PrinterViewController: UITableViewDataSource {
                 }
             }
             
-            return "Search | [\(arrayLogs.count)] logs found."
+            return "Search | [\(self.arrayLogs.count)] logs found."
         }
         
         //Not Searching.
-        guard arrayLogs.count > 0 else {
+        guard self.arrayLogs.count > 0 else {
             return "[No Logs]"
         }
         
-        return "[\(arrayLogs.count)] logs found."
+        return "[\(self.arrayLogs.count)] logs found."
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:PrinterTableViewCell = (tableView.dequeueReusableCell(withIdentifier: printerTableViewCellIdentifier) as! PrinterTableViewCell)
-        let log:PLog = searchActive ? arrayFilteredLogs[indexPath.row] : arrayLogs[indexPath.row]
-        cell.lblTitle.attributedText = getLogTitle(log: log)
+        let cell: PrinterTableViewCell = (tableView.dequeueReusableCell(withIdentifier: printerTableViewCellIdentifier) as! PrinterTableViewCell)
+        let log: PLog = self.searchActive ? self.arrayFilteredLogs[indexPath.row] : self.arrayLogs[indexPath.row]
+        cell.lblTitle.attributedText = self.getLogTitle(log: log)
         cell.lblLogDetails.text = log.details
         if Printer.log.keepAutoTracing {
-            cell.lblTraceInfo.attributedText = getLightAttributedString(value:getTraceInfo(log: log))
+            cell.lblTraceInfo.attributedText = self.getLightAttributedString(value:getTraceInfo(log: log))
         }
         return cell
     }
@@ -318,7 +317,7 @@ extension PrinterViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
         if action == #selector(copy(_:)) {
-            let log:PLog = searchActive ? arrayFilteredLogs[indexPath.row] : arrayLogs[indexPath.row]
+            let log: PLog = self.searchActive ? self.arrayFilteredLogs[indexPath.row] : self.arrayLogs[indexPath.row]
             let pasteboard = UIPasteboard.general
             pasteboard.string = "\(log.printableLog)\n\(log.printableTrace)"
         }
