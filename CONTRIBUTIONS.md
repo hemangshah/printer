@@ -2,7 +2,7 @@
 
 > In order of help received.
 
-1. StackOverflow's posts.
+1. Stack Overflow posts.
 2. My wife, [Kinjal](https://www.behance.net/kinjalshah36f6), she has created the [banner](https://github.com/hemangshah/printer/blob/master/PrinterExampleApp/PrinterExampleApp/printer-logo.png) for the Printer.
 3. [Robert M Ryan](https://github.com/robertmryan) for providing tips on improving the Printer class.
 4. [thellimist](https://github.com/thellimist/EZPods) for a step by step guide to add the Printer on CocoaPods.
