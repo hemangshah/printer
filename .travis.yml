@@ -1,9 +1,10 @@
-osx_image: xcode8.0
-language: objective-c
+osx_image: xcode9.2
+language: swift
 
-xcode_project: PrinterExampleApp.xcodeproj
-
-# whitelist
 branches:
 only:
 - master
+
+script: 
+  - cd PrinterExampleApp/
+  - xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
