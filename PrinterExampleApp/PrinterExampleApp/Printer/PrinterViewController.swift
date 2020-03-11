@@ -11,7 +11,7 @@ import UIKit
 fileprivate extension String {
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
         return boundingBox.height
     }
 }
@@ -216,15 +216,15 @@ public class PrinterViewController: UIViewController {
     
     fileprivate func getBoldAttributedString(value:String) -> NSAttributedString {
         let font = UIFont.init(name: "Verdana-Bold", size: 12)
-        let attribute = [NSAttributedStringKey.font:font]
-        let attributedString = NSAttributedString(string: value, attributes: (attribute as Any as! [NSAttributedStringKey : Any]))
+        let attribute = [NSAttributedString.Key.font:font]
+        let attributedString = NSAttributedString(string: value, attributes: (attribute as Any as! [NSAttributedString.Key : Any]))
         return attributedString
     }
     
     fileprivate func getLightAttributedString(value:String) -> NSAttributedString {
         let font = UIFont.init(name: "Verdana", size: 10)
-        let attribute = [NSAttributedStringKey.font:font]
-        let attributedString = NSAttributedString(string: value, attributes: (attribute as Any as! [NSAttributedStringKey : Any]))
+        let attribute = [NSAttributedString.Key.font:font]
+        let attributedString = NSAttributedString(string: value, attributes: (attribute as Any as! [NSAttributedString.Key : Any]))
         return attributedString
     }
     

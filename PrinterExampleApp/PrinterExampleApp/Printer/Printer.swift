@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit.UIApplication
 
 public let notificationPrinterLogAdded = "notificationPrinterLogAdded"
 
@@ -162,7 +163,7 @@ public final class Printer {
     ///This will remove current file from Skip list. And you will able to print a log from the current file.
     public func addFile(filename: String = #file) -> Void {
         if self.checkIfFileFilterExist(file:  filename) {
-            if let index = self.filterFiles.index(of:  filename) {
+            if let index = self.filterFiles.firstIndex(of:  filename) {
                 self.filterFiles.remove(at:  index)
             }
         }
@@ -284,15 +285,15 @@ public final class Printer {
         
         self.removeAppEventsHandler()
         
-        NotificationCenter.default.addObserver(self, selector:  #selector(appDidEnterBackground), name:  .UIApplicationDidEnterBackground, object:  nil)
-        NotificationCenter.default.addObserver(self, selector:  #selector(appWillEnterForeground), name:  .UIApplicationWillEnterForeground, object:  nil)
-        NotificationCenter.default.addObserver(self, selector:  #selector(appDidBecomeActive), name:  .UIApplicationDidBecomeActive, object:  nil)
+        NotificationCenter.default.addObserver(self, selector:  #selector(appDidEnterBackground), name:  UIApplication.didEnterBackgroundNotification, object:  nil)
+        NotificationCenter.default.addObserver(self, selector:  #selector(appWillEnterForeground), name:  UIApplication.willEnterForegroundNotification, object:  nil)
+        NotificationCenter.default.addObserver(self, selector:  #selector(appDidBecomeActive), name:  UIApplication.didBecomeActiveNotification, object:  nil)
     }
     
     public func removeAppEventsHandler() -> Void {
-        NotificationCenter.default.removeObserver(self, name:  .UIApplicationDidEnterBackground, object:  nil)
-        NotificationCenter.default.removeObserver(self, name:  .UIApplicationWillEnterForeground, object:  nil)
-        NotificationCenter.default.removeObserver(self, name:  .UIApplicationDidBecomeActive, object:  nil)
+        NotificationCenter.default.removeObserver(self, name:  UIApplication.didEnterBackgroundNotification, object:  nil)
+        NotificationCenter.default.removeObserver(self, name:  UIApplication.willEnterForegroundNotification, object:  nil)
+        NotificationCenter.default.removeObserver(self, name:  UIApplication.didBecomeActiveNotification, object:  nil)
     }
     
     @objc fileprivate func appDidEnterBackground() -> Void {
@@ -363,7 +364,7 @@ public final class Printer {
         }
         
         let filteredArray: Array<PLog> = self.arrayLogs.filter() {
-            if let type = ($0 as PLog).logType as LogType! {
+            if let type = ($0 as PLog).logType as LogType? {
                 return (filterLogTypes.contains(type))
             } else {
                 return false
@@ -407,7 +408,7 @@ public final class Printer {
         }
         
         let filteredArray: Array<PLog> = self.arrayLogs.filter() {
-            if let type = ($0 as PLog).logType as LogType! {
+            if let type = ($0 as PLog).logType as LogType? {
                 return (filterLogTypes.contains(type))
             } else {
                 return false
