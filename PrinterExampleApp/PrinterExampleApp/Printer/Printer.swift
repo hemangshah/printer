@@ -145,7 +145,7 @@ public final class Printer {
     
     //MARK:  Block Completion
     //This is an internal function to notify a user with completion block.
-    fileprivate func printerCompletion(printLog: String, fileName: String, functionName:  String, lineNumber: Int) -> Void {
+    fileprivate func printerCompletion(printLog: String, fileName: String, functionName:  String, lineNumber: Int) {
         let isPrivateLog = (fileName == #file)
         if !isPrivateLog {
             onLogCompletion?(printLog, getFileName(name:  fileName), functionName, lineNumber)
@@ -154,14 +154,14 @@ public final class Printer {
     
     //MARK:  Filter for Logs. [Files]
     ///This will add current file to Skip list. And you will not able to print a log from that file until you call `addFile()`.
-    public func skipFile(filename: String = #file) -> Void {
+    public func skipFile(filename: String = #file) {
         if !self.checkIfFileFilterExist(file:  filename) {
             self.filterFiles.append(filename)
         }
     }
     
     ///This will remove current file from Skip list. And you will able to print a log from the current file.
-    public func addFile(filename: String = #file) -> Void {
+    public func addFile(filename: String = #file) {
         if self.checkIfFileFilterExist(file:  filename) {
             if let index = self.filterFiles.firstIndex(of:  filename) {
                 self.filterFiles.remove(at:  index)
@@ -211,7 +211,7 @@ public final class Printer {
     
     //MARK:  Handling of Log Files
     ///This is to save the log file. Need to pass Array having PLog objects.
-    public func saveLogsToFile(logs arrayLog: Array<PLog>) -> Void {
+    public func saveLogsToFile(logs arrayLog: Array<PLog>) {
         
         if arrayLog.isEmpty {
             self.privateprinter(message:  "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType:  .information)
@@ -262,7 +262,7 @@ public final class Printer {
     }
     
     ///This is to delete all the logs created with Printer.
-    public func deleteLogFiles() -> Void {
+    public func deleteLogFiles() {
         if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
             let logsPath = documentDirectories.appending("/Printer")
             do {
@@ -275,13 +275,13 @@ public final class Printer {
     
     //MARK:  Flush All
     ///To free up things which is created with Printer. Caution:  All logs and log files will be deleted.
-    public func flush() -> Void {
+    public func flush() {
         self.arrayLogs.removeAll()
         self.deleteLogFiles()
     }
     
     //MARK:  Handling Background/Foreground Log Events
-    public func addAppEventsHandler() -> Void {
+    public func addAppEventsHandler() {
         
         self.removeAppEventsHandler()
         
@@ -290,26 +290,26 @@ public final class Printer {
         NotificationCenter.default.addObserver(self, selector:  #selector(appDidBecomeActive), name:  UIApplication.didBecomeActiveNotification, object:  nil)
     }
     
-    public func removeAppEventsHandler() -> Void {
+    public func removeAppEventsHandler() {
         NotificationCenter.default.removeObserver(self, name:  UIApplication.didEnterBackgroundNotification, object:  nil)
         NotificationCenter.default.removeObserver(self, name:  UIApplication.willEnterForegroundNotification, object:  nil)
         NotificationCenter.default.removeObserver(self, name:  UIApplication.didBecomeActiveNotification, object:  nil)
     }
     
-    @objc fileprivate func appDidEnterBackground() -> Void {
+    @objc fileprivate func appDidEnterBackground() {
         self.privateprinter(message:  "App went to Background.", logType:  .information)
     }
     
-    @objc fileprivate func appWillEnterForeground() -> Void {
+    @objc fileprivate func appWillEnterForeground() {
         self.privateprinter(message:  "App will be coming to foreground.", logType:  .information)
     }
     
-    @objc fileprivate func appDidBecomeActive() -> Void {
+    @objc fileprivate func appDidBecomeActive() {
         self.privateprinter(message:  "App is in foreground now.", logType:  .information)
     }
     
     //MARK:  Enable/Disable AutoTracing
-    fileprivate func onOffAutoTracing(reverse: Bool) -> Void {
+    fileprivate func onOffAutoTracing(reverse: Bool) {
         if reverse {
             self.keepAutoTracing = tKeepAutoTracing!
         } else {
@@ -319,7 +319,7 @@ public final class Printer {
     }
     
     //MARK:  Private Printer :  to print messages from the Printer class.
-    fileprivate func privateprinter(message: String, logType lType: LogType) -> Void {
+    fileprivate func privateprinter(message: String, logType lType: LogType) {
         self.show(details:  message, logType:  lType)
     }
     
@@ -340,7 +340,7 @@ public final class Printer {
     }
     
     //MARK:  Tracking of logs
-    fileprivate func addLogForTracking(log: PLog) -> Void {
+    fileprivate func addLogForTracking(log: PLog) {
         if self.keepTracking {
             self.arrayLogs.append(log)
         }
@@ -380,7 +380,7 @@ public final class Printer {
     }
     
     ///To print all the tracked logs. 'keepTracking' should be set to 'true' before logging.
-    public func all(showTrace: Bool) -> Void {
+    public func all(showTrace: Bool) {
         guard self.arrayLogs.count > 0 else {
             self.privateprinter(message:  "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType:  .information)
             return
@@ -401,7 +401,7 @@ public final class Printer {
     }
     
     ///To print the tracked logs based on the filter values. 'keepTracking' should be set to 'true' before logging.
-    public func all(filterLogTypes: Array<LogType>, showTrace: Bool) -> Void {
+    public func all(filterLogTypes: Array<LogType>, showTrace: Bool) {
         guard self.arrayLogs.count > 0 else {
             self.privateprinter(message:  "No tracked logs. To track logs, you need to set 'keepTracking' to 'true' and 'disable' is not set to 'true'.", logType:  .information)
             return
@@ -478,11 +478,11 @@ public final class Printer {
      - Returns:  Void
      
      */
-    public func show(id: String, details: String, logType lType: LogType, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func show(id: String, details: String, logType lType: LogType, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  id, details:  details, logType:  lType, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
-    fileprivate func printerlog(id: String, details: String, logType lType: LogType, fileName: String, lineNumber: Int, functionName:  String) -> Void {
+    fileprivate func printerlog(id: String, details: String, logType lType: LogType, fileName: String, lineNumber: Int, functionName:  String) {
         if !self.disable {
             #if DEBUG
                 self.printerlogger(id:  id, details:  details, logType:  lType, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
@@ -496,7 +496,7 @@ public final class Printer {
         }
     }
     
-    fileprivate func printerlogger(id: String, details: String, logType lType: LogType, fileName: String, lineNumber: Int, functionName:  String) -> Void {
+    fileprivate func printerlogger(id: String, details: String, logType lType: LogType, fileName: String, lineNumber: Int, functionName:  String) {
         //We are forcing completion block to print logs even before any filter checks.
         self.printerCompletion(printLog:  details, fileName:  fileName, functionName:  functionName, lineNumber:  lineNumber)
         
@@ -533,7 +533,7 @@ public final class Printer {
     
     //MARK:  Trace
     ///To print current class name, function name and line number from where trace() called.
-    public func trace(fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func trace(fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         if !self.disable {
             #if DEBUG
                 self.continueTrace(file:  fileName, line:  lineNumber, function:  functionName)
@@ -547,7 +547,7 @@ public final class Printer {
         }
     }
     
-    fileprivate func continueTrace(file: String, line: Int, function: String) -> Void {
+    fileprivate func continueTrace(file: String, line: Int, function: String) {
         if self.isLogFilterValidates(logType:  .plain, fileName:  file) {
             let logTime = hideLogsTime ? "" :  "[\(self.getLogDateForFormat())] "
             print("[Trace] \(arrowSymbol) \(logTime)\(self.getFileName(name:  file)) \(self.arrowSymbol) \(function) #\(line)")
@@ -557,7 +557,7 @@ public final class Printer {
     
     //MARK:  Future Logs
     ///To show a specific log after a certain time [seconds].
-    public func showInFuture(id: String, details: String, logType lType: LogType, afterSeconds seconds: Double, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func showInFuture(id: String, details: String, logType lType: LogType, afterSeconds seconds: Double, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         DispatchQueue.main.asyncAfter(deadline:  DispatchTime.now() + seconds) {
             self.printerlog(id:  id, details:  details, logType:  lType, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
         }
@@ -572,7 +572,7 @@ public final class Printer {
     ///- Parameter details:  Any string. The description of your logs.
     ///- Parameter logType:  The type of log you want to print. i.e. LogType.success or .success
     ///- Returns:  Void
-    public func show(details: String, logType lType: LogType, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func show(details: String, logType lType: LogType, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  "", details:  details, logType:  lType, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -584,7 +584,7 @@ public final class Printer {
     ///````
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func success(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func success(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  "", details:  details, logType:  .success, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -595,7 +595,7 @@ public final class Printer {
     ///````
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func error(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func error(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  "", details:  details, logType:  .error, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -606,7 +606,7 @@ public final class Printer {
     ///````
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func warning(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func warning(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  "", details:  details, logType:  .warning, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -617,7 +617,7 @@ public final class Printer {
     ///````
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func information(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func information(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  "", details:  details, logType:  .information, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -628,7 +628,7 @@ public final class Printer {
     ///````
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func alert(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func alert(details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  "", details:  details, logType:  .alert, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -641,7 +641,7 @@ public final class Printer {
     ///- Parameter id:  Any string. A number or some text.
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func success(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func success(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  id, details:  details, logType:  .success, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -653,7 +653,7 @@ public final class Printer {
     ///- Parameter id:  Any string. A number or some text.
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func error(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func error(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  id, details:  details, logType:  .error, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -665,7 +665,7 @@ public final class Printer {
     ///- Parameter id:  Any string. A number or some text.
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func information(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func information(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  id, details:  details, logType:  .information, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -677,7 +677,7 @@ public final class Printer {
     ///- Parameter id:  Any string. A number or some text.
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func warning(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func warning(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  id, details:  details, logType:  .warning, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
@@ -689,13 +689,13 @@ public final class Printer {
     ///- Parameter id:  Any string. A number or some text.
     ///- Parameter details:  Any string. The description of your logs.
     ///- Returns:  Void
-    public func alert(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) -> Void {
+    public func alert(id: String, details: String, fileName: String = #file, lineNumber: Int = #line, functionName: String = #function) {
         self.printerlog(id:  id, details:  details, logType:  .alert, fileName:  fileName, lineNumber:  lineNumber, functionName:  functionName)
     }
     
     //MARK:  Helper to hide Emojis from the log prints.
     ///You can call this function in advance to print logs without the emojis. This is different than the 'plainLog'.
-    public func hideEmojis() -> Void {
+    public func hideEmojis() {
         self.successEmojiSymbol = ""
         self.errorEmojiSymbol = ""
         self.warningEmojiSymbol = ""
@@ -707,7 +707,7 @@ public final class Printer {
     
     //MARK:  Helper to clear Titles from the log prints.
     ///You can call this function in advance to print logs without the titles. This is different than the 'plainLog'.
-    public func hideTitles() -> Void {
+    public func hideTitles() {
         self.successLogTitle = ""
         self.errorLogTitle = ""
         self.warningLogTitle = ""
@@ -934,7 +934,7 @@ public final class Printer {
     
     //MARK:  Main Logger
     //This is the main logger to print the logs. This will handle loggings for plain (simple) or fancy logs.
-    fileprivate func logForType(id: String, details: String, lType: LogType, fileName: String, lineNumber: Int, functionName:  String) -> Void {
+    fileprivate func logForType(id: String, details: String, lType: LogType, fileName: String, lineNumber: Int, functionName:  String) {
         
         var logTypeEmojiSymbol = ""
         var logTypeTitle = self.relativeValueForLogType(lType:  lType)
@@ -1011,7 +1011,7 @@ public final class Printer {
     }
     
     //MARK:  Helper to add a line after each Print
-    fileprivate func addLineWithPrint() -> Void {
+    fileprivate func addLineWithPrint() {
         if self.addLineAfterEachPrint {
             print("________________________________________________________________________________________")
         }
@@ -1028,7 +1028,7 @@ public final class Printer {
     }
     
     //This function is calling from more than one place thus we have created a common function.
-    fileprivate func continueSimple(id: String, details: String, fileName: String, lineNumber: Int, functionName:  String) -> Void {
+    fileprivate func continueSimple(id: String, details: String, fileName: String, lineNumber: Int, functionName:  String) {
         //`isPrivateLog` is to check whether the current log is from within the Printer or not.
         //We should not include private logs for tracing and tracking.
         let isPrivateLog = (fileName == #file)
